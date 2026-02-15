@@ -1,0 +1,16 @@
+{
+  "name": "Sabas Portfolio",
+  "short_name": "Sabas",
+  "start_url": "/Porfolio/",
+  "scope": "/Porfolio/",
+  "display": "standalone",
+  "background_color": "#070b16",
+  "theme_color": "#070b16",
+  "icons": [
+    {
+      "src": "/Porfolio/assets/og.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
