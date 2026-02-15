@@ -1,151 +1,138 @@
-<!-- Documento HTML base para GitHub Pages, carga CSS/JS externos -->
 <!doctype html>
-<!-- Idioma principal del documento -->
 <html lang="es">
 <head>
-  <!-- Codificación estándar -->
-  <meta charset="utf-8" />
-  <!-- Responsive para móviles -->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Título SEO -->
-  <title>Sabas — Portfolio | Automatización | Desarrollo | IA aplicada</title>
-  <!-- Descripción SEO -->
-  <meta name="description" content="Portfolio de Sabas: automatización de procesos, desarrollo web (PHP/MySQL), Python, IA aplicada, proyectos y webs publicadas." />
-  <!-- Open Graph -->
-  <meta property="og:title" content="Sabas — Portfolio" />
-  <!-- Open Graph -->
-  <meta property="og:description" content="Automatización, desarrollo web, IA aplicada, proyectos reales y resultados medibles." />
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <!-- Open Graph imagen opcional -->
-  <meta property="og:image" content="assets/og.png" />
-  <!-- Favicon opcional -->
-  <link rel="icon" href="assets/favicon.ico" />
-  <!-- Hoja de estilos externa -->
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sabas | Responsable de Desarrollo Web, Automatización e IA aplicada</title>
+  <meta name="description" content="Portfolio de Sabas (Juan Antonio Sánchez Plaza): desarrollo web, automatización RRHH e IA aplicada con resultados reales en entornos educativos.">
+  <link rel="canonical" href="https://djsabas.github.io/Porfolio/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sabas | Desarrollo Web + Automatización + IA aplicada">
+  <meta property="og:description" content="Sistemas en producción para 500+ usuarios, 15+ webs publicadas y procesos RRHH automatizados.">
+  <meta property="og:url" content="https://djsabas.github.io/Porfolio/">
+  <meta property="og:image" content="https://djsabas.github.io/Porfolio/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sabas | Portfolio profesional">
+  <meta name="twitter:description" content="Desarrollo web, Python, IA aplicada y automatización con impacto medible.">
+  <meta name="twitter:image" content="https://djsabas.github.io/Porfolio/assets/og.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sabas (Juan Antonio Sánchez Plaza)",
+    "jobTitle": "Responsable de Desarrollo Web",
+    "url": "https://djsabas.github.io/Porfolio/",
+    "email": "mailto:juanantoniosanchezplaza@hotmail.com",
+    "address": {"@type": "PostalAddress", "addressLocality": "Illescas", "addressRegion": "Toledo"},
+    "sameAs": [
+      "https://www.linkedin.com/in/juanantoniosanchezplaza/",
+      "https://github.com/djSaBaS"
+    ]
+  }
+  </script>
 </head>
+<body data-view="hr">
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<header class="topbar">
+  <div class="container nav-wrap">
+    <a class="brand" href="./">Sabas · Portfolio</a>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a href="./" aria-current="page">Inicio</a>
+      <a href="projects/">Proyectos</a>
+      <a href="cv/">CV</a>
+      <a href="about/">Sobre mí</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="toggle" role="group" aria-label="Cambiar vista RRHH o técnica">
+      <button type="button" data-toggle-view="hr" aria-pressed="true">RRHH</button>
+      <button type="button" data-toggle-view="tech" aria-pressed="false">Tech</button>
+    </div>
+  </div>
+</header>
 
-<body>
-  <!-- Contenedor principal centrado -->
-  <div class="wrap">
-    <!-- Cabecera principal -->
-    <header class="header">
-      <!-- Avatar (coloca tu foto en assets/avatar.jpg) -->
-      <img class="avatar" src="assets/avatar.jpg" alt="Foto de Sabas" />
-
-      <!-- Bloque textual -->
-      <div class="header__text">
-        <!-- Nombre -->
-        <h1>Sabas (Juan Antonio Sánchez Plaza)</h1>
-        <!-- Titular corto -->
-        <p class="tagline">Responsable de Desarrollo Web · Automatización · IA aplicada · PHP/MySQL · Python</p>
-
-        <!-- Botonera -->
+<main id="contenido" class="container">
+  <section class="hero">
+    <article class="hero-card glass two-col">
+      <div>
+        <p class="kicker">Sur de Madrid / Illescas (Toledo)</p>
+        <h1>Convierto procesos manuales en sistemas web rápidos, escalables y útiles desde el primer día.</h1>
+        <p class="lead" data-audience="hr">Responsable de Desarrollo Web con foco en resultados: ahorro de tiempo, mejor servicio al usuario y menos fricción operativa.</p>
+        <p class="lead" data-audience="tech">Especializado en PHP/MySQL, Python y automatización con IA aplicada (prompts avanzados, integración con GitHub/Codex, documentación y mejora de código).</p>
         <div class="actions">
-          <!-- Email -->
-          <a class="btn primary" href="mailto:juanantoniosanchezplaza@hotmail.com">Contactar</a>
-          <!-- LinkedIn -->
+          <a class="btn primary" href="mailto:juanantoniosanchezplaza@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Sabas%2C%20he%20visto%20tu%20portfolio%20y%20me%20gustar%C3%ADa%20hablar%20sobre...">Contactar ahora</a>
           <a class="btn" href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">LinkedIn</a>
-          <!-- GitHub -->
           <a class="btn" href="https://github.com/djSaBaS" target="_blank" rel="noopener">GitHub</a>
-          <!-- CV PDF (sube el archivo con este nombre exacto) -->
-          <a class="btn" href="assets/01-cv-juanantoniosanchezplaza.pdf" target="_blank" rel="noopener">CV PDF</a>
+          <a class="btn" href="assets/01-cv-juanantoniosanchezplaza.pdf">CV en PDF</a>
         </div>
       </div>
-    </header>
+      <aside class="avatar-box">
+        <img src="assets/avatar.jpg" alt="Foto de Sabas (Juan Antonio Sánchez Plaza)">
+      </aside>
+    </article>
+  </section>
 
-    <!-- Sección métricas -->
-    <section class="section">
-      <!-- Título sección -->
-      <h2>Métricas (impacto rápido)</h2>
-      <!-- Texto guía -->
-      <p class="muted">Indicadores visuales de experiencia y formación (valores configurables).</p>
+  <section class="section glass" id="metricas">
+    <div class="section-head">
+      <h2>Impacto en cifras</h2>
+      <p>Indicadores clave de experiencia real en producción.</p>
+    </div>
+    <div class="grid metrics-grid">
+      <article class="card gauge-card"><div class="gauge" data-value="2000"></div><div class="total">2000 horas</div><div class="metric-label">Formación técnica</div></article>
+      <article class="card gauge-card"><div class="gauge" data-value="15"></div><div class="total">15 años</div><div class="metric-label">Experiencia profesional</div></article>
+      <article class="card gauge-card"><div class="gauge" data-value="500"></div><div class="total">500+</div><div class="metric-label">Usuarios activos (9 colegios)</div></article>
+      <article class="card gauge-card"><div class="gauge" data-value="15"></div><div class="total">15+</div><div class="metric-label">Webs publicadas</div></article>
+    </div>
+  </section>
 
-      <!-- Rejilla de roscos -->
-      <div class="grid metrics" id="metrics"></div>
-    </section>
+  <section class="section glass" id="casos">
+    <div class="section-head"><h2>Casos de uso</h2><p>Cómo aplico tecnología para resolver problemas concretos.</p></div>
+    <div class="grid grid-3">
+      <article class="card"><h3>Automatización RRHH</h3><p data-audience="hr">Digitalicé tareas repetitivas que consumían una semana de trabajo administrativo: hoy se ejecutan en pocos clics.</p><p data-audience="tech">Flujos con PHP/Python conectando origen de datos, validaciones y salida estructurada para acelerar procesos internos.</p></article>
+      <article class="card"><h3>OCR para PDF</h3><p data-audience="hr">Transforma documentos bloqueados en texto útil para operar más rápido y sin errores de copia.</p><p data-audience="tech">Pipeline OCR con control de errores, limpieza de texto y salida reutilizable para automatizaciones posteriores.</p></article>
+      <article class="card"><h3>VoxFlow (TTS)</h3><p data-audience="hr">Convierte texto en audio de forma práctica para comunicación, contenidos y accesibilidad.</p><p data-audience="tech">Herramienta Python con flujo de audio reproducible, pensada para integraciones sencillas y mantenibles.</p></article>
+    </div>
+  </section>
 
-    <!-- Sección sobre mí -->
-    <section class="section">
-      <!-- Título -->
-      <h2>Sobre mí</h2>
-      <!-- Texto -->
-      <p class="muted">
-        Desarrollo soluciones web en PHP/MySQL y automatizo procesos con Python para reducir trabajo manual, errores y tiempos.
-        Aplico IA de forma práctica para mejorar documentación, acelerar desarrollo y optimizar flujos de trabajo.
-      </p>
-    </section>
+  <section class="section glass" id="destacados">
+    <div class="section-head"><h2>Proyectos destacados</h2><a class="btn" href="projects/">Ver todos</a></div>
+    <div class="grid grid-2">
+      <article class="card"><h3>Directorio de teléfonos</h3><p data-audience="hr">Directorio municipal claro y útil para ciudadanos.</p><p data-audience="tech">Estructura JS/HTML enfocada a mantenibilidad y actualización rápida.</p><div class="actions"><a class="btn" href="projects/directorio-telefonos/">Detalle</a></div></article>
+      <article class="card"><h3>VoxFlow</h3><p data-audience="hr">Texto a voz para usos diarios e integración.</p><p data-audience="tech">Python + pipeline de audio + foco en experiencia de uso.</p><div class="actions"><a class="btn" href="projects/voxflow/">Detalle</a></div></article>
+      <article class="card"><h3>CF7 Limitador de Opciones</h3><p data-audience="hr">Plugin WordPress que evita selecciones inválidas y mejora formularios.</p><p data-audience="tech">Buenas prácticas de sanitización y fiabilidad para entornos reales.</p><div class="actions"><a class="btn" href="projects/cf7-limitador/">Detalle</a></div></article>
+      <article class="card"><h3>OCR para PDF</h3><p data-audience="hr">Ahorra tiempo al reutilizar información de PDF escaneado.</p><p data-audience="tech">Flujo OCR robusto con control de fallos.</p><div class="actions"><a class="btn" href="projects/ocr-pdf/">Detalle</a></div></article>
+    </div>
+  </section>
 
-    <!-- Sección skills -->
-    <section class="section">
-      <!-- Título -->
-      <h2>Skills</h2>
-      <!-- Contenedor badges -->
-      <div class="badges">
-        <!-- Badge -->
-        <span class="badge">PHP</span>
-        <!-- Badge -->
-        <span class="badge">MySQL</span>
-        <!-- Badge -->
-        <span class="badge">Python</span>
-        <!-- Badge -->
-        <span class="badge">WordPress</span>
-        <!-- Badge -->
-        <span class="badge">JavaScript (básico)</span>
-        <!-- Badge -->
-        <span class="badge">Automatización</span>
-        <!-- Badge -->
-        <span class="badge">IA aplicada</span>
-        <!-- Badge -->
-        <span class="badge">Git/GitHub</span>
-        <!-- Badge -->
-        <span class="badge">Hosting/cPanel</span>
-      </div>
-    </section>
+  <section class="section glass" id="webs">
+    <div class="section-head"><h2>Webs publicadas</h2><p>Proyectos online en producción.</p></div>
+    <div class="grid grid-3">
+      <article class="card"><h3>Colegio Legamar</h3><p>Web corporativa y educativa en producción.</p><a class="btn" href="https://www.colegiolegamar.com" target="_blank" rel="noopener">Visitar</a></article>
+      <article class="card"><h3>Humanitas Torrejón</h3><p>Presencia digital orientada a familias y captación.</p><a class="btn" href="https://www.humanitastorrejon.com" target="_blank" rel="noopener">Visitar</a></article>
+      <article class="card"><h3>Humanitas Educación</h3><p>Web institucional con enfoque en claridad y confianza.</p><a class="btn" href="https://www.humanitaseducacion.com" target="_blank" rel="noopener">Visitar</a></article>
+    </div>
+  </section>
 
-    <!-- Sección proyectos -->
-    <section class="section">
-      <!-- Título -->
-      <h2>Proyectos destacados</h2>
-      <!-- Grid proyectos -->
-      <div class="grid" id="projects"></div>
-      <!-- Nota repos privado -->
-      <p class="muted note">
-        Nota: “Estadísticas de fútbol” es repositorio privado; puedo compartir detalles/demos bajo solicitud.
-      </p>
-    </section>
+  <section class="section glass" id="sobre-mi">
+    <div class="section-head"><h2>Sobre mí</h2></div>
+    <p data-audience="hr">Soy Sabas, Responsable de Desarrollo Web. Mi objetivo es simple: que el área digital ayude de verdad al negocio. He liderado desarrollos para centros educativos y automatizaciones de RRHH que reducen tiempos, errores y dependencia de tareas manuales.</p>
+    <p data-audience="tech">Trabajo con visión de producto: entregas iterativas, código mantenible y documentación útil. Me apoyo en IA aplicada para acelerar análisis, refactorizar con criterio y generar mejoras medibles en ciclos cortos.</p>
+  </section>
 
-    <!-- Sección webs -->
-    <section class="section">
-      <!-- Título -->
-      <h2>Webs publicadas</h2>
-      <!-- Grid webs -->
-      <div class="grid" id="sites"></div>
-    </section>
+  <section class="section glass contact-box" id="contacto">
+    <div class="section-head"><h2>Contacto</h2></div>
+    <p>Email: <a href="mailto:juanantoniosanchezplaza@hotmail.com?subject=Contacto%20profesional&body=Hola%20Sabas%2C%20quiero%20hablar%20contigo%20sobre...">juanantoniosanchezplaza@hotmail.com</a></p>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">juanantoniosanchezplaza</a></p>
+    <p>GitHub: <a href="https://github.com/djSaBaS" target="_blank" rel="noopener">djSaBaS</a></p>
+  </section>
 
-    <!-- Sección contacto -->
-    <section class="section">
-      <!-- Título -->
-      <h2>Contacto</h2>
-      <!-- Texto -->
-      <p class="muted">Si buscas a alguien que convierta procesos manuales en sistemas eficientes (web + automatización + IA), hablemos.</p>
-      <!-- Botonera -->
-      <div class="actions">
-        <!-- Email -->
-        <a class="btn primary" href="mailto:juanantoniosanchezplaza@hotmail.com">Enviar email</a>
-        <!-- LinkedIn -->
-        <a class="btn" href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">Mensaje en LinkedIn</a>
-      </div>
-    </section>
+  <footer>
+    © <span data-year></span> Sabas · <a href="./">Inicio</a> · <a href="projects/">Proyectos</a> · <a href="cv/">CV</a> · <a href="about/">Sobre mí</a>
+  </footer>
+</main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <!-- Texto footer -->
-      © <span id="year"></span> Sabas — Hecho con HTML + CSS + JS en GitHub Pages
-    </footer>
-  </div>
-
-  <!-- Script externo -->
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
-          </html>
+</html>
