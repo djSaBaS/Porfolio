@@ -1,3 +1,4 @@
+/* Defino variables globales de diseño (colores, radios, sombras y anchos) para mantener consistencia. */
 :root {
   --bg: #070b16;
   --bg-soft: #111a2e;
@@ -15,12 +16,17 @@
   --max-width: 1140px;
 }
 
+/* Normalizo el box model para que padding y border cuenten dentro del ancho/alto. */
 * {
   box-sizing: border-box;
 }
+
+/* Habilito scroll suave para anclas internas. */
 html {
   scroll-behavior: smooth;
 }
+
+/* Defino estilos base del documento (tipografía, color y fondo). */
 body {
   margin: 0;
   color: var(--text);
@@ -47,23 +53,30 @@ body {
   min-height: 100vh;
 }
 
+/* Defino el color base de enlaces. */
 a {
   color: var(--primary);
 }
+
+/* Aseguro que las imágenes sean responsivas y no dejen espacios extra. */
 img {
   max-width: 100%;
   display: block;
 }
 
+/* Centro el contenido y limito el ancho máximo de lectura. */
 .container {
   width: min(var(--max-width), calc(100% - 2rem));
   margin: 0 auto;
 }
 
+/* Oculto el skip link fuera de pantalla hasta que reciba foco (accesibilidad). */
 .skip-link {
   position: absolute;
   left: -9999px;
 }
+
+/* Muestro el skip link al hacer focus para navegación por teclado. */
 .skip-link:focus {
   left: 1rem;
   top: 1rem;
@@ -74,6 +87,7 @@ img {
   z-index: 1000;
 }
 
+/* Mantengo la barra superior fija al hacer scroll con efecto “glass”. */
 .topbar {
   position: sticky;
   top: 0;
@@ -82,6 +96,8 @@ img {
   background: rgba(6, 10, 20, 0.72);
   border-bottom: 1px solid var(--border);
 }
+
+/* Estructuro el contenido del nav en fila, alineado y con separación. */
 .nav-wrap {
   min-height: 72px;
   display: flex;
@@ -89,17 +105,23 @@ img {
   justify-content: space-between;
   gap: 1rem;
 }
+
+/* Estilo del enlace/brand principal sin subrayado y con mayor peso visual. */
 .brand {
   color: var(--text);
   text-decoration: none;
   font-weight: 700;
   letter-spacing: 0.4px;
 }
+
+/* Agrupo enlaces del menú permitiendo wrap en pantallas estrechas. */
 .nav-links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
 }
+
+/* Estilo base de links del menú con padding y transición de hover. */
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
@@ -107,11 +129,15 @@ img {
   border-radius: 10px;
   transition: 0.2s ease;
 }
+
+/* Resalto el link activo o en hover para mejorar navegación. */
 .nav-links a:hover,
 .nav-links a[aria-current="page"] {
   color: var(--text);
   background: rgba(255, 255, 255, 0.08);
 }
+
+/* Contenedor de toggle (hr/tech) con estilo de “píldora”. */
 .toggle {
   border: 1px solid var(--border);
   color: var(--text);
@@ -121,6 +147,8 @@ img {
   display: inline-flex;
   gap: 0.4rem;
 }
+
+/* Botones internos del toggle con estilos neutros y accesibles. */
 .toggle button {
   border: 0;
   background: transparent;
@@ -130,6 +158,8 @@ img {
   font-weight: 600;
   cursor: pointer;
 }
+
+/* Estado seleccionado del toggle usando aria-pressed para accesibilidad. */
 .toggle button[aria-pressed="true"] {
   background: linear-gradient(
     120deg,
@@ -139,11 +169,14 @@ img {
   color: var(--text);
 }
 
+/* Espaciado y layout principal del hero (zona inicial). */
 .hero {
   padding: 3.5rem 0 2rem;
   display: grid;
   gap: 1.25rem;
 }
+
+/* Estilo “glassmorphism” reutilizable para paneles. */
 .glass {
   background: linear-gradient(180deg, var(--glass), var(--glass-2));
   border: 1px solid var(--border);
@@ -151,43 +184,60 @@ img {
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
 }
+
+/* Tarjeta del hero con espaciado interno y distribución en grid. */
 .hero-card {
   padding: 1.5rem;
   display: grid;
   gap: 1rem;
 }
+
+/* Texto “kicker” para destacar una etiqueta breve sobre el título. */
 .kicker {
   color: var(--accent);
   font-weight: 600;
   letter-spacing: 0.2px;
   margin: 0;
 }
+
+/* Normalizo márgenes y line-height de encabezados. */
 h1,
 h2,
 h3 {
   line-height: 1.2;
   margin: 0;
 }
+
+/* Tamaño fluido de h1 adaptado a viewport. */
 h1 {
   font-size: clamp(1.9rem, 4.4vw, 3.1rem);
 }
+
+/* Tamaño fluido de h2 adaptado a viewport. */
 h2 {
   font-size: clamp(1.4rem, 3vw, 2rem);
 }
+
+/* Texto principal (lead) con tamaño fluido y color secundario. */
 .lead {
   font-size: clamp(1rem, 2vw, 1.2rem);
   color: var(--muted);
   margin: 0;
 }
 
+/* Contenedor de acciones (botones/links) con wrap y separación. */
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
 }
+
+/* Margen superior específico para acciones dentro de cards de proyecto. */
 .project-card-actions {
   margin-top: 0.7rem;
 }
+
+/* Estilo base de botón/enlace con borde, padding y animación suave. */
 .btn {
   text-decoration: none;
   border: 1px solid var(--border);
@@ -203,11 +253,15 @@ h2 {
     border-color 0.2s ease,
     background 0.2s ease;
 }
+
+/* Efecto hover elevando ligeramente el botón y destacando el borde. */
 .btn:hover {
   transform: translateY(-2px);
   border-color: rgba(110, 231, 255, 0.6);
   background: rgba(255, 255, 255, 0.08);
 }
+
+/* Variante primaria de botón con fondo en degradado. */
 .btn.primary {
   background: linear-gradient(
     120deg,
@@ -216,10 +270,13 @@ h2 {
   );
 }
 
+/* Sección con padding interno y separación vertical respecto a otras secciones. */
 .section {
   padding: 1.2rem;
   margin: 1.25rem 0;
 }
+
+/* Cabecera de sección con título + descripción alineados y espaciados. */
 .section-head {
   display: flex;
   justify-content: space-between;
@@ -227,25 +284,36 @@ h2 {
   align-items: end;
   margin-bottom: 0.9rem;
 }
+
+/* Estilo de párrafo de cabecera de sección con ancho de lectura. */
 .section-head p {
   margin: 0;
   color: var(--muted);
   max-width: 70ch;
 }
 
+/* Grid base reutilizable. */
 .grid {
   display: grid;
   gap: 1rem;
 }
+
+/* Grid a 2 columnas para escritorio. */
 .grid-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+
+/* Grid a 3 columnas para escritorio. */
 .grid-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+
+/* Grid a 4 columnas para escritorio. */
 .grid-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+
+/* Card base con borde, fondo suave y transición para hover. */
 .card {
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -253,21 +321,28 @@ h2 {
   background: rgba(255, 255, 255, 0.04);
   transition: 0.2s ease;
 }
+
+/* Hover de card para dar sensación de elevación y resaltar borde. */
 .card:hover {
   transform: translateY(-2px);
   border-color: rgba(52, 211, 153, 0.5);
 }
+
+/* Estilo de párrafos dentro de cards con color secundario. */
 .card p {
   margin: 0.55rem 0 0;
   color: var(--muted);
 }
 
+/* Contenedor de badges con wrap y separación. */
 .badges {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
   margin-top: 0.7rem;
 }
+
+/* Badge individual con borde, fondo suave y tipografía compacta. */
 .badge {
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -277,12 +352,17 @@ h2 {
   background: rgba(255, 255, 255, 0.05);
 }
 
+/* Grid específico para métricas (por defecto a 4 columnas). */
 .metrics-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+
+/* Tarjeta de gauge centrada para que el indicador y textos queden alineados. */
 .gauge-card {
   text-align: center;
 }
+
+/* Contenedor del gauge con tamaño fijo y overflow oculto para semicírculo. */
 .gauge {
   --percent: 0;
   width: 160px;
@@ -291,6 +371,8 @@ h2 {
   position: relative;
   overflow: hidden;
 }
+
+/* Semicírculo de progreso usando conic-gradient controlado por --percent. */
 .gauge::before {
   content: "";
   position: absolute;
@@ -303,6 +385,8 @@ h2 {
     rgba(255, 255, 255, 0.08) 0
   );
 }
+
+/* “Tapa” interior para dar efecto de aro y ocultar parte del gradiente. */
 .gauge::after {
   content: "";
   position: absolute;
@@ -313,21 +397,28 @@ h2 {
   background: rgba(9, 14, 27, 0.95);
   border-radius: 160px 160px 0 0;
 }
+
+/* Texto del total métrico con mayor peso y tamaño. */
 .total {
   font-size: 1.35rem;
   font-weight: 700;
 }
+
+/* Etiqueta de cada métrica con color secundario y tamaño menor. */
 .metric-label {
   color: var(--muted);
   font-size: 0.92rem;
 }
 
+/* Layout de dos columnas principal para contenido + lateral. */
 .two-col {
   display: grid;
   grid-template-columns: 1.35fr 0.9fr;
   gap: 1rem;
   align-items: stretch;
 }
+
+/* Contenedor del avatar con borde, fondo y recorte para imagen. */
 .avatar-box {
   border-radius: 16px;
   overflow: hidden;
@@ -335,42 +426,57 @@ h2 {
   min-height: 240px;
   background: rgba(255, 255, 255, 0.06);
 }
+
+/* Imagen del avatar ocupando todo el contenedor con recorte proporcional. */
 .avatar-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* Espaciado vertical consistente para textos de contacto. */
 .contact-box p {
   margin: 0.45rem 0;
 }
+
+/* Estilo del footer con color secundario y tamaño discreto. */
 footer {
   margin: 2rem 0 1rem;
   color: var(--muted);
   font-size: 0.92rem;
 }
 
+/* Por defecto oculto elementos que dependan de la audiencia (hr/tech). */
 [data-audience] {
   display: none;
 }
+
+/* Muestro solo el contenido correspondiente a la audiencia seleccionada. */
 body[data-view="hr"] [data-audience="hr"],
 body[data-view="tech"] [data-audience="tech"] {
   display: block;
 }
+
+/* Variante inline: por defecto la oculto para evitar huecos en frases. */
 .inline-audience[data-audience] {
   display: none;
 }
+
+/* Muestro la variante inline solo si coincide con la audiencia activa. */
 body[data-view="hr"] .inline-audience[data-audience="hr"],
 body[data-view="tech"] .inline-audience[data-audience="tech"] {
   display: inline;
 }
 
+/* Contenedor de filtros con wrap para adaptarse a pantallas pequeñas. */
 .filters {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0.75rem 0;
 }
+
+/* Botón de filtro con estilo “píldora” y color secundario. */
 .filter-btn {
   cursor: pointer;
   border: 1px solid var(--border);
@@ -379,12 +485,15 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   border-radius: 999px;
   padding: 0.35rem 0.7rem;
 }
+
+/* Estado activo del filtro resaltando borde y color de texto. */
 .filter-btn.active {
   color: var(--text);
   border-color: rgba(110, 231, 255, 0.6);
   background: rgba(110, 231, 255, 0.1);
 }
 
+/* Ajustes responsive para pantallas medianas: reduzco grids y paso a 1 columna en el layout two-col. */
 @media (max-width: 960px) {
   .grid-4,
   .metrics-grid {
@@ -397,6 +506,8 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
     grid-template-columns: 1fr;
   }
 }
+
+/* Ajustes responsive para pantallas pequeñas: nav en varias líneas y grids a una sola columna. */
 @media (max-width: 700px) {
   .nav-wrap {
     flex-wrap: wrap;
@@ -412,4 +523,41 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   .metrics-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Contenedor del avatar preparado para posicionar la lupa de forma absoluta dentro del mismo. */
+.avatar-box{
+  position: relative;
+  display: inline-block;
+}
+
+/* Imagen del avatar en versión “controlada” para evitar selecciones/arrastres extraños. */
+.avatar-box__img{
+  display: block;
+  max-width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Lupa circular: se posiciona respecto a .avatar-box y muestra la imagen alternativa como background. */
+.avatar-lens{
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 3px solid rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 120ms ease;
+  background-repeat: no-repeat;
+  background-size: 500px 500px;
+  z-index: 50;
+}
+
+/* Estado visible de la lupa controlado por JS (se activa al entrar con el ratón). */
+.avatar-lens.is-visible{
+  opacity: 1;
 }
