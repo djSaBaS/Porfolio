@@ -41,7 +41,7 @@
   const lensSize = 220;
 
   /* Defino el nivel de zoom (2 equivale a 200%). */
-  const zoom = 2;
+  const zoom = 1;
 
   /* Limito un número a un rango (reutilizable en varias partes del script). */
   function clamp(num, min, max) {
