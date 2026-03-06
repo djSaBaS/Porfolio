@@ -1,0 +1,37 @@
+{
+  "featuredCount": 4,
+  "repos": {
+    "directorio-viso-san-juan": {
+      "slug": "directorio-telefonos",
+      "url": "directorio-telefonos/",
+      "hrSummary": "Directorio útil y claro de teléfonos de interés municipal para atención rápida.",
+      "techNotes": "Proyecto JS/HTML estructurado para mantenimiento sencillo y edición de contenidos por bloques.",
+      "tags": ["Comunidad", "JavaScript", "Productividad"],
+      "featured": true
+    },
+    "VoxFlow": {
+      "slug": "voxflow",
+      "url": "voxflow/",
+      "hrSummary": "Herramienta práctica para convertir texto en audio e integrarla en flujos diarios.",
+      "techNotes": "Python con pipeline de audio y foco en usabilidad para acelerar adopción.",
+      "tags": ["Python", "IA", "Productividad"],
+      "featured": true
+    },
+    "CF7-Limitador-de-Opciones": {
+      "slug": "cf7-limitador",
+      "url": "cf7-limitador/",
+      "hrSummary": "Plugin para limitar opciones en Contact Form 7 y mejorar la calidad de formularios.",
+      "techNotes": "Código orientado a seguridad, sanitización y comportamiento fiable en producción.",
+      "tags": ["WordPress", "PHP", "Productividad"],
+      "featured": true
+    },
+    "OCR-para-PDF": {
+      "slug": "ocr-pdf",
+      "url": "ocr-pdf/",
+      "hrSummary": "Extrae texto de PDF para reutilizar información y ahorrar tiempo operativo.",
+      "techNotes": "Flujo OCR en Python con gestión de errores y salida reutilizable.",
+      "tags": ["Python", "Productividad", "IA"],
+      "featured": true
+    }
+  }
+}

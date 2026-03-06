@@ -6,6 +6,9 @@
   /* Defino la vista por defecto cuando no hay preferencia guardada. */
   const DEFAULT_VIEW = "hr";
 
+  /* Usuario de GitHub para recuperar proyectos de forma automática. */
+  const GITHUB_USER = "djSaBaS";
+
   /* Selecciono el contenedor del avatar donde quiero activar la lupa. */
   const avatarBox = document.querySelector(".js-avatar");
 
@@ -165,15 +168,25 @@
   }
 
   /* Convierto un valor real en un porcentaje de gauge con margen visual. */
-  function gaugePercent(value) {
-    /* Defino un máximo virtual para que la barra no llegue al 100% visual. */
-    const virtualMax = value * 1.1;
+  function gaugePercent(element, value) {
+    /* Si existe objetivo manual, lo uso para controlar el giro real del gauge. */
+    const manualTarget = Number(element.getAttribute("data-target") || "0");
 
-    /* Calculo el porcentaje en base al máximo virtual. */
-    const percent = (value / virtualMax) * 100;
+    /* Permito definir un máximo explícito para calcular porcentaje de forma exacta. */
+    const max = Number(element.getAttribute("data-max") || "0");
 
-    /* Limito el porcentaje para evitar llenar completamente el gauge. */
-    return clamp(percent, 0, 95);
+    /* Si hay data-target válida, priorizo ese valor. */
+    if (manualTarget > 0) {
+      return clamp(manualTarget, 0, 100);
+    }
+
+    /* Si hay max explícito, calculo porcentaje real contra ese máximo. */
+    if (max > 0) {
+      return clamp((value / max) * 100, 0, 100);
+    }
+
+    /* Fallback visual si faltan datos de configuración. */
+    return 75;
   }
 
   /* Animo los gauges cuando entran en el viewport (mejor rendimiento). */
@@ -199,7 +212,7 @@
           const value = Number(el.getAttribute("data-value") || "0");
 
           /* Calculo el objetivo de porcentaje para este gauge. */
-          const target = gaugePercent(value);
+          const target = gaugePercent(el, value);
 
           /* Inicio el contador desde 0 para la animación. */
           let current = 0;
@@ -231,6 +244,117 @@
     gauges.forEach((gauge) => observer.observe(gauge));
   }
 
+  /* Normalizo nombres de tecnologías para convertirlos en etiquetas de filtrado. */
+  function mapTopicsToTags(topics = []) {
+    return topics.map((topic) =>
+      topic
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, (char) => char.toUpperCase()),
+    );
+  }
+
+  /* Obtengo metadata local de proyectos para enriquecer la data de GitHub. */
+  async function fetchProjectCatalog(catalogUrl) {
+    const response = await fetch(catalogUrl);
+
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar ${catalogUrl} (${response.status})`);
+    }
+
+    return response.json();
+  }
+
+  /* Recupero repositorios públicos del perfil para evitar mantenimiento manual. */
+  async function fetchGithubProjects() {
+    const response = await fetch(
+      `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100`,
+    );
+
+    if (!response.ok) {
+      throw new Error(`GitHub API devolvió ${response.status}`);
+    }
+
+    return response.json();
+  }
+
+  /* Mezclo datos de GitHub con metadata local orientada al portfolio. */
+  function buildProjectCards(repos, catalog) {
+    const metadata = catalog?.repos || {};
+
+    return repos
+      .filter((repo) => !repo.fork)
+      .map((repo) => {
+        const local = metadata[repo.name] || {};
+        const tags = local.tags?.length ? local.tags : mapTopicsToTags(repo.topics);
+
+        return {
+          name: local.name || repo.name,
+          url: local.url || repo.homepage || repo.html_url,
+          repo: repo.html_url,
+          hrSummary:
+            local.hrSummary ||
+            "Proyecto real publicado y mantenido con foco en utilidad para negocio.",
+          techNotes:
+            local.techNotes ||
+            repo.description ||
+            "Repositorio técnico con evolución iterativa y buenas prácticas.",
+          tags: tags.length ? tags : ["Proyecto"],
+          featured: Boolean(local.featured),
+          updatedAt: repo.updated_at,
+        };
+      })
+      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  }
+
+  /* Pinto un conjunto de tarjetas reutilizable para home y página de proyectos. */
+  function drawProjectList(list, projects) {
+    list.replaceChildren();
+
+    projects.forEach((project) => {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const title = document.createElement("h3");
+      title.textContent = project.name;
+
+      const summary = document.createElement("p");
+      summary.setAttribute("data-audience", "hr");
+      summary.textContent = project.hrSummary;
+
+      const techSummary = document.createElement("p");
+      techSummary.setAttribute("data-audience", "tech");
+      techSummary.textContent = project.techNotes;
+
+      const actions = document.createElement("div");
+      actions.className = "actions project-card-actions";
+
+      const detail = document.createElement("a");
+      detail.className = "btn";
+      detail.href = project.url;
+      detail.textContent = "Ver caso";
+      actions.appendChild(detail);
+
+      if (project.repo) {
+        const repo = document.createElement("a");
+        repo.className = "btn";
+        repo.href = project.repo;
+        repo.target = "_blank";
+        repo.rel = "noopener";
+        repo.textContent = "Repositorio";
+        actions.appendChild(repo);
+      }
+
+      const badgeWrap = document.createElement("div");
+      badgeWrap.className = "badges";
+      project.tags.forEach((tag) => badgeWrap.appendChild(createBadge(tag)));
+
+      card.append(title, summary, techSummary, badgeWrap, actions);
+      list.appendChild(card);
+    });
+
+    setView(getView());
+  }
+
   /* Creo un nodo de texto seguro (evita inyectar HTML). */
   function safeText(text) {
     return document.createTextNode(text);
@@ -252,191 +376,155 @@
   }
 
   /* Renderizo las tarjetas de proyectos leyendo datos desde JSON remoto/local. */
-  function renderProjects() {
-    /* Selecciono el contenedor donde se pintan los proyectos. */
+  async function renderProjects() {
     const list = document.querySelector("[data-project-list]");
+    const featuredList = document.querySelector("[data-featured-project-list]");
 
-    /* Si no existe contenedor, salgo sin fallar el resto del script. */
-    if (!list) return;
+    if (!list && !featuredList) return;
 
-    /* Obtengo la URL del JSON o uso una ruta por defecto. */
-    const jsonUrl = list.getAttribute("data-json-url") || "projects/data.json";
+    try {
+      const catalogUrl =
+        (list && list.getAttribute("data-catalog-url")) ||
+        (featuredList && featuredList.getAttribute("data-catalog-url")) ||
+        "projects/catalog.json";
 
-    /* Solicito el JSON con fetch. */
-    fetch(jsonUrl)
-      .then((res) => {
-        /* Valido respuesta HTTP para evitar errores silenciosos en .json(). */
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status} al cargar ${jsonUrl}`);
-        }
+      const [catalog, repos] = await Promise.all([
+        fetchProjectCatalog(catalogUrl),
+        fetchGithubProjects(),
+      ]);
 
-        /* Convierto la respuesta a JSON. */
-        return res.json();
-      })
-      .then((projects) => {
-        /* Selecciono el contenedor opcional para los filtros de tags. */
+      const projects = buildProjectCards(repos, catalog);
+
+      if (list) {
         const filtersContainer = document.querySelector("[data-project-filters]");
-
-        /* Construyo un listado único de tags a partir de los proyectos. */
         const allTags = [...new Set(projects.flatMap((project) => project.tags))];
-
-        /* Defino el filtro activo inicial. */
         let activeTag = "Todos";
 
-        /* Dibujo el listado de proyectos aplicando el filtro activo. */
-        const drawList = () => {
-          /* Limpio el contenedor para repintar sin residuos. */
-          list.replaceChildren();
-
-          /* Filtro por tag si aplica y recorro los proyectos resultantes. */
-          projects
-            .filter(
-              (project) => activeTag === "Todos" || project.tags.includes(activeTag),
-            )
-            .forEach((project) => {
-              /* Creo la tarjeta del proyecto. */
-              const card = document.createElement("article");
-
-              /* Aplico clase visual de tarjeta. */
-              card.className = "card";
-
-              /* Creo el título del proyecto. */
-              const title = document.createElement("h3");
-
-              /* Inserto el nombre del proyecto como texto. */
-              title.textContent = project.name;
-
-              /* Creo el resumen orientado a RRHH. */
-              const summary = document.createElement("p");
-
-              /* Marco audiencia para CSS (hr). */
-              summary.setAttribute("data-audience", "hr");
-
-              /* Inserto el resumen hr como texto. */
-              summary.textContent = project.hrSummary;
-
-              /* Creo el resumen orientado a perfil técnico. */
-              const techSummary = document.createElement("p");
-
-              /* Marco audiencia para CSS (tech). */
-              techSummary.setAttribute("data-audience", "tech");
-
-              /* Inserto las notas técnicas como texto. */
-              techSummary.textContent = project.techNotes;
-
-              /* Creo contenedor de acciones (botones/links). */
-              const actions = document.createElement("div");
-
-              /* Aplico clases para layout y estilos. */
-              actions.className = "actions project-card-actions";
-
-              /* Creo el enlace al caso. */
-              const detail = document.createElement("a");
-
-              /* Aplico clase botón. */
-              detail.className = "btn";
-
-              /* Asigno URL del proyecto. */
-              detail.href = project.url;
-
-              /* Asigno texto del botón. */
-              detail.textContent = "Ver caso";
-
-              /* Inserto el botón en acciones. */
-              actions.appendChild(detail);
-
-              /* Si hay repositorio, creo el botón adicional. */
-              if (project.repo) {
-                /* Creo el enlace al repositorio. */
-                const repo = document.createElement("a");
-
-                /* Aplico clase botón. */
-                repo.className = "btn";
-
-                /* Asigno URL del repo. */
-                repo.href = project.repo;
-
-                /* Abro en nueva pestaña por UX. */
-                repo.target = "_blank";
-
-                /* Evito acceso al window.opener por seguridad. */
-                repo.rel = "noopener";
-
-                /* Asigno texto del botón. */
-                repo.textContent = "Repositorio";
-
-                /* Inserto el botón en acciones. */
-                actions.appendChild(repo);
-              }
-
-              /* Creo el contenedor de badges de tags. */
-              const badgeWrap = document.createElement("div");
-
-              /* Aplico clase de layout. */
-              badgeWrap.className = "badges";
-
-              /* Inserto un badge por tag. */
-              project.tags.forEach((tag) => badgeWrap.appendChild(createBadge(tag)));
-
-              /* Inserto elementos en la tarjeta en el orden deseado. */
-              card.append(title, summary, techSummary, badgeWrap, actions);
-
-              /* Inserto la tarjeta en el listado. */
-              list.appendChild(card);
-            });
-
-          /* Reaplico la vista actual para que el filtro de audiencia afecte al nuevo DOM. */
-          setView(getView());
+        const paint = () => {
+          const filtered = projects.filter(
+            (project) => activeTag === "Todos" || project.tags.includes(activeTag),
+          );
+          drawProjectList(list, filtered);
         };
 
-        /* Si existe contenedor de filtros, genero botones de filtrado por tag. */
         if (filtersContainer) {
-          /* Creo el array con "Todos" y el resto de tags. */
-          const tags = ["Todos", ...allTags];
-
-          /* Creo un botón por tag. */
-          tags.forEach((tag) => {
-            /* Creo el botón. */
+          ["Todos", ...allTags].forEach((tag) => {
             const btn = document.createElement("button");
-
-            /* Aplico clase y estado activo inicial. */
             btn.className = "filter-btn" + (tag === "Todos" ? " active" : "");
-
-            /* Defino el tipo para no enviar formularios por accidente. */
             btn.type = "button";
-
-            /* Seteo el texto visible del botón. */
             btn.textContent = tag;
-
-            /* Cambio el filtro activo y repinto el listado al hacer click. */
             btn.addEventListener("click", () => {
-              /* Actualizo el tag activo. */
               activeTag = tag;
-
-              /* Limpio estado active del resto de botones. */
               filtersContainer
                 .querySelectorAll(".filter-btn")
-                .forEach((b) => b.classList.remove("active"));
-
-              /* Marco el botón actual como activo. */
+                .forEach((item) => item.classList.remove("active"));
               btn.classList.add("active");
-
-              /* Repinto listado con el nuevo filtro. */
-              drawList();
+              paint();
             });
-
-            /* Inserto el botón en el contenedor de filtros. */
             filtersContainer.appendChild(btn);
           });
         }
 
-        /* Pinto la lista inicial al cargar. */
-        drawList();
+        paint();
+      }
+
+      if (featuredList) {
+        const featuredBase = projects.filter((project) => project.featured);
+        const pickFrom = featuredBase.length ? featuredBase : projects;
+        const count = Number(featuredList.getAttribute("data-count") || catalog.featuredCount || 4);
+        const shuffled = [...pickFrom].sort(() => Math.random() - 0.5);
+        drawProjectList(featuredList, shuffled.slice(0, clamp(count, 3, 4)));
+      }
+    } catch (error) {
+      console.error("No se pudieron cargar los proyectos", error);
+    }
+  }
+
+  /* Pinto la formación desde JSON con filtro por skills. */
+  function renderEducation() {
+    const list = document.querySelector("[data-education-list]");
+
+    if (!list) return;
+
+    const jsonUrl = list.getAttribute("data-json-url") || "../assets/json/formacion.json";
+    const filtersContainer = document.querySelector("[data-education-filters]");
+    const totalHoursNode = document.querySelector("[data-education-hours-total]");
+
+    fetch(jsonUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`No se pudo cargar ${jsonUrl}`);
+        }
+
+        return response.json();
       })
-      .catch((error) => {
-        /* Logueo el error para diagnóstico sin romper la UI. */
-        console.error("No se pudieron cargar los proyectos", error);
-      });
+      .then((courses) => {
+        let activeSkill = "Todas";
+        const allSkills = [...new Set(courses.flatMap((course) => course.skills || []))];
+
+        const paint = () => {
+          list.replaceChildren();
+
+          const filtered = courses.filter(
+            (course) => activeSkill === "Todas" || course.skills.includes(activeSkill),
+          );
+
+          filtered.forEach((course) => {
+            const card = document.createElement("article");
+            card.className = "card";
+
+            const title = document.createElement("h3");
+            title.textContent = course.title;
+
+            const meta = document.createElement("p");
+            meta.className = "metric-label";
+            meta.textContent = `${course.provider} · ${course.year} · ${course.hours}h`;
+
+            const hrText = document.createElement("p");
+            hrText.setAttribute("data-audience", "hr");
+            hrText.textContent = course.hrSummary;
+
+            const techText = document.createElement("p");
+            techText.setAttribute("data-audience", "tech");
+            techText.textContent = course.techSummary;
+
+            const badges = document.createElement("div");
+            badges.className = "badges";
+            (course.skills || []).forEach((skill) => badges.appendChild(createBadge(skill)));
+
+            card.append(title, meta, hrText, techText, badges);
+            list.appendChild(card);
+          });
+
+          setView(getView());
+        };
+
+        if (totalHoursNode) {
+          const totalHours = courses.reduce((sum, course) => sum + Number(course.hours || 0), 0);
+          totalHoursNode.textContent = String(totalHours);
+        }
+
+        if (filtersContainer) {
+          ["Todas", ...allSkills].forEach((skill) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "filter-btn" + (skill === "Todas" ? " active" : "");
+            button.textContent = skill;
+            button.addEventListener("click", () => {
+              activeSkill = skill;
+              filtersContainer
+                .querySelectorAll(".filter-btn")
+                .forEach((node) => node.classList.remove("active"));
+              button.classList.add("active");
+              paint();
+            });
+            filtersContainer.appendChild(button);
+          });
+        }
+
+        paint();
+      })
+      .catch((error) => console.error("No se pudo cargar la formación", error));
   }
 
   /* Actualizo automáticamente el año en todos los nodos que lo requieran. */
@@ -456,6 +544,9 @@
 
   /* Inicializo el render dinámico de proyectos desde JSON. */
   renderProjects();
+
+  /* Inicializo el render dinámico de formación con filtros por skills. */
+  renderEducation();
 
   /* Inicializo el seteo automático del año en el footer o donde aplique. */
   setYear();
