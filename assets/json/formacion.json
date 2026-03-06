@@ -1,56 +1,92 @@
 [
   {
+    "id": "python-automatizacion-openwebinars",
+    "type": "course",
     "title": "Curso de Python aplicado a automatización",
     "provider": "OpenWebinars",
     "year": "2024",
     "hours": 220,
     "skills": ["Python", "Automatización", "Data Processing"],
     "hrSummary": "Especialización orientada a reducir tiempos operativos mediante scripts mantenibles y trazables.",
-    "techSummary": "Diseño de scripts con manejo de ficheros, validaciones y automatización de tareas repetitivas con buenas prácticas."
+    "techSummary": "Diseño de scripts con manejo de ficheros, validaciones y automatización de tareas repetitivas con buenas prácticas.",
+    "description": "Curso centrado en crear utilidades para automatizar tareas administrativas y técnicas de forma robusta.",
+    "certificate": "Certificado de finalización",
+    "courseUrl": "https://openwebinars.net/",
+    "certificateUrl": "https://openwebinars.net/"
   },
   {
+    "id": "ia-producto-coursera-deeplearningai",
+    "type": "course",
     "title": "IA aplicada a producto digital",
     "provider": "Coursera / DeepLearning.AI",
     "year": "2024",
     "hours": 180,
     "skills": ["IA", "Prompt Engineering", "Productividad"],
     "hrSummary": "Uso profesional de IA para acelerar entregas sin comprometer calidad ni control.",
-    "techSummary": "Aplicación de prompting avanzado, evaluación de resultados y soporte al desarrollo con flujos reproducibles."
+    "techSummary": "Aplicación de prompting avanzado, evaluación de resultados y soporte al desarrollo con flujos reproducibles.",
+    "description": "Enfoque práctico para integrar IA en flujos de producto y desarrollo con métricas de calidad.",
+    "certificate": "Certificado de especialización",
+    "courseUrl": "https://www.coursera.org/",
+    "certificateUrl": "https://www.coursera.org/"
   },
   {
+    "id": "fullstack-udemy",
+    "type": "course",
     "title": "Desarrollo web full stack",
     "provider": "Udemy",
     "year": "2023",
     "hours": 300,
     "skills": ["PHP", "JavaScript", "MySQL", "HTML", "CSS"],
     "hrSummary": "Base sólida para crear soluciones web completas enfocadas a negocio y experiencia de usuario.",
-    "techSummary": "Arquitectura de aplicaciones con frontend responsive, backend en PHP y persistencia en MySQL."
+    "techSummary": "Arquitectura de aplicaciones con frontend responsive, backend en PHP y persistencia en MySQL.",
+    "description": "Recorrido completo por frontend y backend para construir aplicaciones web funcionales de extremo a extremo.",
+    "certificate": "Certificado de finalización",
+    "courseUrl": "https://www.udemy.com/",
+    "certificateUrl": "https://www.udemy.com/"
   },
   {
+    "id": "wordpress-platzi",
+    "type": "course",
     "title": "WordPress profesional y plugins",
     "provider": "Platzi",
     "year": "2023",
     "hours": 160,
     "skills": ["WordPress", "PHP", "UX"],
     "hrSummary": "Capacitación orientada a publicar, mantener y escalar sitios corporativos en producción.",
-    "techSummary": "Customización de themes/plugins, hardening básico y enfoque en mantenibilidad a largo plazo."
+    "techSummary": "Customización de themes/plugins, hardening básico y enfoque en mantenibilidad a largo plazo.",
+    "description": "Configuración avanzada de WordPress, rendimiento, seguridad y personalización de plugins.",
+    "certificate": "Certificado de carrera",
+    "courseUrl": "https://platzi.com/",
+    "certificateUrl": "https://platzi.com/"
   },
   {
+    "id": "sql-analitica-google",
+    "type": "course",
     "title": "SQL y analítica para negocio",
     "provider": "Google Career Certificates",
     "year": "2022",
     "hours": 140,
     "skills": ["SQL", "Analítica", "Data"],
     "hrSummary": "Formación para convertir datos en decisiones con métricas útiles para áreas de negocio.",
-    "techSummary": "Consultas SQL, modelado simple y explotación de datos para reporting y automatizaciones."
+    "techSummary": "Consultas SQL, modelado simple y explotación de datos para reporting y automatizaciones.",
+    "description": "Curso orientado a explotación de datos, consultas eficientes y visualización de indicadores clave.",
+    "certificate": "Certificado profesional",
+    "courseUrl": "https://grow.google/intl/es/google-career-certificates/",
+    "certificateUrl": "https://grow.google/intl/es/google-career-certificates/"
   },
   {
+    "id": "agile-scrumstudy",
+    "type": "course",
     "title": "Gestión ágil de proyectos tecnológicos",
     "provider": "ScrumStudy",
     "year": "2022",
     "hours": 120,
     "skills": ["Scrum", "Gestión", "Productividad"],
     "hrSummary": "Mejora en planificación, coordinación y entrega de proyectos con foco en valor.",
-    "techSummary": "Aplicación de marcos ágiles, priorización de backlog y seguimiento de entregables iterativos."
+    "techSummary": "Aplicación de marcos ágiles, priorización de backlog y seguimiento de entregables iterativos.",
+    "description": "Aplicación de principios ágiles para coordinar equipos y mejorar la entrega continua.",
+    "certificate": "Certificado Scrum Fundamentals",
+    "courseUrl": "https://www.scrumstudy.com/",
+    "certificateUrl": "https://www.scrumstudy.com/"
   }
 ]

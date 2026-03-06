@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Línea de tiempo de cursos | Sabas</title>
+    <meta
+      name="description"
+      content="Línea de tiempo vertical con cursos, certificados y skills de Juan Antonio Sánchez Plaza."
+    />
+    <link rel="canonical" href="https://djsabas.github.io/Porfolio/cursos/" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body data-view="hr">
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <a class="brand" href="../">Sabas · Portfolio</a>
+        <nav class="nav-links" aria-label="Navegación principal">
+          <a href="../">Inicio</a><a href="../projects/">Proyectos</a
+          ><a href="../cv/">CV</a><a href="./" aria-current="page">Cursos</a
+          ><a href="../about/">Sobre mí</a>
+        </nav>
+        <div
+          class="toggle"
+          role="group"
+          aria-label="Cambiar vista RRHH o técnica"
+        >
+          <button type="button" data-toggle-view="hr" aria-pressed="true">RRHH</button
+          ><button type="button" data-toggle-view="tech" aria-pressed="false">Tech</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section glass">
+        <div class="section-head">
+          <h1>Línea de tiempo de formación</h1>
+          <p>
+            Cursos en formato cronológico. Al pasar o hacer clic sobre cada punto,
+            verás el detalle con certificado y enlace de más información.
+          </p>
+        </div>
+        <div class="timeline" data-course-timeline></div>
+      </section>
+    </main>
+
+    <aside class="timeline-modal" data-course-modal>
+      <div class="timeline-modal-card glass">
+        <button type="button" class="timeline-modal-close" data-modal-close aria-label="Cerrar detalle">×</button>
+        <h2 data-modal-title></h2>
+        <p class="metric-label" data-modal-meta></p>
+        <p data-modal-description></p>
+        <p><strong>Certificado:</strong> <span data-modal-certificate></span></p>
+        <div class="badges" data-modal-skills></div>
+        <div class="actions">
+          <a class="btn primary" data-modal-url href="#" target="_blank" rel="noopener">Más info</a>
+        </div>
+      </div>
+    </aside>
+
+    <footer class="container">© <span data-year></span> Sabas</footer>
+    <script src="../app.js"></script>
+  </body>
+</html>

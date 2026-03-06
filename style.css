@@ -574,3 +574,138 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
 .avatar-lens.is-visible{
   opacity: 1;
 }
+
+/* Línea vertical principal para la cronología de cursos/trabajo. */
+.timeline {
+  position: relative;
+  margin-top: 1.5rem;
+  padding: 1rem 0;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(110, 231, 255, 0.7), rgba(139, 92, 246, 0.7));
+  border-radius: 999px;
+}
+
+.timeline-item {
+  position: relative;
+  width: calc(50% - 2rem);
+  margin: 1.2rem 0;
+  opacity: 0;
+  transition: transform 0.55s ease, opacity 0.55s ease;
+}
+
+.timeline-item.left {
+  transform: translateX(-90px);
+}
+
+.timeline-item.right {
+  margin-left: auto;
+  transform: translateX(90px);
+}
+
+.timeline-item.is-visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  top: 1.35rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  border: 2px solid rgba(7, 11, 22, 0.8);
+}
+
+.timeline-item.left::after {
+  right: -2.45rem;
+}
+
+.timeline-item.right::after {
+  left: -2.45rem;
+}
+
+.timeline-item.is-work::after {
+  width: 18px;
+  height: 18px;
+  background: var(--secondary);
+}
+
+.timeline-card {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+}
+
+.timeline-icons {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.timeline-skill-icon {
+  font-size: 1.1rem;
+}
+
+.timeline-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 8, 18, 0.76);
+  display: none;
+  place-items: center;
+  padding: 1rem;
+  z-index: 80;
+}
+
+.timeline-modal.is-open {
+  display: grid;
+}
+
+.timeline-modal-card {
+  width: min(640px, 100%);
+  padding: 1.3rem;
+  position: relative;
+}
+
+.timeline-modal-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  border: 0;
+  color: var(--text);
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .timeline::before {
+    left: 0.45rem;
+  }
+
+  .timeline-item,
+  .timeline-item.right {
+    width: calc(100% - 2rem);
+    margin-left: 2rem;
+    transform: translateX(60px);
+  }
+
+  .timeline-item.left::after,
+  .timeline-item.right::after {
+    left: -1.95rem;
+  }
+}

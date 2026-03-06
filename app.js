@@ -279,7 +279,7 @@
   function buildProjectCards(repos, catalog) {
     const metadata = catalog?.repos || {};
 
-    const fromGithub = repos
+    return repos
       .filter((repo) => !repo.fork)
       .map((repo) => {
         const local = metadata[repo.name] || {};
@@ -300,42 +300,8 @@
           featured: Boolean(local.featured),
           updatedAt: repo.updated_at,
         };
-      });
-
-    const fromCatalogOnly = Object.entries(metadata)
-      .filter(([repoName]) => !repos.some((repo) => repo.name === repoName))
-      .map(([repoName, local], index) => ({
-        name: local.name || repoName,
-        url: local.url || "#",
-        repo: local.repo || "",
-        hrSummary:
-          local.hrSummary ||
-          "Caso real orientado a resolver una necesidad operativa o de negocio.",
-        techNotes:
-          local.techNotes || "Implementación técnica mantenible y documentada.",
-        tags: local.tags?.length ? local.tags : ["Proyecto"],
-        featured: Boolean(local.featured),
-        updatedAt: local.updatedAt || new Date(Date.now() - index * 1000).toISOString(),
-      }));
-
-    const templates = (catalog?.templates || []).map((template, index) => ({
-      name: template.name || `Proyecto ejemplo ${index + 1}`,
-      url: template.url || "#",
-      repo: template.repo || "",
-      hrSummary:
-        template.hrSummary ||
-        "Plantilla de proyecto pensada para mostrar estructura, entregables y valor de negocio.",
-      techNotes:
-        template.techNotes ||
-        "Base técnica de ejemplo para visualizar arquitectura, stack y próximos pasos.",
-      tags: template.tags?.length ? template.tags : ["Plantilla"],
-      featured: Boolean(template.featured),
-      updatedAt: template.updatedAt || new Date().toISOString(),
-    }));
-
-    return [...templates, ...fromCatalogOnly, ...fromGithub].sort(
-      (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt),
-    );
+      })
+      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
   }
 
   /* Pinto un conjunto de tarjetas reutilizable para home y página de proyectos. */
@@ -578,6 +544,131 @@
       .catch((error) => console.error("No se pudo cargar la formación", error));
   }
 
+  /* Devuelvo un icono visual simple para cada skill de la línea de tiempo. */
+  function getSkillIcon(skill = "") {
+    const key = skill.toLowerCase();
+
+    if (key.includes("python")) return "🐍";
+    if (key.includes("php")) return "🐘";
+    if (key.includes("sql") || key.includes("data")) return "🗄️";
+    if (key.includes("ia") || key.includes("prompt")) return "🤖";
+    if (key.includes("wordpress")) return "🧩";
+    if (key.includes("scrum") || key.includes("gestión")) return "📋";
+    if (key.includes("automat")) return "⚙️";
+    if (key.includes("javascript")) return "🟨";
+
+    return "🏷️";
+  }
+
+  /* Pinto la línea de tiempo vertical con cursos y, en el futuro, experiencia laboral. */
+  function renderCoursesTimeline() {
+    const timeline = document.querySelector("[data-course-timeline]");
+    const modal = document.querySelector("[data-course-modal]");
+
+    if (!timeline || !modal) return;
+
+    const titleNode = modal.querySelector("[data-modal-title]");
+    const metaNode = modal.querySelector("[data-modal-meta]");
+    const descriptionNode = modal.querySelector("[data-modal-description]");
+    const skillsNode = modal.querySelector("[data-modal-skills]");
+    const certNode = modal.querySelector("[data-modal-certificate]");
+    const infoBtn = modal.querySelector("[data-modal-url]");
+    const closeBtn = modal.querySelector("[data-modal-close]");
+
+    const openModal = (entry) => {
+      titleNode.textContent = entry.title || entry.role || "Elemento";
+      metaNode.textContent = `${entry.provider || entry.company || ""} · ${entry.year || entry.startYear || ""}`;
+      descriptionNode.textContent =
+        entry.description || entry.hrSummary || "Más detalles disponibles próximamente.";
+      certNode.textContent = entry.certificate || "No indicado";
+
+      skillsNode.replaceChildren();
+      (entry.skills || []).forEach((skill) => {
+        const badge = document.createElement("span");
+        badge.className = "badge";
+        badge.textContent = `${getSkillIcon(skill)} ${skill}`;
+        skillsNode.appendChild(badge);
+      });
+
+      if (entry.courseUrl || entry.companyUrl) {
+        infoBtn.href = entry.courseUrl || entry.companyUrl;
+        infoBtn.removeAttribute("aria-hidden");
+        infoBtn.style.display = "inline-flex";
+      } else {
+        infoBtn.href = "#";
+        infoBtn.setAttribute("aria-hidden", "true");
+        infoBtn.style.display = "none";
+      }
+
+      modal.classList.add("is-open");
+    };
+
+    const closeModal = () => modal.classList.remove("is-open");
+
+    closeBtn?.addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+
+    Promise.all([
+      fetch("../assets/json/formacion.json").then((res) => (res.ok ? res.json() : [])),
+      fetch("../assets/json/trabajos.json").then((res) => (res.ok ? res.json() : [])),
+    ])
+      .then(([courses, works]) => {
+        const entries = [...courses, ...works]
+          .filter((item) => item.type === "course" || item.type === "work")
+          .sort((a, b) => Number(b.year || b.startYear || 0) - Number(a.year || a.startYear || 0));
+
+        const observer = new IntersectionObserver(
+          (items) => {
+            items.forEach((item) => {
+              if (item.isIntersecting) {
+                item.target.classList.add("is-visible");
+                observer.unobserve(item.target);
+              }
+            });
+          },
+          { threshold: 0.3 },
+        );
+
+        entries.forEach((entry, index) => {
+          const item = document.createElement("article");
+          item.className = `timeline-item ${index % 2 === 0 ? "left" : "right"}`;
+          if (entry.type === "work") item.classList.add("is-work");
+
+          const card = document.createElement("button");
+          card.type = "button";
+          card.className = "timeline-card";
+
+          const title = document.createElement("h3");
+          title.textContent = entry.title || entry.role || "Sin título";
+
+          const year = document.createElement("p");
+          year.className = "metric-label";
+          year.textContent = entry.year || entry.startYear || "Año pendiente";
+
+          const iconRow = document.createElement("div");
+          iconRow.className = "timeline-icons";
+          (entry.skills || []).slice(0, 4).forEach((skill) => {
+            const icon = document.createElement("span");
+            icon.className = "timeline-skill-icon";
+            icon.title = skill;
+            icon.textContent = getSkillIcon(skill);
+            iconRow.appendChild(icon);
+          });
+
+          card.append(title, year, iconRow);
+          card.addEventListener("mouseenter", () => openModal(entry));
+          card.addEventListener("click", () => openModal(entry));
+
+          item.appendChild(card);
+          timeline.appendChild(item);
+          observer.observe(item);
+        });
+      })
+      .catch((error) => console.error("No se pudo cargar la línea de tiempo", error));
+  }
+
   /* Actualizo automáticamente el año en todos los nodos que lo requieran. */
   function setYear() {
     /* Recorro nodos marcados con data-year. */
@@ -598,6 +689,9 @@
 
   /* Inicializo el render dinámico de formación con filtros por skills. */
   renderEducation();
+
+  /* Inicializo la línea de tiempo de cursos para la página dedicada. */
+  renderCoursesTimeline();
 
   /* Inicializo el seteo automático del año en el footer o donde aplique. */
   setYear();
