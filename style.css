@@ -8,6 +8,8 @@
   --muted: #a8b5d4;
   --primary: #6ee7ff;
   --secondary: #8b5cf6;
+  --primary-rgb: 110, 231, 255;
+  --secondary-rgb: 139, 92, 246;
   --accent: #34d399;
   --danger: #fb7185;
   --border: rgba(255, 255, 255, 0.14);
@@ -575,11 +577,13 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   opacity: 1;
 }
 
-/* Línea de tiempo vertical con eje central. */
+/* Línea de tiempo vertical combinada con cursos laterales y experiencia en el eje central. */
 .timeline {
   position: relative;
   display: grid;
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(110px, auto);
+  gap: 1rem 2.2rem;
   margin-top: 1rem;
 }
 
@@ -589,24 +593,30 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   left: 50%;
   top: 0;
   bottom: 0;
-  width: 3px;
+  width: 4px;
   transform: translateX(-50%);
-  background: linear-gradient(180deg, rgba(110, 231, 255, 0.65), rgba(139, 92, 246, 0.6));
+  background: linear-gradient(
+    180deg,
+    rgba(var(--primary-rgb), 0.65),
+    rgba(var(--secondary-rgb), 0.6)
+  );
 }
 
 .timeline-item {
-  width: calc(50% - 1.2rem);
+  width: 100%;
   opacity: 0;
   transition: transform 0.55s ease, opacity 0.55s ease;
 }
 
 .timeline-item.left {
-  justify-self: start;
+  grid-column: 1;
+  justify-self: stretch;
   transform: translateX(-70px);
 }
 
 .timeline-item.right {
-  justify-self: end;
+  grid-column: 2;
+  justify-self: stretch;
   transform: translateX(70px);
 }
 
@@ -633,7 +643,7 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   height: 12px;
   border-radius: 50%;
   background: var(--accent);
-  border: 2px solid #0a1224;
+  border: 2px solid var(--bg);
   top: 1rem;
 }
 
@@ -654,6 +664,7 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   display: flex;
   gap: 0.45rem;
   margin-top: 0.55rem;
+  flex-wrap: wrap;
 }
 
 .timeline-icon {
@@ -666,6 +677,67 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.timeline-workband {
+  grid-column: 1 / -1;
+  grid-row: var(--row-start) / var(--row-end);
+  justify-self: center;
+  align-self: stretch;
+  z-index: 2;
+  width: 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--work-color) 92%, #fff 8%), var(--work-color));
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.timeline-workband.is-visible {
+  opacity: 1;
+}
+
+.timeline-workband__logo {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  object-fit: cover;
+  left: 50%;
+  top: 0.45rem;
+  transform: translateX(-50%);
+  border: 2px solid var(--bg);
+  background: var(--bg-soft);
+}
+
+.timeline-workband__title,
+.timeline-workband__years {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 220px;
+  text-align: center;
+  margin: 0;
+  font-size: 0.73rem;
+  line-height: 1.2;
+  color: var(--text);
+  background: rgba(6, 10, 20, 0.82);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.timeline-workband__title {
+  top: 2.65rem;
+  font-weight: 600;
+}
+
+.timeline-workband__years {
+  top: 4.25rem;
+  color: var(--muted);
+}
+
 .timeline-modal {
   position: fixed;
   inset: 0;
@@ -674,10 +746,14 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   place-items: center;
 }
 
+.timeline-modal[hidden] {
+  display: none;
+}
+
 .timeline-modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(3, 7, 18, 0.75);
+  background: rgba(7, 11, 22, 0.75);
 }
 
 .timeline-modal__content {
@@ -698,15 +774,13 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   cursor: pointer;
 }
 
-.timeline-work::before {
-  width: 6px;
-}
-
-.timeline-point--work {
-  cursor: default;
-}
-
 @media (max-width: 760px) {
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    padding-left: 1.6rem;
+  }
+
   .timeline::before {
     left: 0.65rem;
     transform: none;
@@ -715,15 +789,28 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   .timeline-item,
   .timeline-item.left,
   .timeline-item.right {
+    grid-column: 1;
     width: 100%;
     justify-self: stretch;
     transform: translateX(0);
-    padding-left: 1.6rem;
   }
 
   .timeline-item.left .timeline-point::before,
   .timeline-item.right .timeline-point::before {
     left: -1.28rem;
     right: auto;
+  }
+
+  .timeline-workband {
+    justify-self: start;
+    margin-left: 0;
+    width: 11px;
+  }
+
+  .timeline-workband__title,
+  .timeline-workband__years {
+    left: 1.7rem;
+    transform: none;
+    text-align: left;
   }
 }

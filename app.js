@@ -605,21 +605,42 @@
     return map[skill] || "•";
   }
 
-  /* Pinto timeline de cursos con alternancia izquierda/derecha y modal de detalle. */
+  /* Compruebo que una URL sea segura (http/https) antes de pintarla en enlaces. */
+  function sanitizeExternalUrl(url) {
+    const fallback = "#";
+
+    if (!url || typeof url !== "string") return fallback;
+
+    try {
+      const parsed = new URL(url, window.location.href);
+      const protocol = parsed.protocol.toLowerCase();
+      return protocol === "http:" || protocol === "https:" ? parsed.href : fallback;
+    } catch (_error) {
+      return fallback;
+    }
+  }
+
+  /* Pinto timeline combinado: cursos alternados y tramos de trabajo sobre el eje central. */
   function renderCourseTimeline() {
     const timeline = document.querySelector("[data-course-timeline]");
 
     if (!timeline) return;
 
-    const jsonUrl = timeline.getAttribute("data-json-url") || "../assets/json/formacion.json";
+    const coursesUrl =
+      timeline.getAttribute("data-courses-url") || "../assets/json/formacion.json";
+    const worksUrl = timeline.getAttribute("data-works-url") || "../assets/json/trabajos.json";
     const modal = document.querySelector("[data-timeline-modal]");
 
-    fetch(jsonUrl)
-      .then((response) => {
-        if (!response.ok) throw new Error(`No se pudo cargar ${jsonUrl}`);
+    Promise.all([
+      fetch(coursesUrl).then((response) => {
+        if (!response.ok) throw new Error(`No se pudo cargar ${coursesUrl}`);
         return response.json();
-      })
-      .then((courses) => {
+      }),
+      fetch(worksUrl)
+        .then((response) => (response.ok ? response.json() : []))
+        .catch(() => []),
+    ])
+      .then(([courses, jobs]) => {
         timeline.replaceChildren();
 
         const observer = new IntersectionObserver(
@@ -633,60 +654,155 @@
           { threshold: 0.25 },
         );
 
+        const modalTitle = modal ? modal.querySelector("[data-modal-title]") : null;
+        const modalMeta = modal ? modal.querySelector("[data-modal-meta]") : null;
+        const modalDescription = modal
+          ? modal.querySelector("[data-modal-description]")
+          : null;
+        const modalSkills = modal ? modal.querySelector("[data-modal-skills]") : null;
+        const infoBtn = modal ? modal.querySelector("[data-modal-more-info]") : null;
+        const certBtn = modal ? modal.querySelector("[data-modal-certificate]") : null;
+
         const openModal = (course) => {
-          if (!modal) return;
+          if (!modal || !modalTitle || !modalMeta || !modalDescription || !modalSkills) return;
 
           modal.hidden = false;
-          modal.querySelector("[data-modal-title]").textContent = course.title;
-          modal.querySelector("[data-modal-meta]").textContent = `${course.provider} · ${course.year} · ${course.hours}h`;
-          modal.querySelector("[data-modal-description]").textContent =
+          modalTitle.textContent = course.title;
+          modalMeta.textContent = `${course.provider} · ${course.year} · ${course.hours}h`;
+          modalDescription.textContent =
             course.details || course.techSummary || course.hrSummary || "Sin detalle adicional";
 
-          const skills = modal.querySelector("[data-modal-skills]");
-          skills.replaceChildren();
+          modalSkills.replaceChildren();
           (course.skills || []).forEach((skill) => {
-            skills.appendChild(createBadge(`${getSkillIcon(skill)} ${skill}`));
+            modalSkills.appendChild(createBadge(`${getSkillIcon(skill)} ${skill}`));
           });
 
-          const infoBtn = modal.querySelector("[data-modal-more-info]");
-          infoBtn.href = course.courseUrl || "#";
+          if (infoBtn) {
+            infoBtn.href = sanitizeExternalUrl(course.courseUrl);
+          }
 
-          const certBtn = modal.querySelector("[data-modal-certificate]");
-          certBtn.href = course.certificateUrl || "#";
-          certBtn.style.display = course.certificateUrl ? "inline-flex" : "none";
+          if (certBtn) {
+            certBtn.href = sanitizeExternalUrl(course.certificateUrl);
+            certBtn.hidden = !course.certificateUrl;
+          }
         };
 
-        courses.forEach((course, index) => {
-          const item = document.createElement("article");
-          item.className = `timeline-item ${index % 2 === 0 ? "left" : "right"}`;
+        const numericCourses = courses
+          .filter((course) => course && course.title)
+          .map((course) => ({
+            ...course,
+            numericYear: Number(course.year) || 0,
+          }))
+          .sort((a, b) => b.numericYear - a.numericYear);
 
-          const point = document.createElement("button");
-          point.type = "button";
-          point.className = "timeline-point";
-          point.addEventListener("click", () => openModal(course));
+        const yearRows = new Map();
+        numericCourses.forEach((course, index) => {
+          if (!yearRows.has(course.numericYear)) yearRows.set(course.numericYear, []);
+          yearRows.get(course.numericYear).push(index + 1);
+        });
 
-          const title = document.createElement("h3");
-          title.textContent = course.title;
+        const findNearestRow = (year) => {
+          if (!numericCourses.length) return 1;
 
-          const meta = document.createElement("p");
-          meta.className = "metric-label";
-          meta.textContent = `${course.year}`;
+          let nearestRow = 1;
+          let nearestDistance = Infinity;
 
-          const icons = document.createElement("div");
-          icons.className = "timeline-icons";
-          (course.skills || []).slice(0, 5).forEach((skill) => {
-            const icon = document.createElement("span");
-            icon.className = "timeline-icon";
-            icon.title = skill;
-            icon.textContent = getSkillIcon(skill);
-            icons.appendChild(icon);
+          numericCourses.forEach((course, index) => {
+            const distance = Math.abs(course.numericYear - year);
+            if (distance < nearestDistance) {
+              nearestDistance = distance;
+              nearestRow = index + 1;
+            }
           });
 
-          point.append(title, meta, icons);
-          item.appendChild(point);
-          timeline.appendChild(item);
-          observer.observe(item);
+          return nearestRow;
+        };
+
+        const validJobs = (jobs || [])
+          .filter((job) => job && job.company)
+          .map((job, index) => {
+            const startYear = Number(job.startYear) || Number(job.year) || 0;
+            const endYear = Number(job.endYear) || new Date().getFullYear();
+            const allRowsInPeriod = Array.from(yearRows.entries())
+              .filter(([year]) => year >= startYear && year <= endYear)
+              .flatMap(([, rows]) => rows);
+
+            const startRow = allRowsInPeriod.length
+              ? Math.min(...allRowsInPeriod)
+              : findNearestRow(startYear);
+            const endRowBase = allRowsInPeriod.length
+              ? Math.max(...allRowsInPeriod)
+              : findNearestRow(endYear);
+
+            return {
+              ...job,
+              startYear,
+              endYear,
+              rowStart: startRow,
+              rowEnd: endRowBase + 1,
+              color: job.color || `hsl(${(index * 67) % 360} 70% 55%)`,
+            };
+          })
+          .sort((a, b) => a.startYear - b.startYear);
+
+        validJobs.forEach((job) => {
+          const layer = document.createElement("article");
+          layer.className = "timeline-workband";
+          layer.style.setProperty("--work-color", job.color);
+          layer.style.setProperty("--row-start", String(job.rowStart || 1));
+          layer.style.setProperty("--row-end", String(job.rowEnd || 2));
+
+          const logo = document.createElement("img");
+          logo.className = "timeline-workband__logo";
+          logo.loading = "lazy";
+          logo.alt = `Logo de ${job.company}`;
+          logo.src = job.companyLogo || `https://placehold.co/64x64/0b1220/e9eefb?text=${encodeURIComponent((job.company || "?").slice(0, 2))}`;
+
+          const name = document.createElement("p");
+          name.className = "timeline-workband__title";
+          name.textContent = job.company;
+
+          const years = document.createElement("p");
+          years.className = "timeline-workband__years";
+          years.textContent = `${job.startYear || "?"} · ${job.endYear || "Actualidad"}`;
+
+          layer.append(logo, name, years);
+          timeline.appendChild(layer);
+          observer.observe(layer);
         });
+
+        numericCourses.forEach((course, index) => {
+            const item = document.createElement("article");
+            item.className = `timeline-item ${index % 2 === 0 ? "left" : "right"}`;
+            item.style.gridRow = String(index + 1);
+
+            const point = document.createElement("button");
+            point.type = "button";
+            point.className = "timeline-point";
+            point.addEventListener("click", () => openModal(course));
+
+            const title = document.createElement("h3");
+            title.textContent = course.title;
+
+            const meta = document.createElement("p");
+            meta.className = "metric-label";
+            meta.textContent = `${course.provider} · ${course.year} · ${course.hours}h`;
+
+            const icons = document.createElement("div");
+            icons.className = "timeline-icons";
+            (course.skills || []).forEach((skill) => {
+              const icon = document.createElement("span");
+              icon.className = "timeline-icon";
+              icon.title = skill;
+              icon.textContent = getSkillIcon(skill);
+              icons.appendChild(icon);
+            });
+
+            point.append(title, meta, icons);
+            item.appendChild(point);
+            timeline.appendChild(item);
+            observer.observe(item);
+          });
 
         if (modal) {
           modal.querySelectorAll("[data-close-timeline-modal]").forEach((node) => {
@@ -697,54 +813,6 @@
         }
       })
       .catch((error) => console.error("No se pudo cargar la línea de tiempo", error));
-  }
-
-  /* Pinto un timeline de trabajos preparado para el siguiente paso de contenido real. */
-  function renderWorkTimeline() {
-    const timeline = document.querySelector("[data-work-timeline]");
-
-    if (!timeline) return;
-
-    const jsonUrl = timeline.getAttribute("data-json-url") || "../assets/json/trabajos.json";
-
-    fetch(jsonUrl)
-      .then((response) => {
-        if (!response.ok) throw new Error(`No se pudo cargar ${jsonUrl}`);
-        return response.json();
-      })
-      .then((jobs) => {
-        timeline.replaceChildren();
-
-        const validJobs = jobs.filter((job) => job.company || job.role);
-
-        if (!validJobs.length) {
-          const empty = document.createElement("p");
-          empty.className = "metric-label";
-          empty.textContent = "Pendiente de completar con tu vida laboral.";
-          timeline.appendChild(empty);
-          return;
-        }
-
-        validJobs.forEach((job, index) => {
-          const item = document.createElement("article");
-          item.className = `timeline-item ${index % 2 === 0 ? "left" : "right"}`;
-
-          const body = document.createElement("div");
-          body.className = "timeline-point timeline-point--work";
-
-          const title = document.createElement("h3");
-          title.textContent = `${job.role} · ${job.company}`;
-
-          const meta = document.createElement("p");
-          meta.className = "metric-label";
-          meta.textContent = `${job.startYear || "?"} - ${job.endYear || "Actualidad"}`;
-
-          body.append(title, meta);
-          item.appendChild(body);
-          timeline.appendChild(item);
-        });
-      })
-      .catch((error) => console.error("No se pudo cargar el timeline de trabajos", error));
   }
 
   /* Actualizo automáticamente el año en todos los nodos que lo requieran. */
@@ -771,8 +839,6 @@
   /* Inicializo la línea de tiempo de cursos con interacción. */
   renderCourseTimeline();
 
-  /* Inicializo la línea de tiempo de trabajos (estructura preparada). */
-  renderWorkTimeline();
 
   /* Inicializo el seteo automático del año en el footer o donde aplique. */
   setYear();

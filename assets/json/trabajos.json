@@ -1,13 +1,38 @@
 [
   {
-    "company": "",
-    "role": "",
-    "startYear": "",
+    "company": "Empresa A",
+    "role": "Analista de Datos Junior",
+    "startYear": "2022",
+    "endYear": "2023",
+    "location": "Sevilla",
+    "summary": "Automatización de reportes y soporte en cuadros de mando comerciales.",
+    "skills": ["SQL", "Analítica", "Data"],
+    "companyLogo": "https://placehold.co/64x64/0f172a/6ee7ff?text=A",
+    "companyUrl": "https://example.com/empresa-a",
+    "color": "#38bdf8"
+  },
+  {
+    "company": "Empresa B",
+    "role": "Desarrollador Web Full Stack",
+    "startYear": "2023",
+    "endYear": "2024",
+    "location": "Málaga",
+    "summary": "Construcción de módulos web internos y mantenimiento de portales de clientes.",
+    "skills": ["PHP", "JavaScript", "MySQL", "WordPress"],
+    "companyLogo": "https://placehold.co/64x64/1f2937/e9eefb?text=B",
+    "companyUrl": "https://example.com/empresa-b",
+    "color": "#a78bfa"
+  },
+  {
+    "company": "Empresa C",
+    "role": "Especialista en Automatización e IA",
+    "startYear": "2024",
     "endYear": "",
-    "location": "",
-    "summary": "",
-    "skills": [],
-    "companyLogo": "",
-    "companyUrl": ""
+    "location": "Remoto",
+    "summary": "Optimización de procesos operativos con IA y scripts Python para equipos de producto.",
+    "skills": ["Python", "IA", "Automatización", "Prompt Engineering"],
+    "companyLogo": "https://placehold.co/64x64/052e2b/99f6e4?text=C",
+    "companyUrl": "https://example.com/empresa-c",
+    "color": "#34d399"
   }
 ]
