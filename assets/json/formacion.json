@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Curso de Python aplicado a automatización",
+    "provider": "OpenWebinars",
+    "year": "2024",
+    "hours": 220,
+    "skills": ["Python", "Automatización", "Data Processing"],
+    "hrSummary": "Especialización orientada a reducir tiempos operativos mediante scripts mantenibles y trazables.",
+    "techSummary": "Diseño de scripts con manejo de ficheros, validaciones y automatización de tareas repetitivas con buenas prácticas."
+  },
+  {
+    "title": "IA aplicada a producto digital",
+    "provider": "Coursera / DeepLearning.AI",
+    "year": "2024",
+    "hours": 180,
+    "skills": ["IA", "Prompt Engineering", "Productividad"],
+    "hrSummary": "Uso profesional de IA para acelerar entregas sin comprometer calidad ni control.",
+    "techSummary": "Aplicación de prompting avanzado, evaluación de resultados y soporte al desarrollo con flujos reproducibles."
+  },
+  {
+    "title": "Desarrollo web full stack",
+    "provider": "Udemy",
+    "year": "2023",
+    "hours": 300,
+    "skills": ["PHP", "JavaScript", "MySQL", "HTML", "CSS"],
+    "hrSummary": "Base sólida para crear soluciones web completas enfocadas a negocio y experiencia de usuario.",
+    "techSummary": "Arquitectura de aplicaciones con frontend responsive, backend en PHP y persistencia en MySQL."
+  },
+  {
+    "title": "WordPress profesional y plugins",
+    "provider": "Platzi",
+    "year": "2023",
+    "hours": 160,
+    "skills": ["WordPress", "PHP", "UX"],
+    "hrSummary": "Capacitación orientada a publicar, mantener y escalar sitios corporativos en producción.",
+    "techSummary": "Customización de themes/plugins, hardening básico y enfoque en mantenibilidad a largo plazo."
+  },
+  {
+    "title": "SQL y analítica para negocio",
+    "provider": "Google Career Certificates",
+    "year": "2022",
+    "hours": 140,
+    "skills": ["SQL", "Analítica", "Data"],
+    "hrSummary": "Formación para convertir datos en decisiones con métricas útiles para áreas de negocio.",
+    "techSummary": "Consultas SQL, modelado simple y explotación de datos para reporting y automatizaciones."
+  },
+  {
+    "title": "Gestión ágil de proyectos tecnológicos",
+    "provider": "ScrumStudy",
+    "year": "2022",
+    "hours": 120,
+    "skills": ["Scrum", "Gestión", "Productividad"],
+    "hrSummary": "Mejora en planificación, coordinación y entrega de proyectos con foco en valor.",
+    "techSummary": "Aplicación de marcos ágiles, priorización de backlog y seguimiento de entregables iterativos."
+  }
+]

@@ -17,9 +17,13 @@ Coloca estos archivos dentro de `assets/`:
 - `01-cv-juanantoniosanchezplaza.pdf` (CV en PDF)
 
 ## Añadir o editar proyectos
-1. Edita `projects/data.json`.
-2. Cada proyecto incluye `name`, `url`, `repo`, `hrSummary`, `techNotes`, `tags`.
+1. Edita `projects/catalog.json` para añadir metadatos del portfolio por repositorio (`slug`, `url`, `hrSummary`, `techNotes`, `tags`, `featured`).
+2. El listado principal se carga automáticamente desde la API pública de GitHub (`djSaBaS`) y mezcla esos datos con el catálogo local.
 3. Si quieres una página de detalle nueva, crea carpeta en `projects/<slug>/index.html` y añádela también al `sitemap.xml`.
+
+## Formación dinámica
+1. Edita `assets/json/formacion.json` para mantener cursos, horas y skills.
+2. La sección de formación del CV y el total de horas en métricas se actualizan automáticamente desde este JSON.
 
 ## Vista RRHH / Tech
 El toggle se guarda en `localStorage` con la clave `portfolioAudienceView` y se aplica automáticamente en todas las páginas.
