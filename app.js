@@ -12,39 +12,31 @@
   /* Selecciono el contenedor del avatar donde quiero activar la lupa. */
   const avatarBox = document.querySelector(".js-avatar");
 
-  /* Si no existe el contenedor, salgo sin fallar el resto del script. */
-  if (!avatarBox) {
-    return;
-  }
-
-  /* Selecciono la imagen base dentro del contenedor del avatar. */
-  const baseImg = avatarBox.querySelector("img");
-
-  /* Si no hay imagen base, salgo sin fallar el resto del script. */
-  if (!baseImg) {
-    return;
-  }
+  /* Selecciono la imagen base dentro del contenedor del avatar (si existe). */
+  const baseImg = avatarBox ? avatarBox.querySelector("img") : null;
 
   /* Defino la imagen alternativa (de mayor detalle) que se verá dentro de la lupa. */
   const altImageUrl = "assets/avatar_zoom.jpg";
 
-  /* Creo el elemento HTML que actuará como lupa. */
-  const lens = document.createElement("div");
-
-  /* Asigno la clase CSS responsable del estilo y posicionamiento de la lupa. */
-  lens.className = "avatar-lens";
-
-  /* Establezco la imagen alternativa como fondo del círculo de lupa. */
-  lens.style.backgroundImage = `url("${altImageUrl}")`;
-
-  /* Inserto el elemento lupa dentro del contenedor para posicionarlo relativo al avatar. */
-  avatarBox.appendChild(lens);
+  /* Creo el elemento HTML que actuará como lupa solo cuando hay avatar. */
+  const lens = avatarBox && baseImg ? document.createElement("div") : null;
 
   /* Defino el tamaño del círculo (en píxeles) para cálculos de centrado. */
   const lensSize = 220;
 
   /* Defino el nivel de zoom (2 equivale a 200%). */
   const zoom = 1;
+
+  if (lens && avatarBox) {
+    /* Asigno la clase CSS responsable del estilo y posicionamiento de la lupa. */
+    lens.className = "avatar-lens";
+
+    /* Establezco la imagen alternativa como fondo del círculo de lupa. */
+    lens.style.backgroundImage = `url("${altImageUrl}")`;
+
+    /* Inserto el elemento lupa dentro del contenedor para posicionarlo relativo al avatar. */
+    avatarBox.appendChild(lens);
+  }
 
   /* Limito un número a un rango (reutilizable en varias partes del script). */
   function clamp(num, min, max) {
@@ -53,6 +45,8 @@
 
   /* Actualizo el tamaño del background para simular el zoom con la imagen alternativa. */
   const updateBackgroundSize = () => {
+    if (!baseImg || !lens) return;
+
     /* Obtengo el tamaño renderizado actual de la imagen base (responsive-friendly). */
     const rect = baseImg.getBoundingClientRect();
 
@@ -68,6 +62,8 @@
 
   /* Posiciono la lupa y sincronizo el punto ampliado con la posición del ratón. */
   const moveLens = (event) => {
+    if (!baseImg || !lens) return;
+
     /* Obtengo el rectángulo actual de la imagen base para calcular coordenadas relativas. */
     const rect = baseImg.getBoundingClientRect();
 
@@ -99,29 +95,31 @@
     lens.style.backgroundPosition = `${bgX}px ${bgY}px`;
   };
 
-  /* Al entrar el ratón en el avatar, preparo y muestro la lupa. */
-  avatarBox.addEventListener("mouseenter", () => {
-    /* Recalculo tamaños por si el avatar cambió por responsive o por fuentes/cargas. */
-    updateBackgroundSize();
+  if (avatarBox && lens) {
+    /* Al entrar el ratón en el avatar, preparo y muestro la lupa. */
+    avatarBox.addEventListener("mouseenter", () => {
+      /* Recalculo tamaños por si el avatar cambió por responsive o por fuentes/cargas. */
+      updateBackgroundSize();
 
-    /* Marco la lupa como visible (controlado por CSS). */
-    lens.classList.add("is-visible");
-  });
+      /* Marco la lupa como visible (controlado por CSS). */
+      lens.classList.add("is-visible");
+    });
 
-  /* Al mover el ratón por el avatar, actualizo posición y contenido de la lupa. */
-  avatarBox.addEventListener("mousemove", (event) => {
-    moveLens(event);
-  });
+    /* Al mover el ratón por el avatar, actualizo posición y contenido de la lupa. */
+    avatarBox.addEventListener("mousemove", (event) => {
+      moveLens(event);
+    });
 
-  /* Al salir el ratón del avatar, oculto la lupa. */
-  avatarBox.addEventListener("mouseleave", () => {
-    lens.classList.remove("is-visible");
-  });
+    /* Al salir el ratón del avatar, oculto la lupa. */
+    avatarBox.addEventListener("mouseleave", () => {
+      lens.classList.remove("is-visible");
+    });
 
-  /* En redimensionado de ventana, recalculo el tamaño del fondo para mantener zoom correcto. */
-  window.addEventListener("resize", () => {
-    updateBackgroundSize();
-  });
+    /* En redimensionado de ventana, recalculo el tamaño del fondo para mantener zoom correcto. */
+    window.addEventListener("resize", () => {
+      updateBackgroundSize();
+    });
+  }
 
   /* Leo la vista guardada y devuelvo un valor válido (hr o tech). */
   function getView() {
@@ -281,7 +279,7 @@
   function buildProjectCards(repos, catalog) {
     const metadata = catalog?.repos || {};
 
-    return repos
+    const fromGithub = repos
       .filter((repo) => !repo.fork)
       .map((repo) => {
         const local = metadata[repo.name] || {};
@@ -302,8 +300,42 @@
           featured: Boolean(local.featured),
           updatedAt: repo.updated_at,
         };
-      })
-      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+      });
+
+    const fromCatalogOnly = Object.entries(metadata)
+      .filter(([repoName]) => !repos.some((repo) => repo.name === repoName))
+      .map(([repoName, local], index) => ({
+        name: local.name || repoName,
+        url: local.url || "#",
+        repo: local.repo || "",
+        hrSummary:
+          local.hrSummary ||
+          "Caso real orientado a resolver una necesidad operativa o de negocio.",
+        techNotes:
+          local.techNotes || "Implementación técnica mantenible y documentada.",
+        tags: local.tags?.length ? local.tags : ["Proyecto"],
+        featured: Boolean(local.featured),
+        updatedAt: local.updatedAt || new Date(Date.now() - index * 1000).toISOString(),
+      }));
+
+    const templates = (catalog?.templates || []).map((template, index) => ({
+      name: template.name || `Proyecto ejemplo ${index + 1}`,
+      url: template.url || "#",
+      repo: template.repo || "",
+      hrSummary:
+        template.hrSummary ||
+        "Plantilla de proyecto pensada para mostrar estructura, entregables y valor de negocio.",
+      techNotes:
+        template.techNotes ||
+        "Base técnica de ejemplo para visualizar arquitectura, stack y próximos pasos.",
+      tags: template.tags?.length ? template.tags : ["Plantilla"],
+      featured: Boolean(template.featured),
+      updatedAt: template.updatedAt || new Date().toISOString(),
+    }));
+
+    return [...templates, ...fromCatalogOnly, ...fromGithub].sort(
+      (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt),
+    );
   }
 
   /* Pinto un conjunto de tarjetas reutilizable para home y página de proyectos. */
@@ -388,10 +420,14 @@
         (featuredList && featuredList.getAttribute("data-catalog-url")) ||
         "projects/catalog.json";
 
-      const [catalog, repos] = await Promise.all([
-        fetchProjectCatalog(catalogUrl),
-        fetchGithubProjects(),
-      ]);
+      const catalog = await fetchProjectCatalog(catalogUrl);
+      let repos = [];
+
+      try {
+        repos = await fetchGithubProjects();
+      } catch (githubError) {
+        console.warn("GitHub no disponible, se usará catálogo local", githubError);
+      }
 
       const projects = buildProjectCards(repos, catalog);
 
@@ -448,6 +484,7 @@
 
     const jsonUrl = list.getAttribute("data-json-url") || "../assets/json/formacion.json";
     const filtersContainer = document.querySelector("[data-education-filters]");
+    const searchInput = document.querySelector("[data-education-search]");
     const totalHoursNode = document.querySelector("[data-education-hours-total]");
 
     fetch(jsonUrl)
@@ -460,14 +497,21 @@
       })
       .then((courses) => {
         let activeSkill = "Todas";
+        let searchText = "";
         const allSkills = [...new Set(courses.flatMap((course) => course.skills || []))];
 
         const paint = () => {
           list.replaceChildren();
 
-          const filtered = courses.filter(
-            (course) => activeSkill === "Todas" || course.skills.includes(activeSkill),
-          );
+          const filtered = courses.filter((course) => {
+            const bySkill = activeSkill === "Todas" || course.skills.includes(activeSkill);
+            const bySearch =
+              !searchText ||
+              course.title.toLowerCase().includes(searchText) ||
+              course.provider.toLowerCase().includes(searchText) ||
+              (course.skills || []).join(" ").toLowerCase().includes(searchText);
+            return bySkill && bySearch;
+          });
 
           filtered.forEach((course) => {
             const card = document.createElement("article");
@@ -502,6 +546,13 @@
         if (totalHoursNode) {
           const totalHours = courses.reduce((sum, course) => sum + Number(course.hours || 0), 0);
           totalHoursNode.textContent = String(totalHours);
+        }
+
+        if (searchInput) {
+          searchInput.addEventListener("input", () => {
+            searchText = searchInput.value.trim().toLowerCase();
+            paint();
+          });
         }
 
         if (filtersContainer) {
