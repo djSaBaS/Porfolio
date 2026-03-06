@@ -379,7 +379,7 @@ h2 {
   inset: 0;
   border-radius: 160px 160px 0 0;
   background: conic-gradient(
-    from 180deg,
+    from 180deg at 50% 100%,
     var(--secondary),
     var(--primary) calc(var(--percent) * 1%),
     rgba(255, 255, 255, 0.08) 0
@@ -392,8 +392,8 @@ h2 {
   position: absolute;
   left: 17px;
   right: 17px;
-  top: 17px;
-  bottom: -58px;
+  top: 18px;
+  bottom: -64px;
   background: rgba(9, 14, 27, 0.95);
   border-radius: 160px 160px 0 0;
 }
@@ -476,6 +476,19 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   margin: 0.75rem 0;
 }
 
+
+.education-search {
+  width: min(420px, 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  padding: 0.6rem 0.8rem;
+}
+
+.education-search::placeholder {
+  color: var(--muted);
+}
 /* Botón de filtro con estilo “píldora” y color secundario. */
 .filter-btn {
   cursor: pointer;

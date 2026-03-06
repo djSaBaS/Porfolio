@@ -6,7 +6,11 @@
       "url": "directorio-telefonos/",
       "hrSummary": "Directorio útil y claro de teléfonos de interés municipal para atención rápida.",
       "techNotes": "Proyecto JS/HTML estructurado para mantenimiento sencillo y edición de contenidos por bloques.",
-      "tags": ["Comunidad", "JavaScript", "Productividad"],
+      "tags": [
+        "Comunidad",
+        "JavaScript",
+        "Productividad"
+      ],
       "featured": true
     },
     "VoxFlow": {
@@ -14,7 +18,11 @@
       "url": "voxflow/",
       "hrSummary": "Herramienta práctica para convertir texto en audio e integrarla en flujos diarios.",
       "techNotes": "Python con pipeline de audio y foco en usabilidad para acelerar adopción.",
-      "tags": ["Python", "IA", "Productividad"],
+      "tags": [
+        "Python",
+        "IA",
+        "Productividad"
+      ],
       "featured": true
     },
     "CF7-Limitador-de-Opciones": {
@@ -22,7 +30,11 @@
       "url": "cf7-limitador/",
       "hrSummary": "Plugin para limitar opciones en Contact Form 7 y mejorar la calidad de formularios.",
       "techNotes": "Código orientado a seguridad, sanitización y comportamiento fiable en producción.",
-      "tags": ["WordPress", "PHP", "Productividad"],
+      "tags": [
+        "WordPress",
+        "PHP",
+        "Productividad"
+      ],
       "featured": true
     },
     "OCR-para-PDF": {
@@ -30,8 +42,42 @@
       "url": "ocr-pdf/",
       "hrSummary": "Extrae texto de PDF para reutilizar información y ahorrar tiempo operativo.",
       "techNotes": "Flujo OCR en Python con gestión de errores y salida reutilizable.",
-      "tags": ["Python", "Productividad", "IA"],
+      "tags": [
+        "Python",
+        "Productividad",
+        "IA"
+      ],
       "featured": true
     }
-  }
+  },
+  "templates": [
+    {
+      "name": "Plantilla · Dashboard de RRHH",
+      "url": "#",
+      "repo": "",
+      "hrSummary": "Ejemplo de proyecto para visualizar KPIs de selección, tiempos de cobertura y carga administrativa por centro.",
+      "techNotes": "Mock de panel con arquitectura API + frontend, preparado para métricas en tiempo real y exportación de informes.",
+      "tags": [
+        "Plantilla",
+        "RRHH",
+        "Analítica"
+      ],
+      "featured": true,
+      "updatedAt": "2026-01-10T10:00:00Z"
+    },
+    {
+      "name": "Plantilla · Portal de incidencias",
+      "url": "#",
+      "repo": "",
+      "hrSummary": "Modelo de portal para registrar incidencias internas con trazabilidad y tiempos de resolución medibles.",
+      "techNotes": "Propuesta full-stack con autenticación por roles, workflow de estados y auditoría de cambios.",
+      "tags": [
+        "Plantilla",
+        "Productividad",
+        "Full Stack"
+      ],
+      "featured": false,
+      "updatedAt": "2026-01-08T09:00:00Z"
+    }
+  ]
 }
