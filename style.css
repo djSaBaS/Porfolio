@@ -574,3 +574,156 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
 .avatar-lens.is-visible{
   opacity: 1;
 }
+
+/* Línea de tiempo vertical con eje central. */
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(110, 231, 255, 0.65), rgba(139, 92, 246, 0.6));
+}
+
+.timeline-item {
+  width: calc(50% - 1.2rem);
+  opacity: 0;
+  transition: transform 0.55s ease, opacity 0.55s ease;
+}
+
+.timeline-item.left {
+  justify-self: start;
+  transform: translateX(-70px);
+}
+
+.timeline-item.right {
+  justify-self: end;
+  transform: translateX(70px);
+}
+
+.timeline-item.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline-point {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  padding: 0.85rem;
+  cursor: pointer;
+}
+
+.timeline-point::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #0a1224;
+  top: 1rem;
+}
+
+.timeline-item.left .timeline-point,
+.timeline-item.right .timeline-point {
+  position: relative;
+}
+
+.timeline-item.left .timeline-point::before {
+  right: -1.65rem;
+}
+
+.timeline-item.right .timeline-point::before {
+  left: -1.65rem;
+}
+
+.timeline-icons {
+  display: flex;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+}
+
+.timeline-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.timeline-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+}
+
+.timeline-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.75);
+}
+
+.timeline-modal__content {
+  position: relative;
+  z-index: 1;
+  width: min(640px, calc(100% - 2rem));
+  padding: 1rem;
+}
+
+.timeline-modal__close {
+  position: absolute;
+  right: 0.6rem;
+  top: 0.6rem;
+  border: 0;
+  border-radius: 999px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.timeline-work::before {
+  width: 6px;
+}
+
+.timeline-point--work {
+  cursor: default;
+}
+
+@media (max-width: 760px) {
+  .timeline::before {
+    left: 0.65rem;
+    transform: none;
+  }
+
+  .timeline-item,
+  .timeline-item.left,
+  .timeline-item.right {
+    width: 100%;
+    justify-self: stretch;
+    transform: translateX(0);
+    padding-left: 1.6rem;
+  }
+
+  .timeline-item.left .timeline-point::before,
+  .timeline-item.right .timeline-point::before {
+    left: -1.28rem;
+    right: auto;
+  }
+}

@@ -578,6 +578,175 @@
       .catch((error) => console.error("No se pudo cargar la formación", error));
   }
 
+
+  /* Devuelvo un icono simple para cada skill del timeline. */
+  function getSkillIcon(skill) {
+    const map = {
+      Python: "🐍",
+      Automatización: "⚙️",
+      "Data Processing": "🧮",
+      IA: "🤖",
+      "Prompt Engineering": "💬",
+      Productividad: "🚀",
+      PHP: "🐘",
+      JavaScript: "🟨",
+      MySQL: "🛢️",
+      HTML: "🌐",
+      CSS: "🎨",
+      WordPress: "🧩",
+      UX: "🧠",
+      SQL: "🗃️",
+      Analítica: "📊",
+      Data: "📈",
+      Scrum: "🔁",
+      Gestión: "🧭",
+    };
+
+    return map[skill] || "•";
+  }
+
+  /* Pinto timeline de cursos con alternancia izquierda/derecha y modal de detalle. */
+  function renderCourseTimeline() {
+    const timeline = document.querySelector("[data-course-timeline]");
+
+    if (!timeline) return;
+
+    const jsonUrl = timeline.getAttribute("data-json-url") || "../assets/json/formacion.json";
+    const modal = document.querySelector("[data-timeline-modal]");
+
+    fetch(jsonUrl)
+      .then((response) => {
+        if (!response.ok) throw new Error(`No se pudo cargar ${jsonUrl}`);
+        return response.json();
+      })
+      .then((courses) => {
+        timeline.replaceChildren();
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.25 },
+        );
+
+        const openModal = (course) => {
+          if (!modal) return;
+
+          modal.hidden = false;
+          modal.querySelector("[data-modal-title]").textContent = course.title;
+          modal.querySelector("[data-modal-meta]").textContent = `${course.provider} · ${course.year} · ${course.hours}h`;
+          modal.querySelector("[data-modal-description]").textContent =
+            course.details || course.techSummary || course.hrSummary || "Sin detalle adicional";
+
+          const skills = modal.querySelector("[data-modal-skills]");
+          skills.replaceChildren();
+          (course.skills || []).forEach((skill) => {
+            skills.appendChild(createBadge(`${getSkillIcon(skill)} ${skill}`));
+          });
+
+          const infoBtn = modal.querySelector("[data-modal-more-info]");
+          infoBtn.href = course.courseUrl || "#";
+
+          const certBtn = modal.querySelector("[data-modal-certificate]");
+          certBtn.href = course.certificateUrl || "#";
+          certBtn.style.display = course.certificateUrl ? "inline-flex" : "none";
+        };
+
+        courses.forEach((course, index) => {
+          const item = document.createElement("article");
+          item.className = `timeline-item ${index % 2 === 0 ? "left" : "right"}`;
+
+          const point = document.createElement("button");
+          point.type = "button";
+          point.className = "timeline-point";
+          point.addEventListener("click", () => openModal(course));
+
+          const title = document.createElement("h3");
+          title.textContent = course.title;
+
+          const meta = document.createElement("p");
+          meta.className = "metric-label";
+          meta.textContent = `${course.year}`;
+
+          const icons = document.createElement("div");
+          icons.className = "timeline-icons";
+          (course.skills || []).slice(0, 5).forEach((skill) => {
+            const icon = document.createElement("span");
+            icon.className = "timeline-icon";
+            icon.title = skill;
+            icon.textContent = getSkillIcon(skill);
+            icons.appendChild(icon);
+          });
+
+          point.append(title, meta, icons);
+          item.appendChild(point);
+          timeline.appendChild(item);
+          observer.observe(item);
+        });
+
+        if (modal) {
+          modal.querySelectorAll("[data-close-timeline-modal]").forEach((node) => {
+            node.addEventListener("click", () => {
+              modal.hidden = true;
+            });
+          });
+        }
+      })
+      .catch((error) => console.error("No se pudo cargar la línea de tiempo", error));
+  }
+
+  /* Pinto un timeline de trabajos preparado para el siguiente paso de contenido real. */
+  function renderWorkTimeline() {
+    const timeline = document.querySelector("[data-work-timeline]");
+
+    if (!timeline) return;
+
+    const jsonUrl = timeline.getAttribute("data-json-url") || "../assets/json/trabajos.json";
+
+    fetch(jsonUrl)
+      .then((response) => {
+        if (!response.ok) throw new Error(`No se pudo cargar ${jsonUrl}`);
+        return response.json();
+      })
+      .then((jobs) => {
+        timeline.replaceChildren();
+
+        const validJobs = jobs.filter((job) => job.company || job.role);
+
+        if (!validJobs.length) {
+          const empty = document.createElement("p");
+          empty.className = "metric-label";
+          empty.textContent = "Pendiente de completar con tu vida laboral.";
+          timeline.appendChild(empty);
+          return;
+        }
+
+        validJobs.forEach((job, index) => {
+          const item = document.createElement("article");
+          item.className = `timeline-item ${index % 2 === 0 ? "left" : "right"}`;
+
+          const body = document.createElement("div");
+          body.className = "timeline-point timeline-point--work";
+
+          const title = document.createElement("h3");
+          title.textContent = `${job.role} · ${job.company}`;
+
+          const meta = document.createElement("p");
+          meta.className = "metric-label";
+          meta.textContent = `${job.startYear || "?"} - ${job.endYear || "Actualidad"}`;
+
+          body.append(title, meta);
+          item.appendChild(body);
+          timeline.appendChild(item);
+        });
+      })
+      .catch((error) => console.error("No se pudo cargar el timeline de trabajos", error));
+  }
+
   /* Actualizo automáticamente el año en todos los nodos que lo requieran. */
   function setYear() {
     /* Recorro nodos marcados con data-year. */
@@ -598,6 +767,12 @@
 
   /* Inicializo el render dinámico de formación con filtros por skills. */
   renderEducation();
+
+  /* Inicializo la línea de tiempo de cursos con interacción. */
+  renderCourseTimeline();
+
+  /* Inicializo la línea de tiempo de trabajos (estructura preparada). */
+  renderWorkTimeline();
 
   /* Inicializo el seteo automático del año en el footer o donde aplique. */
   setYear();

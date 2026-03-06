@@ -50,34 +50,5 @@
       "featured": true
     }
   },
-  "templates": [
-    {
-      "name": "Plantilla · Dashboard de RRHH",
-      "url": "#",
-      "repo": "",
-      "hrSummary": "Ejemplo de proyecto para visualizar KPIs de selección, tiempos de cobertura y carga administrativa por centro.",
-      "techNotes": "Mock de panel con arquitectura API + frontend, preparado para métricas en tiempo real y exportación de informes.",
-      "tags": [
-        "Plantilla",
-        "RRHH",
-        "Analítica"
-      ],
-      "featured": true,
-      "updatedAt": "2026-01-10T10:00:00Z"
-    },
-    {
-      "name": "Plantilla · Portal de incidencias",
-      "url": "#",
-      "repo": "",
-      "hrSummary": "Modelo de portal para registrar incidencias internas con trazabilidad y tiempos de resolución medibles.",
-      "techNotes": "Propuesta full-stack con autenticación por roles, workflow de estados y auditoría de cambios.",
-      "tags": [
-        "Plantilla",
-        "Productividad",
-        "Full Stack"
-      ],
-      "featured": false,
-      "updatedAt": "2026-01-08T09:00:00Z"
-    }
-  ]
+  "templates": []
 }
