@@ -6,7 +6,10 @@
     "hours": 220,
     "skills": ["Python", "Automatización", "Data Processing"],
     "hrSummary": "Especialización orientada a reducir tiempos operativos mediante scripts mantenibles y trazables.",
-    "techSummary": "Diseño de scripts con manejo de ficheros, validaciones y automatización de tareas repetitivas con buenas prácticas."
+    "techSummary": "Diseño de scripts con manejo de ficheros, validaciones y automatización de tareas repetitivas con buenas prácticas.",
+    "details": "Automatización de ficheros, tareas repetitivas y procesos de validación orientados a producción.",
+    "courseUrl": "https://openwebinars.net/",
+    "certificateUrl": "https://openwebinars.net/"
   },
   {
     "title": "IA aplicada a producto digital",
@@ -15,7 +18,10 @@
     "hours": 180,
     "skills": ["IA", "Prompt Engineering", "Productividad"],
     "hrSummary": "Uso profesional de IA para acelerar entregas sin comprometer calidad ni control.",
-    "techSummary": "Aplicación de prompting avanzado, evaluación de resultados y soporte al desarrollo con flujos reproducibles."
+    "techSummary": "Aplicación de prompting avanzado, evaluación de resultados y soporte al desarrollo con flujos reproducibles.",
+    "details": "Diseño de prompts, evaluación de resultados y uso de IA en ciclos de mejora continua.",
+    "courseUrl": "https://www.coursera.org/",
+    "certificateUrl": "https://www.coursera.org/"
   },
   {
     "title": "Desarrollo web full stack",
@@ -24,7 +30,10 @@
     "hours": 300,
     "skills": ["PHP", "JavaScript", "MySQL", "HTML", "CSS"],
     "hrSummary": "Base sólida para crear soluciones web completas enfocadas a negocio y experiencia de usuario.",
-    "techSummary": "Arquitectura de aplicaciones con frontend responsive, backend en PHP y persistencia en MySQL."
+    "techSummary": "Arquitectura de aplicaciones con frontend responsive, backend en PHP y persistencia en MySQL.",
+    "details": "Construcción de aplicaciones web completas, conexión a BBDD y despliegue básico.",
+    "courseUrl": "https://www.udemy.com/",
+    "certificateUrl": "https://www.udemy.com/"
   },
   {
     "title": "WordPress profesional y plugins",
@@ -33,7 +42,10 @@
     "hours": 160,
     "skills": ["WordPress", "PHP", "UX"],
     "hrSummary": "Capacitación orientada a publicar, mantener y escalar sitios corporativos en producción.",
-    "techSummary": "Customización de themes/plugins, hardening básico y enfoque en mantenibilidad a largo plazo."
+    "techSummary": "Customización de themes/plugins, hardening básico y enfoque en mantenibilidad a largo plazo.",
+    "details": "Desarrollo y personalización de plugins con enfoque en mantenibilidad y rendimiento.",
+    "courseUrl": "https://platzi.com/",
+    "certificateUrl": "https://platzi.com/"
   },
   {
     "title": "SQL y analítica para negocio",
@@ -42,7 +54,10 @@
     "hours": 140,
     "skills": ["SQL", "Analítica", "Data"],
     "hrSummary": "Formación para convertir datos en decisiones con métricas útiles para áreas de negocio.",
-    "techSummary": "Consultas SQL, modelado simple y explotación de datos para reporting y automatizaciones."
+    "techSummary": "Consultas SQL, modelado simple y explotación de datos para reporting y automatizaciones.",
+    "details": "Consultas SQL orientadas a reporting, detección de patrones y soporte a decisiones.",
+    "courseUrl": "https://grow.google/intl/es/certificates/",
+    "certificateUrl": "https://grow.google/intl/es/certificates/"
   },
   {
     "title": "Gestión ágil de proyectos tecnológicos",
@@ -51,6 +66,9 @@
     "hours": 120,
     "skills": ["Scrum", "Gestión", "Productividad"],
     "hrSummary": "Mejora en planificación, coordinación y entrega de proyectos con foco en valor.",
-    "techSummary": "Aplicación de marcos ágiles, priorización de backlog y seguimiento de entregables iterativos."
+    "techSummary": "Aplicación de marcos ágiles, priorización de backlog y seguimiento de entregables iterativos.",
+    "details": "Aplicación de Scrum, gestión de backlog y seguimiento de entregables en iteraciones cortas.",
+    "courseUrl": "https://www.scrumstudy.com/",
+    "certificateUrl": "https://www.scrumstudy.com/"
   }
 ]

@@ -6,7 +6,11 @@
     "repo": "https://github.com/djSaBaS/directorio-viso-san-juan",
     "hrSummary": "Directorio útil y claro de teléfonos de interés municipal para atención rápida.",
     "techNotes": "Proyecto JS/HTML estructurado para mantenimiento sencillo y edición de contenidos por bloques.",
-    "tags": ["Comunidad", "JavaScript", "Productividad"]
+    "tags": [
+      "Comunidad",
+      "JavaScript",
+      "Productividad"
+    ]
   },
   {
     "slug": "voxflow",
@@ -15,7 +19,11 @@
     "repo": "https://github.com/djSaBaS/VoxFlow",
     "hrSummary": "Herramienta práctica para convertir texto en audio e integrarla en flujos diarios.",
     "techNotes": "Python con pipeline de audio y foco en usabilidad para acelerar adopción.",
-    "tags": ["Python", "IA", "Productividad"]
+    "tags": [
+      "Python",
+      "IA",
+      "Productividad"
+    ]
   },
   {
     "slug": "cf7-limitador",
@@ -24,7 +32,11 @@
     "repo": "https://github.com/djSaBaS/CF7-Limitador-de-Opciones",
     "hrSummary": "Plugin para limitar opciones en Contact Form 7 y mejorar la calidad de formularios.",
     "techNotes": "Código orientado a seguridad, sanitización y comportamiento fiable en producción.",
-    "tags": ["WordPress", "PHP", "Productividad"]
+    "tags": [
+      "WordPress",
+      "PHP",
+      "Productividad"
+    ]
   },
   {
     "slug": "ocr-pdf",
@@ -33,15 +45,10 @@
     "repo": "https://github.com/djSaBaS/OCR-para-PDF",
     "hrSummary": "Extrae texto de PDF para reutilizar información y ahorrar tiempo operativo.",
     "techNotes": "Flujo OCR en Python con gestión de errores y salida reutilizable.",
-    "tags": ["Python", "Productividad", "IA"]
-  },
-  {
-    "slug": "estadisticas-futbol",
-    "name": "Estadísticas de fútbol (caso privado)",
-    "url": "../projects/",
-    "repo": "",
-    "hrSummary": "App para registrar eventos en tiempo real durante partidos y analizar rendimiento.",
-    "techNotes": "Caso en evolución: plan de visión por 2 cámaras + salida JSON para automatizar métricas.",
-    "tags": ["Comunidad", "Productividad", "IA"]
+    "tags": [
+      "Python",
+      "Productividad",
+      "IA"
+    ]
   }
 ]

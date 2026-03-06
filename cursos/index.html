@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Línea de tiempo de formación | Juan Antonio Sánchez Plaza (SaBaS)</title>
+  <meta name="description" content="Línea de tiempo vertical de formación técnica y cursos de Juan Antonio Sánchez Plaza (SaBaS)." />
+  <link rel="canonical" href="https://djsabas.github.io/Porfolio/cursos/" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body data-view="hr">
+  <header class="topbar">
+    <div class="container nav-wrap">
+      <a class="brand" href="../">Sabas · Portfolio</a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="../">Inicio</a>
+        <a href="../projects/">Proyectos</a>
+        <a href="../cv/">CV</a>
+        <a href="./" aria-current="page">Cursos</a>
+        <a href="../about/">Sobre mí</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section glass">
+      <div class="section-head">
+        <h1>Línea de tiempo de formación</h1>
+      </div>
+      <p>Resumen visual de cursos y certificaciones. Haz clic en un punto para ver detalle y enlace oficial del curso.</p>
+      <div class="timeline" data-course-timeline data-json-url="../assets/json/formacion.json"></div>
+    </section>
+
+    <section class="section glass">
+      <div class="section-head">
+        <h2>Trayectoria profesional (borrador)</h2>
+      </div>
+      <p>He preparado una estructura JSON para trabajos. Cuando me pases la vida laboral, lo convertimos también en línea de tiempo con una línea más gruesa, nombre de empresa y logo.</p>
+      <div class="timeline timeline-work" data-work-timeline data-json-url="../assets/json/trabajos.json"></div>
+    </section>
+
+    <section class="section glass contact-box" id="contacto">
+      <div class="section-head"><h2>Contacto</h2></div>
+      <p>Email: <a href="mailto:juanantoniosanchezplaza@hotmail.com">juanantoniosanchezplaza@hotmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">juanantoniosanchezplaza</a></p>
+      <p>GitHub: <a href="https://github.com/djSaBaS" target="_blank" rel="noopener">djSaBaS</a></p>
+    </section>
+
+    <footer>© <span data-year></span> Sabas</footer>
+  </main>
+
+  <div class="timeline-modal" data-timeline-modal hidden>
+    <div class="timeline-modal__backdrop" data-close-timeline-modal></div>
+    <article class="timeline-modal__content glass" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title">
+      <button type="button" class="timeline-modal__close" data-close-timeline-modal aria-label="Cerrar detalle">✕</button>
+      <h3 id="timeline-modal-title" data-modal-title></h3>
+      <p class="metric-label" data-modal-meta></p>
+      <p data-modal-description></p>
+      <div class="badges" data-modal-skills></div>
+      <div class="actions">
+        <a class="btn primary" href="#" target="_blank" rel="noopener" data-modal-more-info>Más info</a>
+        <a class="btn" href="#" target="_blank" rel="noopener" data-modal-certificate>Certificado</a>
+      </div>
+    </article>
+  </div>
+
+  <script src="../app.js"></script>
+</body>
+</html>
