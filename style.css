@@ -960,3 +960,208 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
     transform: none;
   }
 }
+
+/* ==========================================================================
+   NUEVA LÍNEA DE TIEMPO PREMIUM (Dual View: Tech + RRHH)
+   ========================================================================== */
+
+/* --- Contenedores Principales --- */
+.timeline-viewport {
+    position: relative;
+    min-height: 500px;
+    margin-top: 2rem;
+    overflow: hidden;
+}
+
+/* --- Tech View (SVG) --- */
+.tech-container {
+    width: 100%;
+    overflow-x: auto;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius);
+    padding: 2rem 0;
+    cursor: grab;
+}
+
+.tech-container:active {
+    cursor: grabbing;
+}
+
+.tech-node {
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+.tech-node:hover {
+    filter: brightness(1.3) drop-shadow(0 0 8px rgba(var(--primary-rgb), 0.5));
+}
+
+/* --- RRHH View (Vertical Cards) --- */
+.rrhh-container {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.rrhh-timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    transform: translateX(-50%);
+    opacity: 0.3;
+}
+
+.rrhh-card-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.rrhh-card {
+    width: 45%;
+    padding: 1.5rem;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.rrhh-card:hover {
+    transform: translateY(-5px);
+}
+
+.rrhh-card-wrapper.left {
+    justify-content: flex-start;
+}
+
+.rrhh-card-wrapper.right {
+    justify-content: flex-end;
+}
+
+.rrhh-card-wrapper::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 2rem;
+    width: 12px;
+    height: 12px;
+    background: var(--bg);
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+/* --- Detalles y Tags en RRHH --- */
+.rrhh-card h3 {
+    margin-bottom: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+}
+
+.rrhh-card .entity {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.rrhh-card .date {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* --- Modal Estilos --- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-window {
+    background: var(--glass-2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    width: min(700px, 95%);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 0;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+.skill-chip {
+    padding: 0.4rem 0.8rem;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* --- Responsive Timeline --- */
+@media (max-width: 768px) {
+    .rrhh-card {
+        width: 100%;
+        margin-left: 2rem;
+    }
+    
+    .rrhh-timeline-line {
+        left: 1rem;
+    }
+    
+    .rrhh-card-wrapper::after {
+        left: 1rem;
+    }
+    
+    .rrhh-card-wrapper.left,
+    .rrhh-card-wrapper.right {
+        justify-content: flex-start;
+    }
+}

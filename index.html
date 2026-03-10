@@ -1,244 +1,127 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabas · Portfolio</title>
+    <meta name="description" content="Portfolio personal de Sabas - Desarrollador Full Stack especializado en soluciones técnicas y de negocio.">
+    
+    <!-- Fuertes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Estilos base y premium -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-view="hr">
+    <a href="#main" class="skip-link">Saltar al contenido</a>
 
-  <!-- ===================================================== -->
-  <!-- HEAD: SEO, social preview, PWA y recursos principales -->
-  <!-- ===================================================== -->
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Juan Antonio Sánchez Plaza (SaBaS) | Portfolio de Desarrollo Web, IA y Automatización</title>
-    <meta name="description" content="Portfolio de Juan Antonio Sánchez Plaza, también conocido como SaBaS: desarrollo web, automatización, IA aplicada, proyectos en producción y formación técnica continua." />
-    <meta name="keywords" content="Juan Antonio Sánchez Plaza, SaBaS, portfolio, desarrollo web, automatización, IA aplicada, Python, PHP, WordPress" />
-    <link rel="canonical" href="https://djsabas.github.io/Porfolio/" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Juan Antonio Sánchez Plaza (SaBaS) | Desarrollo Web + Automatización + IA aplicada" />
-    <meta property="og:description" content="Sistemas en producción para 500+ usuarios, 15+ webs publicadas y procesos RRHH automatizados." />
-    <meta property="og:url" content="https://djsabas.github.io/Porfolio/" />
-    <meta property="og:image" content="https://djsabas.github.io/Porfolio/assets/og.png" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Juan Antonio Sánchez Plaza (SaBaS) | Portfolio profesional" />
-    <meta name="twitter:description" content="Desarrollo web, Python, IA aplicada y automatización con impacto medible." />
-    <meta name="twitter:image" content="https://djsabas.github.io/Porfolio/assets/og.png" />
-
-    <!-- PWA + Estilos -->
-    <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="icon" href="assets/favicon.ico" />
-    <link rel="stylesheet" href="style.css" />
-
-    <!-- Datos estructurados (Schema.org) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Juan Antonio Sánchez Plaza",
-        "jobTitle": "Responsable de Desarrollo Web",
-        "url": "https://djsabas.github.io/Porfolio/",
-        "email": "mailto:juanantoniosanchezplaza@hotmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Illescas",
-          "addressRegion": "Toledo"
-        },
-        "sameAs": [
-          "https://www.linkedin.com/in/juanantoniosanchezplaza/",
-          "https://github.com/djSaBaS"
-        ]
-      }
-    </script>
-  </head>
-
-  <!-- ===================================== -->
-  <!-- BODY: Contenido principal del sitio   -->
-  <!-- ===================================== -->
-  <body data-view="hr">
-
-    <!-- Accesibilidad: salto directo al contenido principal -->
-    <a class="skip-link" href="#contenido">Saltar al contenido</a>
-
-    <!-- ===================================== -->
-    <!-- HEADER: Topbar con navegación y toggle -->
-    <!-- ===================================== -->
     <header class="topbar">
-      <div class="container nav-wrap">
-        <a class="brand" href="./">Juan Antonio Sánchez Plaza · Portfolio</a>
-        <nav class="nav-links" aria-label="Navegación principal">
-          <a href="./" aria-current="page">Inicio</a>
-          <a href="projects/">Proyectos</a>
-          <a href="cv/">CV</a>
-          <a href="about/">Sobre mí</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
-        <div class="toggle" role="group" aria-label="Cambiar vista RRHH o técnica">
-          <button type="button" data-toggle-view="hr" aria-pressed="true">RRHH</button>
-          <button type="button" data-toggle-view="tech" aria-pressed="false">Tech</button>
+        <div class="container nav-wrap">
+            <a class="brand" href="./">Sabas · Portfolio</a>
+            <nav class="nav-links" aria-label="Navegación principal">
+                <a href="./" aria-current="page">Inicio</a>
+                <a href="projects/">Proyectos</a>
+                <a href="cv/">CV</a>
+                <a href="about/">Sobre mí</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            
+            <div class="toggle" role="group" aria-label="Seleccionar perfil de vista">
+                <button type="button" data-toggle-view="hr" aria-pressed="true">
+                    <i class="bi bi-person-badge"></i> RRHH
+                </button>
+                <button type="button" data-toggle-view="tech" aria-pressed="false">
+                    <i class="bi bi-code-slash"></i> Tech
+                </button>
+            </div>
         </div>
-      </div>
     </header>
 
-    <!-- ================= -->
-    <!-- MAIN: Contenido   -->
-    <!-- ================= -->
-    <main id="contenido" class="container">
+    <main id="main">
+        <section class="container hero">
+            <div class="two-col">
+                <div class="hero-card glass">
+                    <p class="kicker">Hola, mi nombre es Sabas</p>
+                    <h1 data-audience="hr">Estratega Digital y Desarrollador Full Stack</h1>
+                    <h1 data-audience="tech">Full Stack Developer & AI Integrator</h1>
+                    
+                    <p class="lead" data-audience="hr">Ayudo a empresas a optimizar sus procesos mediante tecnología robusta y visión de negocio.</p>
+                    <p class="lead" data-audience="tech">Especializado en arquitecturas limpias, automatización con IA y JavaScript moderno.</p>
+                    
+                    <div class="actions">
+                        <a href="cv/" class="btn primary">Ver Trayectoria <i class="bi bi-arrow-right"></i></a>
+                        <a href="projects/" class="btn">Proyectos Recientes</a>
+                    </div>
+                </div>
 
-      <!-- ================= -->
-      <!-- HERO: Intro + CTA -->
-      <!-- ================= -->
-      <section class="hero">
-        <article class="hero-card glass two-col">
-          <div>
-            <p class="kicker">Sur de Madrid / Illescas (Toledo)</p>
-            <h1>Convierto procesos manuales en sistemas web rápidos, escalables y útiles desde el primer día.</h1>
-            <p class="lead" data-audience="hr">Responsable de Desarrollo Web con foco en resultados: ahorro de tiempo, mejor servicio al usuario y menos fricción operativa.</p>
-            <p class="lead" data-audience="tech">Especializado en PHP/MySQL, Python y automatización con IA aplicada (prompts avanzados, integración con GitHub/Codex, documentación y mejora de código).</p>
-            <div class="actions">
-              <a class="btn primary" href="mailto:juanantoniosanchezplaza@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Sabas%2C%20he%20visto%20tu%20portfolio%20y%20me%20gustar%C3%ADa%20hablar%20sobre...">Contactar ahora</a>
-              <a class="btn" href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="btn" href="https://github.com/djSaBaS" target="_blank" rel="noopener">GitHub</a>
-              <a class="btn" href="assets/01-cv-juanantoniosanchezplaza.pdf" target="_blank" rel="noopener">CV en PDF</a>
+                <div class="avatar-box glass js-avatar">
+                    <img src="assets/avatar.jpg" alt="Sabas - Foto de perfil" class="avatar-box__img">
+                </div>
             </div>
-          </div>
-          <aside class="avatar-box js-avatar">
-            <img src="assets/avatar.jpg" alt="Foto de Juan Antonio Sánchez" class="avatar-box__img" draggable="false" />
-          </aside>
-        </article>
-      </section>
+        </section>
 
-      <!-- ================== -->
-      <!-- MÉTRICAS: Gauges   -->
-      <!-- ================== -->
-      <section class="section glass" id="metricas">
-        <div class="section-head">
-          <h2>Impacto en cifras</h2>
-          <p>Indicadores clave de experiencia real en producción.</p>
-        </div>
-        <div class="grid metrics-grid">
-          <article class="card gauge-card">
-            <div class="gauge" data-value="1120" data-max="1245"></div>
-            <div class="total"><span data-education-hours-total>1120</span> horas</div>
-            <div class="metric-label">Formación técnica</div>
-          </article>
-          <article class="card gauge-card">
-            <div class="gauge" data-value="15" data-max="17"></div>
-            <div class="total">15 años</div>
-            <div class="metric-label">Experiencia profesional</div>
-          </article>
-          <article class="card gauge-card">
-            <div class="gauge" data-value="500" data-max="560"></div>
-            <div class="total">500+</div>
-            <div class="metric-label">Usuarios activos (9 colegios)</div>
-          </article>
-          <article class="card gauge-card">
-            <div class="gauge" data-value="15" data-max="17"></div>
-            <div class="total">15+</div>
-            <div class="metric-label">Webs publicadas</div>
-          </article>
-        </div>
-      </section>
+        <section class="container section">
+            <div class="grid metrics-grid">
+                <div class="card glass gauge-card">
+                    <div class="gauge" data-value="8" data-max="10"></div>
+                    <div class="total">8+</div>
+                    <div class="metric-label">Años Exp.</div>
+                </div>
+                <div class="card glass gauge-card">
+                    <div class="gauge" data-value="45" data-max="50"></div>
+                    <div class="total">45+</div>
+                    <div class="metric-label">Proyectos</div>
+                </div>
+                <div class="card glass gauge-card">
+                    <div class="gauge" data-value="15" data-max="20"></div>
+                    <div class="total">15+</div>
+                    <div class="metric-label">Tecnologías</div>
+                </div>
+                <div class="card glass gauge-card">
+                    <div class="gauge" data-value="100" data-max="100"></div>
+                    <div class="total">100%</div>
+                    <div class="metric-label">Compromiso</div>
+                </div>
+            </div>
+        </section>
 
-      <!-- ================== -->
-      <!-- CASOS DE USO        -->
-      <!-- ================== -->
-      <section class="section glass" id="casos">
-        <div class="section-head">
-          <h2>Casos de uso</h2>
-          <p>Cómo aplico tecnología para resolver problemas concretos.</p>
-        </div>
-        <div class="grid grid-3">
-          <article class="card">
-            <h3>Automatización RRHH</h3>
-            <p data-audience="hr">Digitalicé tareas repetitivas que consumían una semana de trabajo administrativo: hoy se ejecutan en pocos clics.</p>
-            <p data-audience="tech">Flujos con PHP/Python conectando origen de datos, validaciones y salida estructurada para acelerar procesos internos.</p>
-          </article>
-          <article class="card">
-            <h3>OCR para PDF</h3>
-            <p data-audience="hr">Transforma documentos bloqueados en texto útil para operar más rápido y sin errores de copia.</p>
-            <p data-audience="tech">Pipeline OCR con control de errores, limpieza de texto y salida reutilizable para automatizaciones posteriores.</p>
-          </article>
-          <article class="card">
-            <h3>VoxFlow (TTS)</h3>
-            <p data-audience="hr">Convierte texto en audio de forma práctica para comunicación, contenidos y accesibilidad.</p>
-            <p data-audience="tech">Herramienta Python con flujo de audio reproducible, pensada para integraciones sencillas y mantenibles.</p>
-          </article>
-        </div>
-      </section>
+        <section class="container section">
+            <div class="section-head">
+                <div>
+                    <h2>Proyectos Destacados</h2>
+                    <p>Una selección de trabajos recientes que muestran mi capacidad técnica y enfoque en resultados.</p>
+                </div>
+                <a href="projects/" class="btn">Ver todos</a>
+            </div>
+            
+            <div class="grid grid-2" data-featured-project-list data-catalog-url="projects/catalog.json" data-count="4">
+                <!-- Los proyectos se cargan dinámicamente vía app.js -->
+            </div>
+        </section>
 
-      <!-- ========================= -->
-      <!-- PROYECTOS DESTACADOS       -->
-      <!-- ========================= -->
-      <section class="section glass" id="destacados">
-        <div class="section-head">
-          <h2>Proyectos destacados</h2>
-          <a class="btn" href="projects/">Ver todos</a>
-        </div>
-        <div class="grid grid-2" data-featured-project-list data-count="4" data-catalog-url="projects/catalog.json"></div>
-      </section>
-
-      <!-- ========================= -->
-      <!-- WEBS PUBLICADAS            -->
-      <!-- ========================= -->
-      <section class="section glass" id="webs">
-        <div class="section-head">
-          <h2>Webs publicadas</h2>
-          <p>Proyectos online en producción.</p>
-        </div>
-        <div class="grid grid-3">
-          <article class="card">
-            <h3>Colegio Legamar</h3>
-            <p>Web corporativa y educativa en producción.</p>
-            <a class="btn" href="https://www.colegiolegamar.com" target="_blank" rel="noopener">Visitar</a>
-          </article>
-          <article class="card">
-            <h3>Humanitas Torrejón</h3>
-            <p>Presencia digital orientada a familias y captación.</p>
-            <a class="btn" href="https://www.humanitastorrejon.com" target="_blank" rel="noopener">Visitar</a>
-          </article>
-          <article class="card">
-            <h3>Humanitas Educación</h3>
-            <p>Web institucional con enfoque en claridad y confianza.</p>
-            <a class="btn" href="https://www.humanitaseducacion.com" target="_blank" rel="noopener">Visitar</a>
-          </article>
-        </div>
-      </section>
-
-      <!-- ========================= -->
-      <!-- SOBRE MÍ                   -->
-      <!-- ========================= -->
-      <section class="section glass" id="sobre-mi">
-        <div class="section-head">
-          <h2>Sobre mí</h2>
-        </div>
-        <p data-audience="hr">Soy Juan Antonio Sánchez Plaza, Responsable de Desarrollo Web. Mi objetivo es simple: que el área digital ayude de verdad al negocio. He liderado desarrollos para centros educativos y automatizaciones de RRHH que reducen tiempos, errores y dependencia de tareas manuales.</p>
-        <p data-audience="tech">Trabajo con visión de producto: entregas iterativas, código mantenible y documentación útil. Me apoyo en IA aplicada para acelerar análisis, refactorizar con criterio y generar mejoras medibles en ciclos cortos.</p>
-      </section>
-
-      <!-- ========================= -->
-      <!-- CONTACTO                  -->
-      <!-- ========================= -->
-      <section class="section glass contact-box" id="contacto">
-        <div class="section-head">
-          <h2>Contacto</h2>
-        </div>
-        <p>Email: <a href="mailto:juanantoniosanchezplaza@hotmail.com?subject=Contacto%20profesional&body=Hola%20Sabas%2C%20quiero%20hablar%20contigo%20sobre...">juanantoniosanchezplaza@hotmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">juanantoniosanchezplaza</a></p>
-        <p>GitHub: <a href="https://github.com/djSaBaS" target="_blank" rel="noopener">djSaBaS</a></p>
-      </section>
-
-      <!-- ========================= -->
-      <!-- FOOTER                    -->
-      <!-- ========================= -->
-      <footer>
-        © <span data-year></span> Juan Antonio Sánchez Plaza a.k.a SaBaS · <a href="./">Inicio</a> · <a href="projects/">Proyectos</a> · <a href="cv/">CV</a> · <a href="about/">Sobre mí</a>
-      </footer>
+        <section id="contacto" class="container section">
+            <div class="card glass contact-box">
+                <h2>¿Hablamos?</h2>
+                <p>Estoy abierto a nuevas oportunidades y colaboraciones técnicas.</p>
+                <div class="actions">
+                    <a href="mailto:tu-email@ejemplo.com" class="btn primary"><i class="bi bi-envelope"></i> Email</a>
+                    <a href="https://linkedin.com/in/tu-perfil" class="btn"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                    <a href="https://github.com/djSaBaS" class="btn"><i class="bi bi-github"></i> GitHub</a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- ========================= -->
-    <!-- SCRIPT PRINCIPAL          -->
-    <!-- ========================= -->
+    <footer class="container">
+        <p>&copy; 2024 Sabas · Construido con pasión y código limpio.</p>
+    </footer>
+
+    <!-- Scripts -->
     <script src="app.js"></script>
-  </body>
+</body>
 </html>

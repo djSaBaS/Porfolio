@@ -21,6 +21,18 @@
     <meta name="keywords" content="Juan Antonio Sánchez Plaza, SaBaS, currículum, formación, desarrollo web, automatización, IA aplicada" />
     <meta name="twitter:title" content="CV de Juan Antonio Sánchez Plaza (SaBaS)" />
     <meta name="twitter:description" content="Resultados, formación y responsabilidades en entornos reales." />
+    
+    <!-- Fuertes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- SVG.js para la Vista Tech -->
+    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body data-view="hr">
@@ -31,7 +43,12 @@
           <a href="../">Inicio</a><a href="../projects/">Proyectos</a><a href="./" aria-current="page">CV</a><a href="../about/">Sobre mí</a><a href="#contacto">Contacto</a>
         </nav>
         <div class="toggle" role="group" aria-label="Cambiar vista RRHH o técnica">
-          <button type="button" data-toggle-view="hr" aria-pressed="true">RRHH</button><button type="button" data-toggle-view="tech" aria-pressed="false">Tech</button>
+          <button type="button" data-toggle-view="hr" aria-pressed="true">
+            <i class="bi bi-person-badge"></i> RRHH
+          </button>
+          <button type="button" data-toggle-view="tech" aria-pressed="false">
+            <i class="bi bi-code-slash"></i> Tech
+          </button>
         </div>
       </div>
     </header>
@@ -51,19 +68,24 @@
 
       <section class="section glass">
         <h2>Trayectoria profesional y formación</h2>
-        <p data-audience="hr">Vista vertical orientada a reclutadores: lectura directa, filtros claros y contexto rápido de evolución profesional y formativa.</p>
-        <p data-audience="tech">Vista tipo workflow técnico: experiencia como rama principal y formación como ramas secundarias para visualizar evolución, cambios y especialización.</p>
+        <p data-audience="hr">Vista vertical orientada a reclutadores: lectura directa y contexto rápido de evolución profesional.</p>
+        <p data-audience="tech">Vista tipo workflow técnico: experiencia como rama principal y formación como ramas secundarias.</p>
 
-        <div class="cv-timeline-tools" data-timeline-root data-json-url="../assets/json/datos.json">
-          <p class="metric-label">Total visible: <span data-timeline="count">0</span></p>
-          <div data-timeline="container" class="cv-timeline-container" aria-live="polite"></div>
+        <!-- Contenedores de la Nueva Línea de Tiempo -->
+        <div class="timeline-viewport">
+            <div data-tech-timeline class="tech-container" data-audience="tech">
+                <!-- Se renderiza vía JS -->
+            </div>
+            <div data-rrhh-timeline class="rrhh-container" data-audience="hr">
+                <!-- Se renderiza vía JS -->
+            </div>
         </div>
       </section>
 
       <section class="section glass" id="formacion">
-        <h2>Formación</h2>
-        <p>El detalle de cursos, certificaciones y búsquedas específicas se mantiene en su apartado dedicado.</p>
-        <a class="btn" href="../cursos/">Ir al apartado de Formación</a>
+        <h2>Formación Detallada</h2>
+        <p>El detalle completo de todos mis cursos y certificaciones (más de 4000h de formación) se encuentra en su apartado dedicado.</p>
+        <a class="btn" href="../cursos/">Ver todos los cursos</a>
       </section>
 
       <section class="section glass contact-box" id="contacto">
@@ -74,8 +96,26 @@
       </section>
     </main>
 
-    <footer class="container">© <span data-year></span> Sabas</footer>
+    <!-- Modal Compartido -->
+    <div id="event-modal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-window shadow">
+            <button class="modal-close" aria-label="Cerrar modal"><i class="bi bi-x-lg"></i></button>
+            <div id="modal-content">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="container">© <span>2024</span> Sabas</footer>
+
+    <!-- Scripts del Sistema de Línea de Tiempo -->
+    <script src="../js/data-loader.js"></script>
+    <script src="../js/tech-view.js"></script>
+    <script src="../js/rrhh-view.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/main.js"></script>
+    
+    <!-- Script base para funcionalidades generales (lupa, etc) -->
     <script src="../app.js"></script>
-    <script src="../assets/js/timeline.js"></script>
   </body>
 </html>

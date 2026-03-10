@@ -1,0 +1,209 @@
+:root {
+    --bg-dark: #0f172a;
+    --bg-dark-soft: #1e293b;
+    --bg-dark-glass: rgba(15, 23, 42, 0.7);
+    --primary: #0ea5e9;
+    --secondary: #94a3b8;
+    --accent-orange: #f59e0b;
+    --accent-violet: #8b5cf6;
+    --accent-green: #10b981;
+    --text-muted: #64748b;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: #f8fafc;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .btn-pill {
+    font-family: 'Outfit', sans-serif;
+}
+
+.highlight-text {
+    background: linear-gradient(135deg, #fff 30%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Containers */
+.bg-dark-glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background-color: var(--bg-dark-glass);
+}
+
+.shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Switcher Styles */
+#viewSwitcher .btn-pill {
+    border: none;
+    border-radius: 50px;
+    color: var(--secondary);
+    transition: var(--transition-smooth);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+#viewSwitcher .btn-pill:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#viewSwitcher .btn-pill.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+}
+
+/* Timeline Views */
+.timeline-view {
+    transition: opacity 0.5s ease;
+}
+
+/* Vista RRHH Vertical */
+#canvas-rrhh {
+    position: relative;
+    padding-left: 20px;
+}
+
+#canvas-rrhh::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    background: linear-gradient(to bottom, var(--accent-orange), var(--primary), var(--accent-violet), var(--accent-green));
+    border-radius: 10px;
+    transform: translateX(-50%);
+}
+
+.rrhh-card {
+    position: relative;
+    width: 45%;
+    margin-bottom: 50px;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.rrhh-card.left { float: left; clear: right; text-align: right; padding-right: 40px; }
+.rrhh-card.right { float: right; clear: left; text-align: left; padding-left: 40px; }
+
+.rrhh-card::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    width: 24px;
+    height: 24px;
+    background: var(--bg-dark);
+    border: 4px solid var(--primary);
+    border-radius: 50%;
+    z-index: 5;
+}
+
+.rrhh-card.left::after { right: -52px; }
+.rrhh-card.right::after { left: -52px; }
+
+.rrhh-card:hover {
+    transform: translateY(-5px);
+}
+
+.rrhh-card .card-inner {
+    background: var(--bg-dark-soft);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.rrhh-card:hover .card-inner {
+    border-color: var(--primary);
+    box-shadow: 0 10px 40px rgba(14, 165, 233, 0.15);
+}
+
+/* Formación Bullet (Pequeño) */
+.rrhh-edu-item {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin: 30px 0;
+    z-index: 10;
+}
+
+.rrhh-edu-bullet {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--bg-dark-soft);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    font-size: 0.85rem;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.rrhh-edu-bullet:hover {
+    border-color: var(--accent-violet);
+    transform: scale(1.05);
+    background: rgba(139, 92, 246, 0.1);
+}
+
+/* Adaptación Móvil RRHH */
+@media (max-width: 768px) {
+    #canvas-rrhh::before { left: 20px; }
+    .rrhh-card { width: 100%; float: none; text-align: left; padding-left: 50px; padding-right: 0; }
+    .rrhh-card.left::after, .rrhh-card.right::after { left: -32px; right: auto; }
+}
+
+/* Estilos de la Modal */
+.modal-content {
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.lead-sm { font-size: 1.05rem; }
+
+.skill-chip {
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    transition: var(--transition-smooth);
+}
+
+.skill-chip i { margin-right: 6px; color: var(--primary); }
+
+.skill-chip:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+}
+
+/* Efectos Tech View */
+#canvas-tech {
+    cursor: grab;
+    user-select: none;
+}
+
+#canvas-tech:active { cursor: grabbing; }
+
+.tech-node {
+    transition: var(--transition-smooth);
+}
+
+.tech-node:hover {
+    filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.8));
+}
+
+.tech-label {
+    font-size: 12px;
+    font-weight: 600;
+    pointer-events: none;
+}

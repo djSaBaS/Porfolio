@@ -492,12 +492,17 @@
     fetch(jsonUrl)
       .then((response) => {
         if (!response.ok) {
+          list.innerHTML = `<p class="error">Error al cargar datos: ${response.status}</p>`;
           throw new Error(`No se pudo cargar ${jsonUrl}`);
         }
 
         return response.json();
       })
       .then((courses) => {
+        if (!courses || courses.length === 0) {
+          list.innerHTML = `<p class="note">No se encontraron cursos disponibles en este momento.</p>`;
+          return;
+        }
         let activeTag = "";
         let searchText = "";
         let activeType = "all";
