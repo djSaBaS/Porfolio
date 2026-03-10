@@ -73,10 +73,17 @@
 
         <!-- Contenedores de la Nueva Línea de Tiempo -->
         <div class="timeline-viewport">
-            <div data-tech-timeline class="tech-container" data-audience="tech">
+            <!-- Loader opcional -->
+            <div id="view-loader" class="text-center d-none">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+
+            <div id="canvas-tech" data-tech-timeline class="tech-container" data-audience="tech">
                 <!-- Se renderiza vía JS -->
             </div>
-            <div data-rrhh-timeline class="rrhh-container" data-audience="hr">
+            <div id="canvas-rrhh" data-rrhh-timeline class="rrhh-container" data-audience="hr">
                 <!-- Se renderiza vía JS -->
             </div>
         </div>
