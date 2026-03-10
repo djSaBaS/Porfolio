@@ -476,7 +476,7 @@
     }
   }
 
-  /* Pinto la formación desde JSON con filtro por skills. */
+  /* Pinto la formación desde JSON con buscador + filtros de tipo/etapa/tags. */
   function renderEducation() {
     const list = document.querySelector("[data-education-list]");
 
@@ -485,6 +485,8 @@
     const jsonUrl = list.getAttribute("data-json-url") || "../assets/json/formacion.json";
     const filtersContainer = document.querySelector("[data-education-filters]");
     const searchInput = document.querySelector("[data-education-search]");
+    const typeSelect = document.querySelector("[data-education-type]");
+    const stageSelect = document.querySelector("[data-education-stage]");
     const totalHoursNode = document.querySelector("[data-education-hours-total]");
 
     fetch(jsonUrl)
@@ -496,21 +498,43 @@
         return response.json();
       })
       .then((courses) => {
-        let activeSkill = "Todas";
+        let activeTag = "";
         let searchText = "";
-        const allSkills = [...new Set(courses.flatMap((course) => course.skills || []))];
+        let activeType = "all";
+        let activeStage = "all";
+
+        const allTypes = [...new Set(courses.map((course) => course.tipo).filter(Boolean))]
+          .sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
+        const allStages = [...new Set(courses.map((course) => course.sector).filter(Boolean))]
+          .sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
+        const allTags = [...new Set(courses.flatMap((course) => course.skills || []))]
+          .sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
+
+        if (typeSelect) {
+          typeSelect.innerHTML = `<option value="all">Todos los tipos</option>${allTypes
+            .map((type) => `<option value="${type}">${type}</option>`)
+            .join("")}`;
+        }
+
+        if (stageSelect) {
+          stageSelect.innerHTML = `<option value="all">Todas las etapas</option>${allStages
+            .map((stage) => `<option value="${stage}">${stage}</option>`)
+            .join("")}`;
+        }
 
         const paint = () => {
           list.replaceChildren();
 
           const filtered = courses.filter((course) => {
-            const bySkill = activeSkill === "Todas" || course.skills.includes(activeSkill);
+            const byTag = !activeTag || (course.skills || []).includes(activeTag);
+            const byType = activeType === "all" || course.tipo === activeType;
+            const byStage = activeStage === "all" || course.sector === activeStage;
             const bySearch =
               !searchText ||
-              course.title.toLowerCase().includes(searchText) ||
-              course.provider.toLowerCase().includes(searchText) ||
+              course.titulo.toLowerCase().includes(searchText) ||
+              course.centro.toLowerCase().includes(searchText) ||
               (course.skills || []).join(" ").toLowerCase().includes(searchText);
-            return bySkill && bySearch;
+            return byTag && byType && byStage && bySearch;
           });
 
           filtered.forEach((course) => {
@@ -518,25 +542,27 @@
             card.className = "card";
 
             const title = document.createElement("h3");
-            title.textContent = course.title;
+            title.textContent = course.titulo;
 
             const meta = document.createElement("p");
             meta.className = "metric-label";
-            meta.textContent = `${course.provider} · ${course.year} · ${course.hours}h`;
+            meta.textContent = `${course.centro} · ${course.inicio} → ${course.fin} · ${course.horas || 0}h · ${course.tipo}`;
 
-            const hrText = document.createElement("p");
-            hrText.setAttribute("data-audience", "hr");
-            hrText.textContent = course.hrSummary;
-
-            const techText = document.createElement("p");
-            techText.setAttribute("data-audience", "tech");
-            techText.textContent = course.techSummary;
+            const summary = document.createElement("p");
+            summary.textContent = course.extracto || course.descripcion || "Sin resumen disponible.";
 
             const badges = document.createElement("div");
             badges.className = "badges";
-            (course.skills || []).forEach((skill) => badges.appendChild(createBadge(skill)));
+            (course.skills || []).forEach((skill) => {
+              const skillBadge = document.createElement("span");
+              skillBadge.className = "badge";
+              skillBadge.title = skill;
+              skillBadge.setAttribute("aria-label", skill);
+              skillBadge.appendChild(safeText(`${getSkillIcon(skill)} ${skill}`));
+              badges.appendChild(skillBadge);
+            });
 
-            card.append(title, meta, hrText, techText, badges);
+            card.append(title, meta, summary, badges);
             list.appendChild(card);
           });
 
@@ -544,7 +570,7 @@
         };
 
         if (totalHoursNode) {
-          const totalHours = courses.reduce((sum, course) => sum + Number(course.hours || 0), 0);
+          const totalHours = courses.reduce((sum, course) => sum + Number(course.horas || 0), 0);
           totalHoursNode.textContent = String(totalHours);
         }
 
@@ -555,18 +581,38 @@
           });
         }
 
+        if (typeSelect) {
+          typeSelect.addEventListener("change", () => {
+            activeType = typeSelect.value || "all";
+            paint();
+          });
+        }
+
+        if (stageSelect) {
+          stageSelect.addEventListener("change", () => {
+            activeStage = stageSelect.value || "all";
+            paint();
+          });
+        }
+
         if (filtersContainer) {
-          ["Todas", ...allSkills].forEach((skill) => {
+          filtersContainer.replaceChildren();
+          allTags.forEach((tag) => {
             const button = document.createElement("button");
             button.type = "button";
-            button.className = "filter-btn" + (skill === "Todas" ? " active" : "");
-            button.textContent = skill;
+            button.className = "filter-btn";
+            button.textContent = tag;
+            button.setAttribute("aria-pressed", "false");
             button.addEventListener("click", () => {
-              activeSkill = skill;
+              const isActive = activeTag === tag;
+              activeTag = isActive ? "" : tag;
               filtersContainer
                 .querySelectorAll(".filter-btn")
-                .forEach((node) => node.classList.remove("active"));
-              button.classList.add("active");
+                .forEach((node) => {
+                  const pressed = node.textContent === activeTag;
+                  node.classList.toggle("active", pressed);
+                  node.setAttribute("aria-pressed", String(pressed));
+                });
               paint();
             });
             filtersContainer.appendChild(button);
@@ -579,30 +625,75 @@
   }
 
 
+
   /* Devuelvo un icono simple para cada skill del timeline. */
   function getSkillIcon(skill) {
+    const normalized = String(skill || "").trim().toLowerCase();
     const map = {
-      Python: "🐍",
-      Automatización: "⚙️",
-      "Data Processing": "🧮",
-      IA: "🤖",
-      "Prompt Engineering": "💬",
-      Productividad: "🚀",
-      PHP: "🐘",
-      JavaScript: "🟨",
-      MySQL: "🛢️",
-      HTML: "🌐",
-      CSS: "🎨",
-      WordPress: "🧩",
-      UX: "🧠",
-      SQL: "🗃️",
-      Analítica: "📊",
-      Data: "📈",
-      Scrum: "🔁",
-      Gestión: "🧭",
+      python: "🐍",
+      "lógica de programación": "🧠",
+      "estructuras de datos": "🧮",
+      "programación modular": "🧩",
+      funciones: "ƒ",
+      colecciones: "📚",
+      "inteligencia artificial": "🤖",
+      chatgpt: "💬",
+      "desarrollo de software": "💻",
+      programación: "⌨️",
+      "modelos de lenguaje": "🗣️",
+      "herramientas digitales": "🛠️",
+      "productividad empresarial": "📈",
+      "transformación digital": "🔄",
+      git: "🌿",
+      html: "🌐",
+      css: "🎨",
+      javascript: "🟨",
+      jquery: "🧷",
+      php: "🐘",
+      mysql: "🛢️",
+      mongodb: "🍃",
+      angular: "🅰️",
+      symfony: "🎼",
+      "node.js": "🟢",
+      react: "⚛️",
+      "desarrollo web": "🕸️",
+      "front-end": "🖼️",
+      "back-end": "🧱",
+      servidores: "🖥️",
+      "tecnologías web": "🔧",
+      "programación orientada a objetos": "📦",
+      poo: "📦",
+      "bases de datos relacionales": "🗃️",
+      sql: "🗄️",
+      "sistemas informáticos": "💾",
+      webmaster: "🧑‍💻",
+      "gestión de servidores": "🛡️",
+      hosting: "☁️",
+      digitalización: "🪄",
+      "competencias digitales": "📱",
+      datos: "📊",
+      "contenidos digitales": "📰",
+      pdo: "🔌",
+      excepciones: "⚠️",
+      autoloading: "📥",
+      composer: "🎵",
+      frameworks: "🏗️",
+      "gestión de redes": "🕸️",
+      "soporte informático": "🆘",
+      "administración de sistemas": "⚙️",
+      "servicios del sistema": "🧰",
+      automatización: "⚙️",
+      ia: "🤖",
+      productividad: "🚀",
+      wordpress: "🧩",
+      ux: "🧠",
+      analítica: "📊",
+      data: "📈",
+      scrum: "🔁",
+      gestión: "🧭",
     };
 
-    return map[skill] || "•";
+    return map[normalized] || "•";
   }
 
   /* Compruebo que una URL sea segura (http/https) antes de pintarla en enlaces. */
