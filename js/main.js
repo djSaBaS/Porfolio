@@ -4,58 +4,47 @@
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const loader = document.getElementById('view-loader');
-    const viewSwitcher = document.getElementById('viewSwitcher');
-    const techView = document.getElementById('view-tech');
-    const rrhhView = document.getElementById('view-rrhh');
-    const buttons = viewSwitcher.querySelectorAll('button');
-
-    // Mostrar loader al inicio
-    loader.classList.remove('d-none');
+    // Selectores más robustos basados en atributos de datos o clases existentes
+    const techTimeline = document.querySelector('[data-tech-timeline]');
+    const rrhhTimeline = document.querySelector('[data-rrhh-timeline]');
+    
+    // Si no estamos en una página con línea de tiempo, salimos discretamente
+    if (!techTimeline && !rrhhTimeline) return;
 
     try {
-        // Cargar datos
+        // Cargar datos de forma centralizada
         const data = await window.dataLoader.loadAll();
         
-        // Inicializar Vistas (Render inicial)
-        window.techRenderer.init(data);
-        window.rrhhRenderer.init(data);
+        // Inicializar renderers si los contenedores existen
+        if (techTimeline) window.techRenderer.init(data);
+        if (rrhhTimeline) window.rrhhRenderer.init(data);
 
-        // Ocultar loader
-        loader.classList.add('d-none');
-
-        // Manejar Cambio de Vistas
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const view = btn.getAttribute('data-view');
-                
-                // Actualizar UI del Switcher
-                buttons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                // Cambiar Visibilidad de Contenedores
-                if (view === 'tech') {
-                    techView.classList.remove('d-none');
-                    rrhhView.classList.add('d-none');
-                    // Re-render o ajuste si es necesario
-                    window.techRenderer.render();
-                } else {
-                    techView.classList.add('d-none');
-                    rrhhView.classList.remove('d-none');
-                    window.rrhhRenderer.render();
+        // Escuchar cambios de vista (el toggle lo maneja app.js cambiando data-view en el body)
+        // Observamos cambios en el atributo data-view del body para re-renderizar si es necesario
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'data-view') {
+                    const currentView = document.body.getAttribute('data-view');
+                    if (currentView === 'tech' && techTimeline) {
+                        window.techRenderer.render();
+                    } else if (currentView === 'hr' && rrhhTimeline) {
+                        window.rrhhRenderer.render();
+                    }
                 }
             });
         });
 
+        observer.observe(document.body, { attributes: true });
+
         // Manejar Resize Responsivo
         window.addEventListener('resize', () => {
-            if (!techView.classList.contains('d-none')) {
+            const currentView = document.body.getAttribute('data-view');
+            if (currentView === 'tech' && techTimeline) {
                 window.techRenderer.render();
             }
         });
 
     } catch (error) {
-        loader.innerHTML = `<p class="text-danger">Error al cargar la trayectoria. Por favor, recarga la página.</p>`;
-        console.error("Error en la inicialización:", error);
+        console.error("Error en la inicialización de la línea de tiempo:", error);
     }
 });
