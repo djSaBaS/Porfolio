@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Línea de tiempo de formación | Juan Antonio Sánchez Plaza (SaBaS)</title>
-  <meta name="description" content="Línea de tiempo vertical de formación técnica y cursos de Juan Antonio Sánchez Plaza (SaBaS)." />
+  <title>Formación | Juan Antonio Sánchez Plaza (SaBaS)</title>
+  <meta name="description" content="Apartado de formación con buscador y filtros de cursos y certificaciones de Juan Antonio Sánchez Plaza (SaBaS)." />
   <link rel="canonical" href="https://djsabas.github.io/Porfolio/cursos/" />
   <link rel="stylesheet" href="../style.css" />
 </head>
@@ -16,7 +16,7 @@
         <a href="../">Inicio</a>
         <a href="../projects/">Proyectos</a>
         <a href="../cv/">CV</a>
-        <a href="./" aria-current="page">Cursos</a>
+        <a href="./" aria-current="page">Formación</a>
         <a href="../about/">Sobre mí</a>
       </nav>
     </div>
@@ -25,10 +25,13 @@
   <main class="container">
     <section class="section glass">
       <div class="section-head">
-        <h1>Línea de tiempo de formación</h1>
+        <h1>Formación</h1>
       </div>
-      <p>Resumen visual combinado de cursos y experiencia laboral. La formación se alterna a izquierda/derecha y la trayectoria profesional aparece superpuesta en el eje central con una línea más gruesa por etapa.</p>
-      <div class="timeline" data-course-timeline data-courses-url="../assets/json/formacion.json" data-works-url="../assets/json/trabajos.json"></div>
+      <p>Buscador y filtros de cursos/certificaciones con detalle orientado a revisión rápida.</p>
+      <p><strong>Total acreditado:</strong> <span data-education-hours-total>1120</span> horas de formación.</p>
+      <input class="education-search" type="search" data-education-search placeholder="Buscar curso, proveedor o skill..." aria-label="Buscar cursos" />
+      <div class="filters" data-education-filters></div>
+      <div class="grid grid-2" data-education-list data-json-url="../assets/json/formacion.json"></div>
     </section>
 
     <section class="section glass contact-box" id="contacto">
@@ -40,21 +43,6 @@
 
     <footer>© <span data-year></span> Sabas</footer>
   </main>
-
-  <div class="timeline-modal" data-timeline-modal hidden>
-    <div class="timeline-modal__backdrop" data-close-timeline-modal></div>
-    <article class="timeline-modal__content glass" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title">
-      <button type="button" class="timeline-modal__close" data-close-timeline-modal aria-label="Cerrar detalle">✕</button>
-      <h3 id="timeline-modal-title" data-modal-title></h3>
-      <p class="metric-label" data-modal-meta></p>
-      <p data-modal-description></p>
-      <div class="badges" data-modal-skills></div>
-      <div class="actions">
-        <a class="btn primary" href="#" target="_blank" rel="noopener" data-modal-more-info>Más info</a>
-        <a class="btn" href="#" target="_blank" rel="noopener" data-modal-certificate>Certificado</a>
-      </div>
-    </article>
-  </div>
 
   <script src="../app.js"></script>
 </body>
