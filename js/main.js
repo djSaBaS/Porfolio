@@ -7,11 +7,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Selectores más robustos basados en atributos de datos o clases existentes
     const techTimeline = document.querySelector('[data-tech-timeline]');
     const rrhhTimeline = document.querySelector('[data-rrhh-timeline]');
+    const loader = document.getElementById('view-loader');
     
     // Si no estamos en una página con línea de tiempo, salimos discretamente
     if (!techTimeline && !rrhhTimeline) return;
 
+    // Mostrar loader si existe
+    if (loader) loader.classList.remove('d-none');
+
     try {
+        if (!window.dataLoader) throw new Error("DataLoader no encontrado");
+
         // Cargar datos de forma centralizada
         const data = await window.dataLoader.loadAll();
         
@@ -19,8 +25,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (techTimeline) window.techRenderer.init(data);
         if (rrhhTimeline) window.rrhhRenderer.init(data);
 
+        // Ocultar loader al finalizar
+        if (loader) loader.classList.add('d-none');
+
         // Escuchar cambios de vista (el toggle lo maneja app.js cambiando data-view en el body)
-        // Observamos cambios en el atributo data-view del body para re-renderizar si es necesario
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.attributeName === 'data-view') {
@@ -46,5 +54,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     } catch (error) {
         console.error("Error en la inicialización de la línea de tiempo:", error);
+        if (loader) {
+            loader.innerHTML = `<p class="text-danger small">Error al cargar datos. Comprueba la consola.</p>`;
+        }
     }
 });

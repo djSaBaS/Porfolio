@@ -479,15 +479,18 @@
   /* Pinto la formación desde JSON con buscador + filtros de tipo/etapa/tags. */
   function renderEducation() {
     const list = document.querySelector("[data-education-list]");
-
     if (!list) return;
 
-    const jsonUrl = list.getAttribute("data-json-url") || "../assets/json/formacion.json";
+    // Detectar si estamos en subcarpeta para ajustar la ruta
+    const isSubfolder = window.location.pathname.includes('/cursos/') || window.location.pathname.includes('/cv/');
+    const prefix = isSubfolder ? '../' : '';
+    const jsonUrl = `${prefix}assets/json/datos.json`;
+
     const filtersContainer = document.querySelector("[data-education-filters]");
-    const searchInput = document.querySelector("[data-education-search]");
-    const typeSelect = document.querySelector("[data-education-type]");
-    const stageSelect = document.querySelector("[data-education-stage]");
-    const totalHoursNode = document.querySelector("[data-education-hours-total]");
+    const searchInput      = document.querySelector("[data-education-search]");
+    const typeSelect       = document.querySelector("[data-education-type]");
+    const stageSelect      = document.querySelector("[data-education-stage]");
+    const totalHoursNode   = document.querySelector("[data-education-hours-total]");
 
     fetch(jsonUrl)
       .then((response) => {
@@ -495,75 +498,71 @@
           list.innerHTML = `<p class="error">Error al cargar datos: ${response.status}</p>`;
           throw new Error(`No se pudo cargar ${jsonUrl}`);
         }
-
         return response.json();
       })
-      .then((courses) => {
-        if (!courses || courses.length === 0) {
-          list.innerHTML = `<p class="note">No se encontraron cursos disponibles en este momento.</p>`;
+      .then((allData) => {
+        // Filtrar solo los elementos de formación
+        const courses = allData.filter(item => item.kind === 'education');
+
+        if (!courses.length) {
+          list.innerHTML = `<p class="note">No se encontraron cursos disponibles.</p>`;
           return;
         }
-        let activeTag = "";
-        let searchText = "";
-        let activeType = "all";
+
+        let activeTag   = "";
+        let searchText  = "";
+        let activeType  = "all";
         let activeStage = "all";
 
-        const allTypes = [...new Set(courses.map((course) => course.tipo).filter(Boolean))]
-          .sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
-        const allStages = [...new Set(courses.map((course) => course.sector).filter(Boolean))]
-          .sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
-        const allTags = [...new Set(courses.flatMap((course) => course.skills || []))]
-          .sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
+        const allTypes  = [...new Set(courses.map(c => c.category).filter(Boolean))].sort();
+        const allStages = [...new Set(courses.map(c => c.stage).filter(Boolean))].sort();
+        const allTags   = [...new Set(courses.flatMap(c => c.tags || []))].sort();
 
         if (typeSelect) {
           typeSelect.innerHTML = `<option value="all">Todos los tipos</option>${allTypes
-            .map((type) => `<option value="${type}">${type}</option>`)
-            .join("")}`;
+            .map(t => `<option value="${t}">${t}</option>`).join("")}`;
         }
-
         if (stageSelect) {
           stageSelect.innerHTML = `<option value="all">Todas las etapas</option>${allStages
-            .map((stage) => `<option value="${stage}">${stage}</option>`)
-            .join("")}`;
+            .map(s => `<option value="${s}">${s}</option>`).join("")}`;
         }
 
         const paint = () => {
           list.replaceChildren();
 
-          const filtered = courses.filter((course) => {
-            const byTag = !activeTag || (course.skills || []).includes(activeTag);
-            const byType = activeType === "all" || course.tipo === activeType;
-            const byStage = activeStage === "all" || course.sector === activeStage;
-            const bySearch =
-              !searchText ||
-              course.titulo.toLowerCase().includes(searchText) ||
-              course.centro.toLowerCase().includes(searchText) ||
-              (course.skills || []).join(" ").toLowerCase().includes(searchText);
+          const filtered = courses.filter((c) => {
+            const byTag    = !activeTag   || (c.tags || []).includes(activeTag);
+            const byType   = activeType   === "all" || c.category === activeType;
+            const byStage  = activeStage  === "all" || c.stage === activeStage;
+            const bySearch = !searchText  ||
+              (c.title  || "").toLowerCase().includes(searchText) ||
+              (c.entity || "").toLowerCase().includes(searchText) ||
+              (c.tags   || []).join(" ").toLowerCase().includes(searchText);
             return byTag && byType && byStage && bySearch;
           });
 
           filtered.forEach((course) => {
             const card = document.createElement("article");
-            card.className = "card";
+            card.className = "card glass";
 
             const title = document.createElement("h3");
-            title.textContent = course.titulo;
+            title.textContent = course.title;
 
             const meta = document.createElement("p");
             meta.className = "metric-label";
-            meta.textContent = `${course.centro} · ${course.inicio} → ${course.fin} · ${course.horas || 0}h · ${course.tipo}`;
+            meta.textContent = `${course.entity || ''} · ${course.dateLabel || course.yearStart || ''} · ${course.hours || 0}h · ${course.category || ''}`;
 
             const summary = document.createElement("p");
-            summary.textContent = course.extracto || course.descripcion || "Sin resumen disponible.";
+            summary.textContent = course.excerpt || course.summary || "Sin resumen disponible.";
 
             const badges = document.createElement("div");
             badges.className = "badges";
-            (course.skills || []).forEach((skill) => {
+            (course.tags || []).forEach((tag) => {
               const skillBadge = document.createElement("span");
               skillBadge.className = "badge";
-              skillBadge.title = skill;
-              skillBadge.setAttribute("aria-label", skill);
-              skillBadge.appendChild(safeText(`${getSkillIcon(skill)} ${skill}`));
+              skillBadge.title = tag;
+              skillBadge.setAttribute("aria-label", tag);
+              skillBadge.appendChild(safeText(`${getSkillIcon(tag)} ${tag}`));
               badges.appendChild(skillBadge);
             });
 
@@ -575,7 +574,7 @@
         };
 
         if (totalHoursNode) {
-          const totalHours = courses.reduce((sum, course) => sum + Number(course.horas || 0), 0);
+          const totalHours = courses.reduce((sum, c) => sum + Number(c.hours || 0), 0);
           totalHoursNode.textContent = String(totalHours);
         }
 
@@ -585,19 +584,11 @@
             paint();
           });
         }
-
         if (typeSelect) {
-          typeSelect.addEventListener("change", () => {
-            activeType = typeSelect.value || "all";
-            paint();
-          });
+          typeSelect.addEventListener("change", () => { activeType = typeSelect.value || "all"; paint(); });
         }
-
         if (stageSelect) {
-          stageSelect.addEventListener("change", () => {
-            activeStage = stageSelect.value || "all";
-            paint();
-          });
+          stageSelect.addEventListener("change", () => { activeStage = stageSelect.value || "all"; paint(); });
         }
 
         if (filtersContainer) {
@@ -611,13 +602,11 @@
             button.addEventListener("click", () => {
               const isActive = activeTag === tag;
               activeTag = isActive ? "" : tag;
-              filtersContainer
-                .querySelectorAll(".filter-btn")
-                .forEach((node) => {
-                  const pressed = node.textContent === activeTag;
-                  node.classList.toggle("active", pressed);
-                  node.setAttribute("aria-pressed", String(pressed));
-                });
+              filtersContainer.querySelectorAll(".filter-btn").forEach((node) => {
+                const pressed = node.textContent === activeTag;
+                node.classList.toggle("active", pressed);
+                node.setAttribute("aria-pressed", String(pressed));
+              });
               paint();
             });
             filtersContainer.appendChild(button);
@@ -630,11 +619,20 @@
   }
 
 
-
   /* Devuelvo un icono simple para cada skill del timeline. */
+
   function getSkillIcon(skill) {
     const normalized = String(skill || "").trim().toLowerCase();
     const map = {
+      // Formación y Sectores
+      mecanica: "🔧",
+      sonido: "🔊",
+      "gestion de obra": "🏗️",
+      construccion: "🧱",
+      "prevencion de riesgos": "🦺",
+      fp: "🎓",
+      tecnico: "🛠️",
+      // Tech & IT
       python: "🐍",
       "lógica de programación": "🧠",
       "estructuras de datos": "🧮",
