@@ -29,8 +29,12 @@
       </div>
       <p>Buscador y filtros de cursos/certificaciones con detalle orientado a revisión rápida.</p>
       <p><strong>Total acreditado:</strong> <span data-education-hours-total>1120</span> horas de formación.</p>
-      <input class="education-search" type="search" data-education-search placeholder="Buscar curso, proveedor o skill..." aria-label="Buscar cursos" />
-      <div class="filters" data-education-filters></div>
+      <div class="cv-timeline-filters">
+        <input class="education-search" type="search" data-education-search placeholder="Buscar curso, proveedor o skill..." aria-label="Buscar cursos" />
+        <select data-education-type aria-label="Filtrar cursos por tipo"></select>
+        <select data-education-stage aria-label="Filtrar cursos por etapa"></select>
+      </div>
+      <div class="filters" data-education-filters aria-label="Filtrar por tags/skills"></div>
       <div class="grid grid-2" data-education-list data-json-url="../assets/json/formacion.json"></div>
     </section>
 

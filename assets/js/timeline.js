@@ -14,7 +14,8 @@ class CvTimeline {
     this.searchElement = root.querySelector('[data-filter="search"]');
     this.tagsElement = root.querySelector('[data-filter="tags"]');
     this.counterElement = root.querySelector('[data-timeline="count"]');
-    this.dataUrl = root.dataset.jsonUrl || "../assets/json/datos.json";
+    this.defaultDataUrl = "../assets/json/datos.json";
+    this.dataUrl = this.resolveDataUrl(root.dataset.jsonUrl);
 
     this.items = [];
     this.filtered = [];
@@ -35,6 +36,21 @@ class CvTimeline {
     const data = await response.json();
     if (!Array.isArray(data)) throw new Error("datos.json no contiene un array válido.");
     return data;
+  }
+
+  resolveDataUrl(rawUrl) {
+    const candidate = String(rawUrl || this.defaultDataUrl).trim();
+
+    try {
+      const parsed = new URL(candidate, window.location.href);
+      const isSameOrigin = parsed.origin === window.location.origin;
+      const isAllowedPath = /^\/assets\/json\/[\w./-]+\.json$/i.test(parsed.pathname);
+      if (isSameOrigin && isAllowedPath) return parsed.href;
+    } catch (error) {
+      console.warn("URL de datos inválida; se usará la ruta por defecto.", error);
+    }
+
+    return new URL(this.defaultDataUrl, window.location.href).href;
   }
 
   sortByDate(items) {
@@ -173,7 +189,7 @@ class CvTimeline {
             <h3>${this.renderTitle(item)}</h3>
             <p class="cv-tech-node__entity">${this.escape(item.entity || "")}</p>
             <p>${this.escape(item.summary || "")}</p>
-            <div class="cv-tech-node__tags">${(item.tags || []).slice(0, 6).map((tag) => `<span>${this.escape(tag)}</span>`).join("")}</div>
+            <ul class="cv-tech-node__tags">${(item.tags || []).slice(0, 6).map((tag) => `<li>${this.escape(tag)}</li>`).join("")}</ul>
           </article>`;
         })
         .join("")}

@@ -912,7 +912,7 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
 }
 
 .cv-hr-card__tags li,
-.cv-tech-node__tags span {
+.cv-tech-node__tags li {
   border-radius: 999px;
   border: 1px solid var(--border);
   padding: 0.15rem 0.5rem;
