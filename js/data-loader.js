@@ -11,11 +11,24 @@ class DataLoader {
 
     async loadAll() {
         try {
+            // Detectar si estamos en una subcarpeta (como /cv/) para ajustar la ruta
+            const isSubfolder = window.location.pathname.includes('/cv/') || window.location.pathname.includes('/cursos/');
+            const prefix = isSubfolder ? '../' : '';
+
             // Carga de archivos JSON en paralelo para mayor eficiencia
             const [trabajos, formacion, skills] = await Promise.all([
-                fetch('data/trabajos.json').then(res => res.json()),
-                fetch('data/formacion.json').then(res => res.json()),
-                fetch('data/skills.json').then(res => res.json())
+                fetch(`${prefix}data/trabajos.json`).then(res => {
+                    if (!res.ok) throw new Error(`Error al cargar trabajos: ${res.status}`);
+                    return res.json();
+                }),
+                fetch(`${prefix}data/formacion.json`).then(res => {
+                    if (!res.ok) throw new Error(`Error al cargar formación: ${res.status}`);
+                    return res.json();
+                }),
+                fetch(`${prefix}data/skills.json`).then(res => {
+                    if (!res.ok) throw new Error(`Error al cargar skills: ${res.status}`);
+                    return res.json();
+                })
             ]);
 
             // Mapear skills por key para acceso rápido O(1)
