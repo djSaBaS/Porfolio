@@ -814,3 +814,149 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
     text-align: left;
   }
 }
+
+/* === CV Timeline (RRHH + Tech) === */
+.cv-timeline-tools {
+  margin-top: 1rem;
+}
+
+.cv-timeline-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.cv-timeline-filters select,
+.cv-timeline-filters input {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  padding: 0.6rem 0.75rem;
+}
+
+.cv-timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.8rem 0;
+}
+
+.cv-timeline-container {
+  margin-top: 0.8rem;
+}
+
+.cv-hr-timeline {
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+  padding-left: 1.4rem;
+}
+
+.cv-hr-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(var(--secondary-rgb), 0.75), rgba(var(--primary-rgb), 0.75));
+}
+
+.cv-hr-card {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.9rem;
+  background: rgba(10, 16, 30, 0.72);
+}
+
+.cv-hr-card__dot {
+  position: absolute;
+  left: -1.31rem;
+  top: 1rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid var(--bg);
+  background: var(--item-color);
+}
+
+.cv-hr-card__meta,
+.cv-tech-node__date {
+  color: var(--muted);
+  font-size: 0.86rem;
+  margin: 0;
+}
+
+.cv-hr-card__entity,
+.cv-tech-node__entity {
+  color: var(--accent);
+  margin-top: 0.2rem;
+}
+
+.cv-hr-card__excerpt {
+  color: var(--muted);
+  margin-top: 0.35rem;
+}
+
+.cv-hr-card__tags,
+.cv-tech-node__tags {
+  list-style: none;
+  padding: 0;
+  margin: 0.55rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.cv-hr-card__tags li,
+.cv-tech-node__tags span {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.cv-tech-workflow {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+  gap: 0.8rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+}
+
+.cv-tech-node {
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--item-color) 50%, var(--border));
+  background: linear-gradient(180deg, rgba(8, 15, 28, 0.95), rgba(8, 15, 28, 0.68));
+  padding: 0.85rem;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.cv-tech-node--main {
+  box-shadow: inset 0 0 0 1px rgba(52, 211, 153, 0.35), 0 0 20px rgba(52, 211, 153, 0.15);
+}
+
+.cv-tech-node--branch {
+  transform: translateY(20px);
+}
+
+@media (max-width: 860px) {
+  .cv-timeline-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-tech-workflow {
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    overflow-x: visible;
+  }
+
+  .cv-tech-node--branch {
+    transform: none;
+  }
+}

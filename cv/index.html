@@ -16,17 +16,11 @@
       content="Experiencia y formación de Juan Antonio Sánchez Plaza (SaBaS) en desarrollo web, automatización RRHH e IA aplicada."
     />
     <meta property="og:url" content="https://djsabas.github.io/Porfolio/cv/" />
-    <meta
-      property="og:image"
-      content="https://djsabas.github.io/Porfolio/assets/og.png"
-    />
+    <meta property="og:image" content="https://djsabas.github.io/Porfolio/assets/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="keywords" content="Juan Antonio Sánchez Plaza, SaBaS, currículum, formación, desarrollo web, automatización, IA aplicada" />
     <meta name="twitter:title" content="CV de Juan Antonio Sánchez Plaza (SaBaS)" />
-    <meta
-      name="twitter:description"
-      content="Resultados, formación y responsabilidades en entornos reales."
-    />
+    <meta name="twitter:description" content="Resultados, formación y responsabilidades en entornos reales." />
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body data-view="hr">
@@ -34,119 +28,52 @@
       <div class="container nav-wrap">
         <a class="brand" href="../">Sabas · Portfolio</a>
         <nav class="nav-links" aria-label="Navegación principal">
-          <a href="../">Inicio</a><a href="../projects/">Proyectos</a
-          ><a href="./" aria-current="page">CV</a
-          ><a href="../about/">Sobre mí</a><a href="#contacto">Contacto</a>
+          <a href="../">Inicio</a><a href="../projects/">Proyectos</a><a href="./" aria-current="page">CV</a><a href="../about/">Sobre mí</a><a href="#contacto">Contacto</a>
         </nav>
-        <div
-          class="toggle"
-          role="group"
-          aria-label="Cambiar vista RRHH o técnica"
-        >
-          <button type="button" data-toggle-view="hr" aria-pressed="true">
-            RRHH</button
-          ><button type="button" data-toggle-view="tech" aria-pressed="false">
-            Tech
-          </button>
+        <div class="toggle" role="group" aria-label="Cambiar vista RRHH o técnica">
+          <button type="button" data-toggle-view="hr" aria-pressed="true">RRHH</button><button type="button" data-toggle-view="tech" aria-pressed="false">Tech</button>
         </div>
       </div>
     </header>
+
     <main class="container">
       <section class="section glass">
         <div class="section-head"><h1>Currículum — Sabas</h1></div>
         <p>
-          <strong>Nombre:</strong> Juan Antonio Sánchez Plaza (Sabas)<br /><strong
-            >Ubicación:</strong
-          >
+          <strong>Nombre:</strong> Juan Antonio Sánchez Plaza (Sabas)<br /><strong>Ubicación:</strong>
           Sur de Madrid / Illescas (Toledo)<br /><strong>Email:</strong>
-          <a href="mailto:juanantoniosanchezplaza@hotmail.com"
-            >juanantoniosanchezplaza@hotmail.com</a
-          >
+          <a href="mailto:juanantoniosanchezplaza@hotmail.com">juanantoniosanchezplaza@hotmail.com</a>
         </p>
         <div class="actions">
-          <a
-            class="btn primary"
-            href="../assets/01-cv-juanantoniosanchezplaza.pdf"
-            >Descargar CV PDF</a
-          ><a
-            class="btn"
-            href="https://www.linkedin.com/in/juanantoniosanchezplaza/"
-            target="_blank"
-            rel="noopener"
-            >LinkedIn</a
-          >
+          <a class="btn primary" href="../assets/01-cv-juanantoniosanchezplaza.pdf">Descargar CV PDF</a><a class="btn" href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </section>
+
       <section class="section glass">
-        <h2>Perfil profesional</h2>
-        <p data-audience="hr">
-          Responsable de Desarrollo Web orientado a impacto: digitalización de
-          operaciones, reducción de tareas manuales y mejora de experiencia para
-          usuarios internos y externos.
-        </p>
-        <p data-audience="tech">
-          Perfil híbrido producto/ingeniería: PHP/MySQL, Python, automatización
-          de procesos, integración con IA aplicada y mejora continua de calidad
-          de código/documentación.
-        </p>
+        <h2>Trayectoria profesional y formación</h2>
+        <p data-audience="hr">Vista vertical orientada a reclutadores: lectura directa, filtros claros y contexto rápido de evolución profesional y formativa.</p>
+        <p data-audience="tech">Vista tipo workflow técnico: experiencia como rama principal y formación como ramas secundarias para visualizar evolución, cambios y especialización.</p>
+
+        <div class="cv-timeline-tools" data-timeline-root data-json-url="../assets/json/datos.json">
+          <div class="cv-timeline-filters">
+            <select data-filter="kind" aria-label="Filtrar por tipo">
+              <option value="all">Todo</option>
+              <option value="work">Experiencia</option>
+              <option value="education">Formación</option>
+            </select>
+            <select data-filter="stage" aria-label="Filtrar por etapa"></select>
+            <input type="text" data-filter="search" placeholder="Buscar por texto o skill" aria-label="Buscar por texto o skill" />
+          </div>
+          <div data-filter="tags" class="cv-timeline-tags"></div>
+          <p class="metric-label">Total visible: <span data-timeline="count">0</span></p>
+          <div data-timeline="container" class="cv-timeline-container" aria-live="polite"></div>
+        </div>
       </section>
-      <section class="section glass">
-        <h2>Experiencia y logros</h2>
-        <article class="card">
-          <h3>Responsable de Desarrollo Web</h3>
-          <p data-audience="hr">
-            Diseño e implementación de soluciones digitales utilizadas por más
-            de 500 usuarios en 9 centros educativos. Publicación y mantenimiento
-            de más de 15 webs.
-          </p>
-          <p data-audience="tech">
-            Arquitectura web sobre PHP/MySQL, mejoras de rendimiento,
-            mantenimiento evolutivo y automatizaciones complementarias en
-            Python.
-          </p>
-        </article>
-        <article class="card">
-          <h3>Automatización de RRHH</h3>
-          <p data-audience="hr">
-            Transformé procesos que requerían una semana de trabajo en flujos
-            semiautomáticos ejecutables en pocos clics.
-          </p>
-          <p data-audience="tech">
-            Orquestación de entrada de datos, validación y salida estructurada
-            para minimizar errores humanos y tiempos de ciclo.
-          </p>
-        </article>
-        <article class="card">
-          <h3>IA aplicada al desarrollo</h3>
-          <p data-audience="hr">
-            Uso práctico de IA para acelerar entregas sin comprometer calidad.
-          </p>
-          <p data-audience="tech">
-            Prompts avanzados + GitHub/Codex para revisión técnica,
-            documentación asistida y mejora incremental del código.
-          </p>
-        </article>
-      </section>
+
       <section class="section glass" id="formacion">
-        <h2>Formación técnica continua</h2>
-        <p data-audience="hr">Mantengo una formación constante para responder mejor a necesidades reales de negocio: menos dependencia manual, más calidad operativa y mayor velocidad de entrega.</p>
-        <p data-audience="tech">La formación está orientada a aplicación directa: automatización en Python, arquitectura web con PHP/MySQL, analítica SQL y uso de IA con evaluación de resultados.</p>
-        <p><strong>Total acreditado:</strong> <span data-education-hours-total>1120</span> horas de formación.</p>
-        <a class="btn" href="../cursos/">Ver línea de tiempo de cursos y certificados</a>
-        <input class="education-search" type="search" data-education-search placeholder="Buscar curso, proveedor o skill..." aria-label="Buscar cursos" />
-        <div class="filters" data-education-filters></div>
-        <div class="grid grid-2" data-education-list data-json-url="../assets/json/formacion.json"></div>
-      </section>
-      <section class="section glass">
-        <h2>Stack y competencias</h2>
-        <div class="badges">
-          <span class="badge">PHP</span><span class="badge">MySQL</span
-          ><span class="badge">Python</span><span class="badge">JavaScript</span
-          ><span class="badge">WordPress</span
-          ><span class="badge">Automatización</span
-          ><span class="badge">IA aplicada</span
-          ><span class="badge">Git/GitHub</span>
-        </div>
+        <h2>Formación</h2>
+        <p>El detalle de cursos, certificaciones y búsquedas específicas se mantiene en su apartado dedicado.</p>
+        <a class="btn" href="../cursos/">Ir al apartado de Formación</a>
       </section>
 
       <section class="section glass contact-box" id="contacto">
@@ -156,7 +83,9 @@
         <p>GitHub: <a href="https://github.com/djSaBaS" target="_blank" rel="noopener">djSaBaS</a></p>
       </section>
     </main>
+
     <footer class="container">© <span data-year></span> Sabas</footer>
     <script src="../app.js"></script>
+    <script src="../assets/js/timeline.js"></script>
   </body>
 </html>
