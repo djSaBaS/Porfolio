@@ -23,35 +23,67 @@
 
     <!-- Librería SVG.js para el mapa de metro -->
     <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+    <!-- Plugin de filtros para SVG.js (Requerido para dar efecto Glow) -->
+    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.filter.js@3.0.8/dist/svg.filter.min.js"></script>
 </head>
 <body class="cv-page" data-view="hr">
 
-    <!-- Navegación y Cabecera -->
-    <header class="cv-header glass-premium m-3">
-        <div class="container d-flex justify-content-between align-items-center p-3">
-            <a href="../index.html" class="btn-back"><i class="bi bi-arrow-left"></i> Volver al Inicio</a>
-            <h1 class="m-0 fs-4 fw-bold">Mi Trayectoria Musical e Industrial</h1>
-            <div class="view-toggles">
-                <button id="toggle-rrhh" class="btn-toggle active" onclick="switchView('hr')">Vista RRHH</button>
-                <button id="toggle-tech" class="btn-toggle" onclick="switchView('tech')">Vista Técnica</button>
+    <!-- Navegación y Cabecera Unificada -->
+    <header class="topbar">
+        <div class="container nav-wrap">
+            <a class="brand" href="../index.html"><i class="bi bi-arrow-left"></i> Volver al Inicio</a>
+            
+            <div class="toggle" role="group" aria-label="Seleccionar perfil de vista">
+                <button type="button" id="toggle-rrhh" aria-pressed="true" onclick="switchView('hr')">
+                    <i class="bi bi-person-badge"></i> Vista RRHH
+                </button>
+                <button type="button" id="toggle-tech" aria-pressed="false" onclick="switchView('tech')">
+                    <i class="bi bi-bezier"></i> Vista Técnica
+                </button>
             </div>
         </div>
     </header>
 
-    <main class="container">
-        <!-- Resumen de contacto -->
-        <section class="section glass mb-4">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <h2 class="mb-1">Juan Antonio Sánchez Plaza</h2>
-                    <p class="text-muted mb-3"><i class="bi bi-geo-alt"></i> Sur de Madrid / Illescas · <i class="bi bi-envelope"></i> juanantoniosanchezplaza@hotmail.com</p>
-                    <div class="d-flex gap-2">
-                        <a href="../assets/01-cv-juanantoniosanchezplaza.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> Descargar PDF</a>
-                        <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" class="btn btn-sm btn-outline-light"><i class="bi bi-linkedin"></i> LinkedIn</a>
+    <main class="container" id="main">
+        <!-- Resumen de contacto unificado -->
+        <section class="section glass mb-4" style="margin-top: 2rem;">
+            <div class="two-col" style="grid-template-columns: 2fr 1fr;">
+                <div class="hero-card">
+                    <p class="kicker" data-audience="hr">CV / Resumen de Carrera</p>
+                    <p class="kicker" data-audience="tech">Tech Stack & Timeline</p>
+                    
+                    <h1 class="mb-1" style="font-size: 2rem;">Juan Antonio Sánchez Plaza</h1>
+                    
+                    <p class="lead mb-3" data-audience="hr">
+                        Profesional Full Stack con sólida experiencia en la optimización de procesos y visión de negocio. Combino agilidad técnica con resolución de problemas complejos.
+                        <br><small><i class="bi bi-geo-alt"></i> Illescas (Madrid Sur) · <i class="bi bi-envelope"></i> juanantoniosanchezplaza@hotmail.com</small>
+                    </p>
+                    <p class="lead mb-3" data-audience="tech">
+                        Software Engineer especializado en ecosistema JS moderno, automatización e IA. Arquitecturas limpias y orientación al dato.
+                        <br><small><i class="bi bi-geo-alt"></i> Illescas (Madrid Sur) · <i class="bi bi-envelope"></i> juanantoniosanchezplaza@hotmail.com</small>
+                    </p>
+                    
+                    <div class="actions">
+                        <a href="../assets/01-cv-juanantoniosanchezplaza.pdf" class="btn primary" target="_blank"><i class="bi bi-download"></i> Descargar PDF</a>
+                        <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" class="btn" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                        <a href="https://github.com/djSaBaS" class="btn" target="_blank"><i class="bi bi-github"></i> GitHub</a>
                     </div>
                 </div>
-                <div class="col-md-4 text-end d-none d-md-block">
-                    <img src="../assets/img/avatar.png" alt="Avatar" class="rounded-circle" style="width: 80px; border: 2px solid var(--accent-color);">
+                <div class="avatar-box glass d-none d-md-block" style="max-width: 160px; margin-left: auto;">
+                    <img src="../assets/avatar.jpg" alt="Sabas - Foto de perfil" class="avatar-box__img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Filtros para Vista Técnica (Solo visibles en modo Tech) -->
+        <section id="tech-filters-container" class="section glass mb-4 d-none">
+            <div class="section-head" style="margin-bottom: 0;">
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 5px;">Filtros de Ramas</h3>
+                    <p style="font-size: 0.9rem;">Haz clic en una categoría para mostrar u ocultar su línea temporal.</p>
+                </div>
+                <div class="filters" id="tech-filters">
+                    <!-- Los botones se generarán en JS -->
                 </div>
             </div>
         </section>
@@ -118,18 +150,25 @@
             const vRRHH = document.getElementById('rrhh-view');
             const bTech = document.getElementById('toggle-tech');
             const bRRHH = document.getElementById('toggle-rrhh');
+            const filters = document.getElementById('tech-filters-container');
 
             if (view === 'tech') {
                 vTech.classList.remove('d-none');
                 vRRHH.classList.add('d-none');
-                bTech.classList.add('active');
-                bRRHH.classList.remove('active');
+                bTech.setAttribute('aria-pressed', 'true');
+                bRRHH.setAttribute('aria-pressed', 'false');
+                filters.classList.remove('d-none');
                 document.body.setAttribute('data-view', 'tech');
+                // Forzamos un redibujado de la vista técnica si ya está inicializada
+                if (window.techRenderer && window.techRenderer.draw) {
+                    setTimeout(() => window.techRenderer.render(), 50);
+                }
             } else {
                 vRRHH.classList.remove('d-none');
                 vTech.classList.add('d-none');
-                bRRHH.classList.add('active');
-                bTech.classList.remove('active');
+                bRRHH.setAttribute('aria-pressed', 'true');
+                bTech.setAttribute('aria-pressed', 'false');
+                filters.classList.add('d-none');
                 document.body.setAttribute('data-view', 'hr');
             }
         }

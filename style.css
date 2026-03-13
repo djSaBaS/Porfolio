@@ -176,6 +176,7 @@ img {
   padding: 3.5rem 0 2rem;
   display: grid;
   gap: 1.25rem;
+  justify-content: center; /* Soluciona el problema de alineación a la izquierda */
 }
 
 /* Estilo “glassmorphism” reutilizable para paneles. */
