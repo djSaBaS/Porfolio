@@ -1,0 +1,20 @@
+const SKILLS_DATA =  
+[
+  {"key": "html", "label": "HTML5", "icon": "bi bi-filetype-html", "color": "#e34c26", "category": "frontend"},
+  {"key": "css", "label": "CSS3", "icon": "bi bi-filetype-css", "color": "#264de4", "category": "frontend"},
+  {"key": "javascript", "label": "JavaScript", "icon": "bi bi-filetype-js", "color": "#f7df1e", "category": "frontend"},
+  {"key": "php", "label": "PHP", "icon": "bi bi-filetype-php", "color": "#777bb4", "category": "backend"},
+  {"key": "mysql", "label": "MySQL", "icon": "bi bi-database", "color": "#4479a1", "category": "backend"},
+  {"key": "wordpress", "label": "WordPress", "icon": "bi bi-wordpress", "color": "#21759b", "category": "cms"},
+  {"key": "python", "label": "Python", "icon": "bi bi-filetype-py", "color": "#3776ab", "category": "tech"},
+  {"key": "ia", "label": "Inteligencia Artificial", "icon": "bi bi-robot", "color": "#10b981", "category": "future"},
+  {"key": "apis", "label": "REST APIs", "icon": "bi bi-plug", "color": "#ff6c37", "category": "tech"},
+  {"key": "ciberseguridad", "label": "Ciberseguridad", "icon": "bi bi-shield-lock", "color": "#ef4444", "category": "security"},
+  {"key": "construccion", "label": "Construcción", "icon": "bi bi-bricks", "color": "#f59e0b", "category": "legacy"},
+  {"key": "prl", "label": "PRL", "icon": "bi bi-exclamation-triangle", "color": "#f59e0b", "category": "legacy"},
+  {"key": "sonido", "label": "Sonido Profesional", "icon": "bi bi-speaker", "color": "#8b5cf6", "category": "legacy"},
+  {"key": "mecanica", "label": "Mecánica", "icon": "bi bi-gear", "color": "#64748b", "category": "legacy"},
+  {"key": "automatizacion", "label": "Automatización", "icon": "bi bi-cpu", "color": "#06b6d4", "category": "tech"},
+  {"key": "fullstack", "label": "Full Stack", "icon": "bi bi-layers", "color": "#0ea5e9", "category": "tech"}
+]
+; 

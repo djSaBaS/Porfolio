@@ -24,7 +24,7 @@
     <!-- Librería SVG.js para el mapa de metro -->
     <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
 </head>
-<body class="cv-page">
+<body class="cv-page" data-view="hr">
 
     <!-- Navegación y Cabecera -->
     <header class="cv-header glass-premium m-3">
@@ -57,7 +57,7 @@
         </section>
 
         <!-- Área de la Línea de Tiempo -->
-        <section class="section glass p-0 overflow-hidden" style="min-height: 600px; position: relative;">
+        <section class="section glass p-0 overflow-hidden" style="min-height: 700px; position: relative;">
             
             <!-- Loader -->
             <div id="view-loader" class="loader-overlay text-center p-5">
@@ -67,11 +67,15 @@
 
             <!-- Contenedores de visualización -->
             <div class="timeline-viewport">
-                <!-- Vista Tech (Metro) -->
-                <div id="canvas-tech" data-tech-timeline class="tech-container d-none"></div>
-                
-                <!-- Vista RRHH (Vertical) -->
-                <div id="canvas-rrhh" data-rrhh-timeline class="rrhh-container"></div>
+                <!-- Vista Técnica (Mapa de Metro) -->
+                <div id="tech-view" class="timeline-view d-none" data-tech-timeline>
+                    <div id="canvas-tech" class="timeline-canvas"></div>
+                </div>
+
+                <!-- Vista RRHH (Timeline Vertical) -->
+                <div id="rrhh-view" class="timeline-view" data-rrhh-timeline>
+                    <div id="canvas-rrhh" class="timeline-container"></div>
+                </div>
             </div>
 
         </section>
@@ -87,12 +91,16 @@
     <!-- Modal Compartido Premium -->
     <div id="event-modal" class="modal-overlay">
         <div class="modal-content-premium shadow-lg">
-            <span class="modal-close" onclick="window.modalManager.close()"><i class="bi bi-x-lg"></i></span>
+            <span class="modal-close" onclick="if(window.modalManager) window.modalManager.close()"><i class="bi bi-x-lg"></i></span>
             <div id="modal-content">
                 <!-- Inyectado por modal.js -->
             </div>
         </div>
     </div>
+
+    <!-- Datos de respaldo para visualización local sin servidor -->
+    <script src="../assets/json/datos.js"></script>
+    <script src="../data/skills.js"></script>
 
     <!-- Scripts del Sistema -->
     <script src="../js/data-loader.js"></script>
@@ -103,11 +111,11 @@
 
     <script>
         /**
-         * Función SwitchView simplificada para esta página
+         * Función SwitchView que sincroniza el DOM con el estado esperado por main.js
          */
         function switchView(view) {
-            const vTech = document.getElementById('canvas-tech');
-            const vRRHH = document.getElementById('canvas-rrhh');
+            const vTech = document.getElementById('tech-view');
+            const vRRHH = document.getElementById('rrhh-view');
             const bTech = document.getElementById('toggle-tech');
             const bRRHH = document.getElementById('toggle-rrhh');
 

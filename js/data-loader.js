@@ -1,82 +1,111 @@
 /**
  * data-loader.js
- * Responsable de cargar, normalizar y centralizar la información de la trayectoria.
+ * Encargado de cargar, normalizar y servir los datos del CV.
  */
 
 class DataLoader {
     constructor() {
-        this.events = [];
-        this.skills = {};
+        // Rutas a los archivos JSON base (corregidas según estructura real)
+        this.jsonPaths = {
+            events: '../assets/json/datos.json',
+            skills: '../data/skills.json'
+        };
+        // Datos procesados
+        this.data = {
+            events: [],
+            skills: {}
+        };
     }
 
+    /**
+     * Carga todos los recursos y los normaliza para los renderizadores
+     */
     async loadAll() {
+        console.log("DataLoader: Iniciando carga de JSON...", this.jsonPaths);
         try {
-            // Detectar si estamos en una subcarpeta (como /cv/) para ajustar la ruta
-            const isSubfolder = window.location.pathname.includes('/cv/') || window.location.pathname.includes('/cursos/');
-            const prefix = isSubfolder ? '../' : '';
-
-            // Carga de archivos JSON (ahora usamos datos.json como fuente principal)
-            const [data, skills] = await Promise.all([
-                fetch(`${prefix}assets/json/datos.json`).then(res => {
-                    if (!res.ok) throw new Error(`Error al cargar datos.json: ${res.status}`);
-                    return res.json();
-                }),
-                fetch(`${prefix}data/skills.json`).then(res => {
-                    if (!res.ok) return []; // Opcional
-                    return res.json();
-                }).catch(() => [])
+            // Intentamos cargar dinámicamente vía fetch
+            const [eventsRes, skillsRes] = await Promise.all([
+                fetch(this.jsonPaths.events),
+                fetch(this.jsonPaths.skills)
             ]);
 
-            // Mapear skills por key para acceso rápido O(1)
-            skills.forEach(skill => {
-                this.skills[skill.key] = skill;
-            });
+            // Si los archivos se encuentran y el servidor responde correctamente
+            if (eventsRes.ok && skillsRes.ok) {
+                const rawEvents = await eventsRes.json();
+                const rawSkills = await skillsRes.json();
+                this.data.events = rawEvents.map(ev => this.normalizeEvent(ev));
+                this.data.skills = rawSkills;
+                console.log(`DataLoader: ${this.data.events.length} eventos cargados vía Fetch.`);
+                return this.data;
+            }
+            // Si el fetch falla (ej. 404), lanzamos error para ir al catch/fallback
+            throw new Error("Respuesta de red no válida");
 
-            // Normalizar y combinar eventos desde la fuente unificada
-            this.events = data.map(ev => ({
-                ...ev,
-                tipo: ev.kind === 'work' ? 'trabajo' : 'formacion',
-                year_start: ev.yearStart,
-                year_end: ev.yearEnd || (ev.isCurrent ? new Date().getFullYear() : ev.yearStart),
-                empresa: ev.entity, // Alias para compatibilidad
-                centro: ev.entity,  // Alias para compatibilidad
-                description: ev.summary || ev.excerpt
-            }));
-
-            // Ordenar por año de inicio y luego por campo 'order' si existe
-            this.events.sort((a, b) => (a.year_start || 0) - (b.year_start || 0));
-
-            console.log("Datos cargados y normalizados:", this.events);
-            
-            // Ocultar el cargador siempre al finalizar
-            this.hideLoader();
-
-            return { events: this.events, skills: this.skills };
         } catch (error) {
-            console.error("Error cargando los datos del porfolio:", error);
-            this.hideLoader();
-            throw error;
+            console.warn('DataLoader: Fetch fallido o bloqueado por CORS. Intentando fallback local...', error);
+            
+            // FALLBACK: Verificamos si los datos están disponibles como constantes globales
+            // (Útil para previsualización local sin servidor)
+            if (window.CV_DATA && window.SKILLS_DATA) {
+                console.log("DataLoader: Usando datos de respaldo (Fallback JS).");
+                this.data.events = window.CV_DATA.map(ev => this.normalizeEvent(ev));
+                this.data.skills = window.SKILLS_DATA;
+                return this.data;
+            }
+
+            console.error('DataLoader Error Crítico: No se han podido cargar los datos.');
+            return { events: [], skills: {} };
         }
     }
 
-    hideLoader() {
-        const loader = document.getElementById('loader') || document.querySelector('.loading-overlay');
-        if (loader) {
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 300);
+    /**
+     * Normaliza un objeto de evento para asegurar consistencia entre vistas
+     */
+    normalizeEvent(ev) {
+        // Normalización manual del tipo para lógica interna
+        let kind = 'education';
+        const rawType = (ev.kind || ev.tipo || '').toLowerCase();
+        if (rawType === 'work' || rawType === 'trabajo' || rawType === 'puesto') {
+            kind = 'work';
         }
+
+        return {
+            id: (ev.id || Math.random()).toString(),
+            title: ev.title || ev.titulo || 'Sin título',
+            entity: ev.entity || ev.empresa || ev.centro || '—',
+            kind: kind, // Normalizado a 'work' o 'education'
+            category: ev.category || ev.categoria || 'General',
+            year_start: parseInt(ev.year_start || ev.fecha_inicio || 0),
+            year_end: ev.year_end || ev.fecha_fin ? parseInt(ev.year_end || ev.fecha_fin) : null,
+            dateLabel: ev.dateLabel || `${ev.year_start || ev.fecha_inicio} — ${ev.year_end || ev.fecha_fin || 'Presente'}`,
+            summary: ev.summary || ev.excerpt || ev.descripcion || '',
+            description: ev.description || ev.descripcion || '',
+            tags: ev.tags || ev.skills || [],
+            color: ev.color || this.getDefaultColor(ev, kind),
+            featured: ev.featured || ev.actual || false,
+            hours: ev.hours || ev.horas || null,
+            icon: ev.icon || null,
+            link: ev.link || ev.url || null,
+            stage: ev.stage || 'general'
+        };
     }
 
+    /**
+     * Asigna un color por defecto basado en el tipo de evento si no existe
+     */
+    getDefaultColor(ev, kind) {
+        if (kind === 'work') return '#34d399';
+        if (ev.category === 'máster' || ev.categoria === 'máster') return '#c084fc';
+        return '#38bdf8';
+    }
+
+    /**
+     * Helper para obtener un evento por ID
+     */
     getEventById(id) {
-        return this.events.find(e => e.id === id);
-    }
-
-    getSkillDetails(key) {
-        return this.skills[key] || { key, label: key, icon: 'bi-question-circle' };
+        return this.data.events.find(e => e.id === id.toString());
     }
 }
 
-// Exportar instancia global
+// Registro global
 window.dataLoader = new DataLoader();

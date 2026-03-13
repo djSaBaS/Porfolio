@@ -1,81 +1,144 @@
 /**
  * modal.js
- * Sistema de modal compartida (Vanilla JS) para mostrar detalles de los eventos.
+ * Gestión del modal de detalle para eventos de la línea de tiempo.
  */
 
-function openModal(id) {
-    const event = window.dataLoader.getEventById(id);
-    if (!event) return;
+class ModalManager {
+    // Constructor con elementos base
+    constructor() {
+        // ID del elemento modal en el HTML
+        this.modalId = 'event-modal';
+        // Elemento del DOM
+        this.modalEl = null;
+        // Mapa de eventos para acceso rápido
+        this.eventMap = new Map();
+    }
 
-    const modal = document.getElementById('event-modal');
-    const content = document.getElementById('modal-content');
-    if (!modal || !content) return;
+    // Inicializa el modal con los datos cargados
+    init(data) {
+        // Guardamos los eventos en el mapa por su ID
+        this.eventMap = new Map(data.events.map(ev => [ev.id, ev]));
+        // Obtenemos el elemento del DOM
+        this.modalEl = document.getElementById(this.modalId);
+        
+        // Configuramos el cierre del modal
+        this.setupClose();
+        
+        // Exponemos la función de apertura globalmente
+        window.openModal = (id) => this.open(id);
+    }
 
-    // Construir contenido dinámico
-    const color = event.color || '#0ea5e9';
-    const tagsHtml = (event.tags || []).map(tag =>
-        `<span class="badge-tag">${tag}</span>`
-    ).join('');
+    // Configura los eventos de cierre (botón X y click fuera)
+    setupClose() {
+        if (!this.modalEl) return;
+        
+        // Botón de cierre (X)
+        const closeBtn = this.modalEl.querySelector('.modal-close');
+        if (closeBtn) {
+            closeBtn.onclick = () => this.close();
+        }
 
+        // Cierre al pulsar fuera de la ventana blanca
+        this.modalEl.onclick = (e) => {
+            if (e.target === this.modalEl) this.close();
+        };
 
-    content.innerHTML = `
-        <div class="modal-header-custom" style="border-left: 4px solid ${color}">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <span class="badge-type" style="background-color: ${color}22; color: ${color}">${event.category || event.tipo || ''}</span>
-                    <h3 class="modal-title-text">${event.title || ''}</h3>
-                    <p class="modal-subtitle-text">${event.entity || ''}</p>
+        // Cierre al pulsar la tecla Escape
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') this.close();
+        });
+    }
+
+    // Abre el modal con la información del evento especificado
+    open(id) {
+        // Buscamos el evento en el mapa
+        const event = this.eventMap.get(id);
+        if (!event || !this.modalEl) return;
+
+        // Limpiamos contenido anterior y llenamos el nuevo HTML
+        const content = this.modalEl.querySelector('#modal-content');
+        if (!content) return;
+
+        // Construimos la estructura de la información
+        content.innerHTML = `
+            <!-- Encabezado del modal -->
+            <div class="modal-header-premium">
+                <span class="modal-badge-type" style="background: ${event.color}20; color: ${event.color}">
+                    ${(event.kind === 'work' ? 'Trayectoria Profesional' : 'Formación Académica').toUpperCase()}
+                </span>
+                <h2 class="modal-title-premium">${event.title}</h2>
+                <div class="modal-subtitle-premium">
+                    <i class="bi bi-geo-alt"></i> ${event.entity} | <i class="bi bi-calendar3"></i> ${event.dateLabel}
                 </div>
-                <div class="modal-date-tag">${event.dateLabel || (event.year_start + ' — ' + (event.year_end || 'Actualidad'))}</div>
             </div>
-        </div>
-        <div class="modal-body-custom">
-            <div class="modal-description-text">${event.summary || event.excerpt || 'Sin descripción disponible.'}</div>
-            ${tagsHtml ? `
-                <div class="modal-section-title">Tecnologías y Competencias</div>
-                <div class="tags-row-modal">${tagsHtml}</div>
+
+            <!-- Cuerpo con descripción -->
+            <div class="modal-body-premium">
+                <p class="modal-description-full">${event.description || event.summary || 'Sin descripción adicional disponible.'}</p>
+                
+                ${event.hours ? `<div class="modal-hours"><strong>Duración:</strong> ${event.hours} horas totales.</div>` : ''}
+
+                <!-- Sección de habilidades destacadas con iconos -->
+                <div class="modal-skills-section">
+                    <h4>Habilidades relacionadas</h4>
+                    <div class="modal-skills-grid">
+                        ${(event.tags || []).map(tag => `
+                            <div class="modal-skill-item" title="Skill: ${tag}">
+                                <span class="modal-skill-icon">${this.getIcon(tag)}</span>
+                                <span class="modal-skill-label">${tag}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pie con enlaces si existen -->
+            ${event.link ? `
+                <div class="modal-footer-premium">
+                    <a href="${event.link}" target="_blank" class="btn primary">Ver más detalles <i class="bi bi-box-arrow-up-right"></i></a>
+                </div>
             ` : ''}
-        </div>
-        ${event.link ? `
-            <div class="modal-footer-custom">
-                <a href="${event.link}" target="_blank" rel="noopener" class="btn-modal-action" style="background-color: ${color}">
-                    <i class="bi bi-box-arrow-up-right me-2"></i>Ver más detalles
-                </a>
-            </div>
-        ` : ''}
-    `;
+        `;
 
+        // Mostramos el modal variando la opacidad y visibilidad
+        this.modalEl.style.display = 'flex';
+        // Pequeño timeout para permitir la transición CSS
+        setTimeout(() => this.modalEl.classList.add('active'), 10);
+        // Deshabilitamos el scroll del body
+        document.body.style.overflow = 'hidden';
+    }
 
-    // Mostrar modal
-    modal.classList.add('active');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden'; // Bloquear scroll
+    // Cierra el modal de forma animada
+    close() {
+        if (!this.modalEl) return;
+        // Eliminamos la clase activa para disparar la animación de salida
+        this.modalEl.classList.remove('active');
+        // Esperamos a que termine la transición antes de ocultar
+        setTimeout(() => {
+            this.modalEl.style.display = 'none';
+            // Devolvemos el scroll al body
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    // Mapeo detallado de iconos por palabra clave
+    getIcon(skill) {
+        const s = skill.toLowerCase();
+        if (s.includes('php')) return '🐘';
+        if (s.includes('js') || s.includes('javascript')) return '🟨';
+        if (s.includes('mysql') || s.includes('sql')) return '🛢️';
+        if (s.includes('ia') || s.includes('inteligencia')) return '🤖';
+        if (s.includes('python')) return '🐍';
+        if (s.includes('wordpress')) return '🧩';
+        if (s.includes('react')) return '⚛️';
+        if (s.includes('html')) return '🌐';
+        if (s.includes('css')) return '🎨';
+        if (s.includes('git')) return '🌿';
+        if (s.includes('mecanica')) return '🔧';
+        if (s.includes('sonido')) return '🔊';
+        return '•';
+    }
 }
 
-// Cerrar modal
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('event-modal');
-    if (!modal) return;
-
-    const closeBtn = modal.querySelector('.modal-close');
-    
-    const closeModal = () => {
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-    };
-
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    
-    // Cerrar al hacer click fuera
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-
-    // Cerrar con Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
-    });
-});
-
-window.openModal = openModal;
+// Inyectamos la instancia en window para uso global
+window.modalManager = new ModalManager();
