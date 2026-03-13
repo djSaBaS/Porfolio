@@ -32,13 +32,16 @@ class TechRenderer {
             'legacy':         520
         };
 
-        // Colores vibrantes para cada línea de metro
+        // Colores vibrantes para cada línea de metro (Sincronizado con style.css)
         this.branchColors = {
-            'specialization': '#c084fc', // Púrpura nube/IA
-            'main':           '#34d399', // Esmeralda central
-            'education':      '#38bdf8', // Azul creatividad/web
-            'legacy':         '#f59e0b'  // Ámbar industria
+            'specialization': '#8b5cf6', // --secondary
+            'main':           '#34d399', // --accent
+            'education':      '#6ee7ff', // --primary
+            'legacy':         '#fb7185'  // --danger
         };
+
+        // Estado inicial de filtros (todos visibles por defecto)
+        this.activeFilters = new Set(Object.keys(this.branchColors));
     }
 
     // Inicialización con datos del DataLoader
@@ -47,10 +50,48 @@ class TechRenderer {
         this.events = data.events;
         // Guardamos las skills
         this.skills = data.skills;
+        // Construimos los botones de filtro HTML
+        this.buildFilters();
         // Disparamos el renderizado
         this.render();
         // Configuramos el arrastre del contenedor
         this.setupDrag();
+    }
+
+    // Construye los botones HTML interactivos de filtro
+    buildFilters() {
+        const filterContainer = document.getElementById('tech-filters');
+        if (!filterContainer) return;
+        
+        filterContainer.innerHTML = '';
+        const labels = {
+            'main': 'Experiencia Principal',
+            'specialization': 'Especializaciones',
+            'education': 'Educación Central',
+            'legacy': 'Legado / Antiguo'
+        };
+
+        Object.keys(this.branchColors).forEach(branchId => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn active';
+            btn.dataset.branch = branchId;
+            btn.innerHTML = `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background-color:${this.branchColors[branchId]};margin-right:6px;box-shadow: 0 0 5px ${this.branchColors[branchId]};"></span>${labels[branchId] || branchId}`;
+            
+            btn.addEventListener('click', () => {
+                // Alternar estado activo en el Set de filtros
+                if (this.activeFilters.has(branchId)) {
+                    this.activeFilters.delete(branchId);
+                    btn.classList.remove('active');
+                } else {
+                    this.activeFilters.add(branchId);
+                    btn.classList.add('active');
+                }
+                // Re-dibujar el SVG por completo para aplicar el filtro
+                this.render(); 
+            });
+
+            filterContainer.appendChild(btn);
+        });
     }
 
     // Calcula la coordenada X proporcional al año y mes (si disponible)
@@ -124,6 +165,9 @@ class TechRenderer {
         
         // Para cada track, creamos un trazado
         tracks.forEach(track => {
+            // Saltamos el dibujo si el filtro de esta rama está desactivado
+            if (!this.activeFilters.has(track)) return;
+
             // Filtramos eventos de esta rama
             const trackEvents = this.events.filter(e => this.getTrack(e) === track);
             // Si no hay eventos, pasamos a la siguiente
@@ -140,15 +184,9 @@ class TechRenderer {
             const startX = this.getX(trackEvents[0].year_start);
             const endX = this.getX(this.maxYear);
 
-            // Dibujamos la línea base con glow
+            // Dibujamos la línea base (eliminamos el filtro conflictivo en producción)
             this.draw.line(startX, y, endX, y)
-                .stroke({ color, width: 8, linecap: 'round', opacity: 0.4 })
-                .filter(addGlow); // Aplicamos filtro de resplandor
-
-            // Función interna para añadir el filtro SVG de resplandor
-            function addGlow(add) {
-                add.gaussianBlur(4);
-            }
+                .stroke({ color, width: 8, linecap: 'round', opacity: 0.4 });
         });
 
         // Dibujamos curvas de transferencia (forks) desde la línea principal
@@ -165,8 +203,10 @@ class TechRenderer {
     drawStations() {
         // Recorremos todos los eventos
         this.events.forEach(event => {
-            // Obtenemos track y coordenadas
+            // Obtenemos track y verificamos si se debe dibujar
             const track = this.getTrack(event);
+            if (!this.activeFilters.has(track)) return;
+
             const xSize = (event.year_end - event.year_start) * 100; // Tamaño proporcional opcional
             const x = this.getX(event.year_start);
             const y = this.branchY[track];
