@@ -1,128 +1,130 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CV de Juan Antonio Sánchez Plaza (SaBaS) | Desarrollo Web, IA y Automatización</title>
-    <meta
-      name="description"
-      content="Currículum de Juan Antonio Sánchez Plaza (SaBaS): experiencia, formación técnica, automatización, desarrollo web e IA aplicada."
-    />
-    <link rel="canonical" href="https://djsabas.github.io/Porfolio/cv/" />
-    <meta property="og:type" content="profile" />
-    <meta property="og:title" content="CV de Juan Antonio Sánchez Plaza (SaBaS)" />
-    <meta
-      property="og:description"
-      content="Experiencia y formación de Juan Antonio Sánchez Plaza (SaBaS) en desarrollo web, automatización RRHH e IA aplicada."
-    />
-    <meta property="og:url" content="https://djsabas.github.io/Porfolio/cv/" />
-    <meta property="og:image" content="https://djsabas.github.io/Porfolio/assets/og.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="keywords" content="Juan Antonio Sánchez Plaza, SaBaS, currículum, formación, desarrollo web, automatización, IA aplicada" />
-    <meta name="twitter:title" content="CV de Juan Antonio Sánchez Plaza (SaBaS)" />
-    <meta name="twitter:description" content="Resultados, formación y responsabilidades en entornos reales." />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Timeline | Juan Antonio Sánchez (Sabas)</title>
     
-    <!-- Fuertes de Google -->
+    <!-- Metadatos SEO -->
+    <meta name="description" content="Trayectoria profesional y formación de Juan Antonio Sánchez Plaza. Vistas interactiva y clásica.">
+    
+    <!-- Fuentes premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Iconos y Bootstrap base -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- SVG.js para la Vista Tech -->
-    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+    <!-- Estilos específicos de la línea de tiempo -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cv-timeline.css">
 
-    <link rel="stylesheet" href="../style.css" />
-  </head>
-  <body data-view="hr">
-    <header class="topbar">
-      <div class="container nav-wrap">
-        <a class="brand" href="../">Sabas · Portfolio</a>
-        <nav class="nav-links" aria-label="Navegación principal">
-          <a href="../">Inicio</a><a href="../projects/">Proyectos</a><a href="./" aria-current="page">CV</a><a href="../about/">Sobre mí</a><a href="#contacto">Contacto</a>
-        </nav>
-        <div class="toggle" role="group" aria-label="Cambiar vista RRHH o técnica">
-          <button type="button" data-toggle-view="hr" aria-pressed="true">
-            <i class="bi bi-person-badge"></i> RRHH
-          </button>
-          <button type="button" data-toggle-view="tech" aria-pressed="false">
-            <i class="bi bi-code-slash"></i> Tech
-          </button>
+    <!-- Librería SVG.js para el mapa de metro -->
+    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+</head>
+<body class="cv-page">
+
+    <!-- Navegación y Cabecera -->
+    <header class="cv-header glass-premium m-3">
+        <div class="container d-flex justify-content-between align-items-center p-3">
+            <a href="../index.html" class="btn-back"><i class="bi bi-arrow-left"></i> Volver al Inicio</a>
+            <h1 class="m-0 fs-4 fw-bold">Mi Trayectoria Musical e Industrial</h1>
+            <div class="view-toggles">
+                <button id="toggle-rrhh" class="btn-toggle active" onclick="switchView('hr')">Vista RRHH</button>
+                <button id="toggle-tech" class="btn-toggle" onclick="switchView('tech')">Vista Técnica</button>
+            </div>
         </div>
-      </div>
     </header>
 
     <main class="container">
-      <section class="section glass">
-        <div class="section-head"><h1>Currículum — Sabas</h1></div>
-        <p>
-          <strong>Nombre:</strong> Juan Antonio Sánchez Plaza (Sabas)<br /><strong>Ubicación:</strong>
-          Sur de Madrid / Illescas (Toledo)<br /><strong>Email:</strong>
-          <a href="mailto:juanantoniosanchezplaza@hotmail.com">juanantoniosanchezplaza@hotmail.com</a>
-        </p>
-        <div class="actions">
-          <a class="btn primary" href="../assets/01-cv-juanantoniosanchezplaza.pdf">Descargar CV PDF</a><a class="btn" href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
-      </section>
-
-      <section class="section glass">
-        <h2>Trayectoria profesional y formación</h2>
-        <p data-audience="hr">Vista vertical orientada a reclutadores: lectura directa y contexto rápido de evolución profesional.</p>
-        <p data-audience="tech">Vista tipo workflow técnico: experiencia como rama principal y formación como ramas secundarias.</p>
-
-        <!-- Contenedores de la Nueva Línea de Tiempo -->
-        <div class="timeline-viewport">
-            <!-- Loader opcional -->
-            <div id="view-loader" class="text-center d-none">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Cargando...</span>
+        <!-- Resumen de contacto -->
+        <section class="section glass mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="mb-1">Juan Antonio Sánchez Plaza</h2>
+                    <p class="text-muted mb-3"><i class="bi bi-geo-alt"></i> Sur de Madrid / Illescas · <i class="bi bi-envelope"></i> juanantoniosanchezplaza@hotmail.com</p>
+                    <div class="d-flex gap-2">
+                        <a href="../assets/01-cv-juanantoniosanchezplaza.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> Descargar PDF</a>
+                        <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" class="btn btn-sm btn-outline-light"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end d-none d-md-block">
+                    <img src="../assets/img/avatar.png" alt="Avatar" class="rounded-circle" style="width: 80px; border: 2px solid var(--accent-color);">
                 </div>
             </div>
+        </section>
 
-            <div id="canvas-tech" data-tech-timeline class="tech-container" data-audience="tech">
-                <!-- Se renderiza vía JS -->
+        <!-- Área de la Línea de Tiempo -->
+        <section class="section glass p-0 overflow-hidden" style="min-height: 600px; position: relative;">
+            
+            <!-- Loader -->
+            <div id="view-loader" class="loader-overlay text-center p-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2 text-muted">Cargando línea de tiempo...</p>
             </div>
-            <div id="canvas-rrhh" data-rrhh-timeline class="rrhh-container" data-audience="hr">
-                <!-- Se renderiza vía JS -->
+
+            <!-- Contenedores de visualización -->
+            <div class="timeline-viewport">
+                <!-- Vista Tech (Metro) -->
+                <div id="canvas-tech" data-tech-timeline class="tech-container d-none"></div>
+                
+                <!-- Vista RRHH (Vertical) -->
+                <div id="canvas-rrhh" data-rrhh-timeline class="rrhh-container"></div>
             </div>
-        </div>
-      </section>
 
-      <section class="section glass" id="formacion">
-        <h2>Formación Detallada</h2>
-        <p>El detalle completo de todos mis cursos y certificaciones (más de 4000h de formación) se encuentra en su apartado dedicado.</p>
-        <a class="btn" href="../cursos/">Ver todos los cursos</a>
-      </section>
+        </section>
 
-      <section class="section glass contact-box" id="contacto">
-        <div class="section-head"><h2>Contacto</h2></div>
-        <p>Email: <a href="mailto:juanantoniosanchezplaza@hotmail.com?subject=Contacto%20profesional&body=Hola%20Sabas%2C%20quiero%20hablar%20contigo%20sobre...">juanantoniosanchezplaza@hotmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">juanantoniosanchezplaza</a></p>
-        <p>GitHub: <a href="https://github.com/djSaBaS" target="_blank" rel="noopener">djSaBaS</a></p>
-      </section>
+        <!-- Formación Detallada -->
+        <section class="section glass mt-4">
+            <h3>¿Buscas formación específica?</h3>
+            <p>He completado más de 4000h de formación en diversas áreas tecnológicas e industriales.</p>
+            <a href="../cursos/" class="btn btn-outline-primary">Explorar buscador de cursos</a>
+        </section>
     </main>
 
-    <!-- Modal Compartido -->
-    <div id="event-modal" class="modal-overlay" aria-hidden="true">
-        <div class="modal-window shadow">
-            <button class="modal-close" aria-label="Cerrar modal"><i class="bi bi-x-lg"></i></button>
+    <!-- Modal Compartido Premium -->
+    <div id="event-modal" class="modal-overlay">
+        <div class="modal-content-premium shadow-lg">
+            <span class="modal-close" onclick="window.modalManager.close()"><i class="bi bi-x-lg"></i></span>
             <div id="modal-content">
-                <!-- Contenido dinámico -->
+                <!-- Inyectado por modal.js -->
             </div>
         </div>
     </div>
 
-    <footer class="container">© <span>2024</span> Sabas</footer>
-
-    <!-- Scripts del Sistema de Línea de Tiempo -->
+    <!-- Scripts del Sistema -->
     <script src="../js/data-loader.js"></script>
     <script src="../js/tech-view.js"></script>
     <script src="../js/rrhh-view.js"></script>
     <script src="../js/modal.js"></script>
     <script src="../js/main.js"></script>
-    
-    <!-- Script base para funcionalidades generales (lupa, etc) -->
-    <script src="../app.js"></script>
-  </body>
+
+    <script>
+        /**
+         * Función SwitchView simplificada para esta página
+         */
+        function switchView(view) {
+            const vTech = document.getElementById('canvas-tech');
+            const vRRHH = document.getElementById('canvas-rrhh');
+            const bTech = document.getElementById('toggle-tech');
+            const bRRHH = document.getElementById('toggle-rrhh');
+
+            if (view === 'tech') {
+                vTech.classList.remove('d-none');
+                vRRHH.classList.add('d-none');
+                bTech.classList.add('active');
+                bRRHH.classList.remove('active');
+                document.body.setAttribute('data-view', 'tech');
+            } else {
+                vRRHH.classList.remove('d-none');
+                vTech.classList.add('d-none');
+                bRRHH.classList.add('active');
+                bTech.classList.remove('active');
+                document.body.setAttribute('data-view', 'hr');
+            }
+        }
+    </script>
+</body>
 </html>
