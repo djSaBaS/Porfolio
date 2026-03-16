@@ -1,178 +1,121 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Timeline | Juan Antonio Sánchez (Sabas)</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CV de Juan Antonio Sánchez Plaza (SaBaS) | Desarrollo Web, IA y Automatización</title>
+    <meta
+      name="description"
+      content="Currículum de Juan Antonio Sánchez Plaza (SaBaS): experiencia, formación técnica, automatización, desarrollo web e IA aplicada."
+    />
+    <link rel="canonical" href="https://djsabas.github.io/Porfolio/cv/" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="CV de Juan Antonio Sánchez Plaza (SaBaS)" />
+    <meta
+      property="og:description"
+      content="Experiencia y formación de Juan Antonio Sánchez Plaza (SaBaS) en desarrollo web, automatización RRHH e IA aplicada."
+    />
+    <meta property="og:url" content="https://djsabas.github.io/Porfolio/cv/" />
+    <meta property="og:image" content="https://djsabas.github.io/Porfolio/assets/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="keywords" content="Juan Antonio Sánchez Plaza, SaBaS, currículum, formación, desarrollo web, automatización, IA aplicada" />
+    <meta name="twitter:title" content="CV de Juan Antonio Sánchez Plaza (SaBaS)" />
+    <meta name="twitter:description" content="Resultados, formación y responsabilidades en entornos reales." />
     
-    <!-- Metadatos SEO -->
-    <meta name="description" content="Trayectoria profesional y formación de Juan Antonio Sánchez Plaza. Vistas interactiva y clásica.">
-    
-    <!-- Fuentes premium -->
+    <!-- Fuertes de Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Iconos base -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- Estilos globales unificados (diseño premium y variables) -->
-    <link rel="stylesheet" href="../style.css">
-    
-    <!-- Estilos específicos de la línea de tiempo -->
-    <link rel="stylesheet" href="../css/cv-timeline.css">
-
-    <!-- Librería SVG.js para el mapa de metro -->
+    <!-- SVG.js para la Vista Tech -->
     <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
-    <!-- Plugin de filtros para SVG.js (Requerido para dar efecto Glow) -->
-    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.filter.js@3.0.8/dist/svg.filter.min.js"></script>
-</head>
-<body class="cv-page" data-view="hr">
 
-    <!-- Navegación y Cabecera Unificada -->
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body data-view="hr">
     <header class="topbar">
-        <div class="container nav-wrap">
-            <a class="brand" href="../index.html"><i class="bi bi-arrow-left"></i> Volver al Inicio</a>
-            
-            <div class="toggle" role="group" aria-label="Seleccionar perfil de vista">
-                <button type="button" id="toggle-rrhh" aria-pressed="true" onclick="switchView('hr')">
-                    <i class="bi bi-person-badge"></i> Vista RRHH
-                </button>
-                <button type="button" id="toggle-tech" aria-pressed="false" onclick="switchView('tech')">
-                    <i class="bi bi-bezier"></i> Vista Técnica
-                </button>
-            </div>
+      <div class="container nav-wrap">
+        <a class="brand" href="../">Sabas · Portfolio</a>
+        <nav class="nav-links" aria-label="Navegación principal">
+          <a href="../">Inicio</a><a href="../projects/">Proyectos</a><a href="./" aria-current="page">CV</a><a href="../about/">Sobre mí</a><a href="#contacto">Contacto</a>
+        </nav>
+        <div class="toggle" role="group" aria-label="Cambiar vista RRHH o técnica">
+          <button type="button" data-toggle-view="hr" aria-pressed="true">
+            <i class="bi bi-person-badge"></i> RRHH
+          </button>
+          <button type="button" data-toggle-view="tech" aria-pressed="false">
+            <i class="bi bi-code-slash"></i> Tech
+          </button>
         </div>
+      </div>
     </header>
 
-    <main class="container" id="main">
-        <!-- Resumen de contacto unificado -->
-        <section class="section glass mb-4" style="margin-top: 2rem;">
-            <div class="two-col" style="grid-template-columns: 2fr 1fr;">
-                <div class="hero-card">
-                    <p class="kicker" data-audience="hr">CV / Resumen de Carrera</p>
-                    <p class="kicker" data-audience="tech">Tech Stack & Timeline</p>
-                    
-                    <h1 class="mb-1" style="font-size: 2rem;">Juan Antonio Sánchez Plaza</h1>
-                    
-                    <p class="lead mb-3" data-audience="hr">
-                        Profesional Full Stack con sólida experiencia en la optimización de procesos y visión de negocio. Combino agilidad técnica con resolución de problemas complejos.
-                        <br><small><i class="bi bi-geo-alt"></i> Illescas (Madrid Sur) · <i class="bi bi-envelope"></i> juanantoniosanchezplaza@hotmail.com</small>
-                    </p>
-                    <p class="lead mb-3" data-audience="tech">
-                        Software Engineer especializado en ecosistema JS moderno, automatización e IA. Arquitecturas limpias y orientación al dato.
-                        <br><small><i class="bi bi-geo-alt"></i> Illescas (Madrid Sur) · <i class="bi bi-envelope"></i> juanantoniosanchezplaza@hotmail.com</small>
-                    </p>
-                    
-                    <div class="actions">
-                        <a href="../assets/01-cv-juanantoniosanchezplaza.pdf" class="btn primary" target="_blank"><i class="bi bi-download"></i> Descargar PDF</a>
-                        <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" class="btn" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
-                        <a href="https://github.com/djSaBaS" class="btn" target="_blank"><i class="bi bi-github"></i> GitHub</a>
-                    </div>
-                </div>
-                <div class="avatar-box glass d-none d-md-block" style="max-width: 160px; margin-left: auto;">
-                    <img src="../assets/avatar.jpg" alt="Sabas - Foto de perfil" class="avatar-box__img">
-                </div>
+    <main class="container">
+      <section class="section glass">
+        <div class="section-head"><h1>Currículum — Sabas</h1></div>
+        <p>
+          <strong>Nombre:</strong> Juan Antonio Sánchez Plaza (Sabas)<br /><strong>Ubicación:</strong>
+          Sur de Madrid / Illescas (Toledo)<br /><strong>Email:</strong>
+          <a href="mailto:juanantoniosanchezplaza@hotmail.com">juanantoniosanchezplaza@hotmail.com</a>
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="../assets/01-cv-juanantoniosanchezplaza.pdf">Descargar CV PDF</a><a class="btn" href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </section>
+
+      <section class="section glass">
+        <h2>Trayectoria profesional y formación</h2>
+        <p data-audience="hr">Vista vertical orientada a reclutadores: lectura directa y contexto rápido de evolución profesional.</p>
+        <p data-audience="tech">Vista tipo workflow técnico: experiencia como rama principal y formación como ramas secundarias.</p>
+
+        <!-- Contenedores de la Nueva Línea de Tiempo -->
+        <div class="timeline-viewport">
+            <div data-tech-timeline class="tech-container" data-audience="tech">
+                <!-- Se renderiza vía JS -->
             </div>
-        </section>
-
-        <!-- Filtros para Vista Técnica (Solo visibles en modo Tech) -->
-        <section id="tech-filters-container" class="section glass mb-4 d-none">
-            <div class="section-head" style="margin-bottom: 0;">
-                <div>
-                    <h3 style="font-size: 1.1rem; margin-bottom: 5px;">Filtros de Ramas</h3>
-                    <p style="font-size: 0.9rem;">Haz clic en una categoría para mostrar u ocultar su línea temporal.</p>
-                </div>
-                <div class="filters" id="tech-filters">
-                    <!-- Los botones se generarán en JS -->
-                </div>
+            <div data-rrhh-timeline class="rrhh-container" data-audience="hr">
+                <!-- Se renderiza vía JS -->
             </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Área de la Línea de Tiempo -->
-        <section class="section glass p-0 overflow-hidden" style="min-height: 700px; position: relative;">
-            
-            <!-- Loader -->
-            <div id="view-loader" class="loader-overlay text-center p-5">
-                <div class="spinner-border text-primary" role="status"></div>
-                <p class="mt-2 text-muted">Cargando línea de tiempo...</p>
-            </div>
+      <section class="section glass" id="formacion">
+        <h2>Formación Detallada</h2>
+        <p>El detalle completo de todos mis cursos y certificaciones (más de 4000h de formación) se encuentra en su apartado dedicado.</p>
+        <a class="btn" href="../cursos/">Ver todos los cursos</a>
+      </section>
 
-            <!-- Contenedores de visualización -->
-            <div class="timeline-viewport">
-                <!-- Vista Técnica (Mapa de Metro) -->
-                <div id="tech-view" class="timeline-view d-none" data-tech-timeline>
-                    <div id="canvas-tech" class="timeline-canvas"></div>
-                </div>
-
-                <!-- Vista RRHH (Timeline Vertical) -->
-                <div id="rrhh-view" class="timeline-view" data-rrhh-timeline>
-                    <div id="canvas-rrhh" class="timeline-container"></div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- Formación Detallada -->
-        <section class="section glass mt-4">
-            <h3>¿Buscas formación específica?</h3>
-            <p>He completado más de 4000h de formación en diversas áreas tecnológicas e industriales.</p>
-            <a href="../cursos/" class="btn btn-outline-primary">Explorar buscador de cursos</a>
-        </section>
+      <section class="section glass contact-box" id="contacto">
+        <div class="section-head"><h2>Contacto</h2></div>
+        <p>Email: <a href="mailto:juanantoniosanchezplaza@hotmail.com?subject=Contacto%20profesional&body=Hola%20Sabas%2C%20quiero%20hablar%20contigo%20sobre...">juanantoniosanchezplaza@hotmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">juanantoniosanchezplaza</a></p>
+        <p>GitHub: <a href="https://github.com/djSaBaS" target="_blank" rel="noopener">djSaBaS</a></p>
+      </section>
     </main>
 
-    <!-- Modal Compartido Premium -->
-    <div id="event-modal" class="modal-overlay">
-        <div class="modal-content-premium shadow-lg">
-            <span class="modal-close" onclick="if(window.modalManager) window.modalManager.close()"><i class="bi bi-x-lg"></i></span>
+    <!-- Modal Compartido -->
+    <div id="event-modal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-window shadow">
+            <button class="modal-close" aria-label="Cerrar modal"><i class="bi bi-x-lg"></i></button>
             <div id="modal-content">
-                <!-- Inyectado por modal.js -->
+                <!-- Contenido dinámico -->
             </div>
         </div>
     </div>
 
-    <!-- Datos de respaldo para visualización local sin servidor -->
-    <script src="../assets/json/datos.js"></script>
-    <script src="../data/skills.js"></script>
+    <footer class="container">© <span>2024</span> Sabas</footer>
 
-    <!-- Scripts del Sistema -->
+    <!-- Scripts del Sistema de Línea de Tiempo -->
     <script src="../js/data-loader.js"></script>
     <script src="../js/tech-view.js"></script>
     <script src="../js/rrhh-view.js"></script>
     <script src="../js/modal.js"></script>
     <script src="../js/main.js"></script>
-
-    <script>
-        /**
-         * Función SwitchView que sincroniza el DOM con el estado esperado por main.js
-         */
-        function switchView(view) {
-            const vTech = document.getElementById('tech-view');
-            const vRRHH = document.getElementById('rrhh-view');
-            const bTech = document.getElementById('toggle-tech');
-            const bRRHH = document.getElementById('toggle-rrhh');
-            const filters = document.getElementById('tech-filters-container');
-
-            if (view === 'tech') {
-                vTech.classList.remove('d-none');
-                vRRHH.classList.add('d-none');
-                bTech.setAttribute('aria-pressed', 'true');
-                bRRHH.setAttribute('aria-pressed', 'false');
-                filters.classList.remove('d-none');
-                document.body.setAttribute('data-view', 'tech');
-                // Forzamos un redibujado de la vista técnica si ya está inicializada
-                if (window.techRenderer && window.techRenderer.draw) {
-                    setTimeout(() => window.techRenderer.render(), 50);
-                }
-            } else {
-                vRRHH.classList.remove('d-none');
-                vTech.classList.add('d-none');
-                bRRHH.setAttribute('aria-pressed', 'true');
-                bTech.setAttribute('aria-pressed', 'false');
-                filters.classList.add('d-none');
-                document.body.setAttribute('data-view', 'hr');
-            }
-        }
-    </script>
-</body>
+    
+    <!-- Script base para funcionalidades generales (lupa, etc) -->
+    <script src="../app.js"></script>
+  </body>
 </html>
