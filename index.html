@@ -3,125 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabas · Portfolio</title>
-    <meta name="description" content="Portfolio personal de Sabas - Desarrollador Full Stack especializado en soluciones técnicas y de negocio.">
+    <title>CV Timeline | Juan Antonio Sánchez (Sabas)</title>
     
-    <!-- Fuertes de Google -->
+    <!-- Metadatos SEO -->
+    <meta name="description" content="Trayectoria profesional y formación de Juan Antonio Sánchez Plaza. Vistas interactiva y clásica.">
+    
+    <!-- Fuentes premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Iconos base -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
-    <!-- Estilos base y premium -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body data-view="hr">
-    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <!-- Estilos globales unificados (diseño premium y variables) -->
+    <link rel="stylesheet" href="../style.css">
+    
+    <!-- Estilos específicos de la línea de tiempo -->
+    <link rel="stylesheet" href="../css/cv-timeline.css">
 
+    <!-- Librería SVG.js para el mapa de metro -->
+    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+    <!-- Plugin de filtros para SVG.js (Requerido para dar efecto Glow) -->
+    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.filter.js@3.0.8/dist/svg.filter.min.js"></script>
+</head>
+<body class="cv-page" data-view="hr">
+
+    <!-- Navegación y Cabecera Unificada -->
     <header class="topbar">
         <div class="container nav-wrap">
-            <a class="brand" href="./">Sabas · Portfolio</a>
-            <nav class="nav-links" aria-label="Navegación principal">
-                <a href="./" aria-current="page">Inicio</a>
-                <a href="projects/">Proyectos</a>
-                <a href="cv/">CV</a>
-                <a href="about/">Sobre mí</a>
-                <a href="#contacto">Contacto</a>
-            </nav>
+            <a class="brand" href="../index.html"><i class="bi bi-arrow-left"></i> Volver al Inicio</a>
             
             <div class="toggle" role="group" aria-label="Seleccionar perfil de vista">
-                <button type="button" data-toggle-view="hr" aria-pressed="true">
-                    <i class="bi bi-person-badge"></i> RRHH
+                <button type="button" id="toggle-rrhh" aria-pressed="true" onclick="switchView('hr')">
+                    <i class="bi bi-person-badge"></i> Vista RRHH
                 </button>
-                <button type="button" data-toggle-view="tech" aria-pressed="false">
-                    <i class="bi bi-code-slash"></i> Tech
+                <button type="button" id="toggle-tech" aria-pressed="false" onclick="switchView('tech')">
+                    <i class="bi bi-bezier"></i> Vista Técnica
                 </button>
             </div>
         </div>
     </header>
 
-    <main id="main">
-        <section class="container hero">
-            <div class="two-col">
-                <div class="hero-card glass">
-                    <p class="kicker">Hola, mi nombre es Sabas</p>
-                    <h1 data-audience="hr">Estratega Digital y Desarrollador Full Stack</h1>
-                    <h1 data-audience="tech">Full Stack Developer & AI Integrator</h1>
+    <main class="container" id="main">
+        <!-- Resumen de contacto unificado -->
+        <section class="section glass mb-4" style="margin-top: 2rem;">
+            <div class="two-col" style="grid-template-columns: 2fr 1fr;">
+                <div class="hero-card">
+                    <p class="kicker" data-audience="hr">CV / Resumen de Carrera</p>
+                    <p class="kicker" data-audience="tech">Tech Stack & Timeline</p>
                     
-                    <p class="lead" data-audience="hr">Ayudo a empresas a optimizar sus procesos mediante tecnología robusta y visión de negocio.</p>
-                    <p class="lead" data-audience="tech">Especializado en arquitecturas limpias, automatización con IA y JavaScript moderno.</p>
+                    <h1 class="mb-1" style="font-size: 2rem;">Juan Antonio Sánchez Plaza</h1>
+                    
+                    <p class="lead mb-3" data-audience="hr">
+                        Profesional Full Stack con sólida experiencia en la optimización de procesos y visión de negocio. Combino agilidad técnica con resolución de problemas complejos.
+                        <br><small><i class="bi bi-geo-alt"></i> Illescas (Madrid Sur) · <i class="bi bi-envelope"></i> juanantoniosanchezplaza@hotmail.com</small>
+                    </p>
+                    <p class="lead mb-3" data-audience="tech">
+                        Software Engineer especializado en ecosistema JS moderno, automatización e IA. Arquitecturas limpias y orientación al dato.
+                        <br><small><i class="bi bi-geo-alt"></i> Illescas (Madrid Sur) · <i class="bi bi-envelope"></i> juanantoniosanchezplaza@hotmail.com</small>
+                    </p>
                     
                     <div class="actions">
-                        <a href="cv/" class="btn primary">Ver Trayectoria <i class="bi bi-arrow-right"></i></a>
-                        <a href="projects/" class="btn">Proyectos Recientes</a>
+                        <a href="../assets/01-cv-juanantoniosanchezplaza.pdf" class="btn primary" target="_blank"><i class="bi bi-download"></i> Descargar PDF</a>
+                        <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" class="btn" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                        <a href="https://github.com/djSaBaS" class="btn" target="_blank"><i class="bi bi-github"></i> GitHub</a>
                     </div>
                 </div>
-
-                <div class="avatar-box glass js-avatar">
-                    <img src="assets/avatar.jpg" alt="Sabas - Foto de perfil" class="avatar-box__img">
+                <div class="avatar-box glass d-none d-md-block" style="max-width: 160px; margin-left: auto;">
+                    <img src="../assets/avatar.jpg" alt="Sabas - Foto de perfil" class="avatar-box__img">
                 </div>
             </div>
         </section>
 
-        <section class="container section">
-            <div class="grid metrics-grid">
-                <div class="card glass gauge-card">
-                    <div class="gauge" data-value="8" data-max="10"></div>
-                    <div class="total">8+</div>
-                    <div class="metric-label">Años Exp.</div>
-                </div>
-                <div class="card glass gauge-card">
-                    <div class="gauge" data-value="45" data-max="50"></div>
-                    <div class="total">45+</div>
-                    <div class="metric-label">Proyectos</div>
-                </div>
-                <div class="card glass gauge-card">
-                    <div class="gauge" data-value="15" data-max="20"></div>
-                    <div class="total">15+</div>
-                    <div class="metric-label">Tecnologías</div>
-                </div>
-                <div class="card glass gauge-card">
-                    <div class="gauge" data-value="100" data-max="100"></div>
-                    <div class="total">100%</div>
-                    <div class="metric-label">Compromiso</div>
-                </div>
-            </div>
-        </section>
-
-        <section class="container section">
-            <div class="section-head">
+        <!-- Filtros para Vista Técnica (Solo visibles en modo Tech) -->
+        <section id="tech-filters-container" class="section glass mb-4 d-none">
+            <div class="section-head" style="margin-bottom: 0;">
                 <div>
-                    <h2>Proyectos Destacados</h2>
-                    <p>Una selección de trabajos recientes que muestran mi capacidad técnica y enfoque en resultados.</p>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 5px;">Filtros de Ramas</h3>
+                    <p style="font-size: 0.9rem;">Haz clic en una categoría para mostrar u ocultar su línea temporal.</p>
                 </div>
-                <a href="projects/" class="btn">Ver todos</a>
-            </div>
-            
-            <div class="grid grid-2" data-featured-project-list data-catalog-url="projects/catalog.json" data-count="4">
-                <!-- Los proyectos se cargan dinámicamente vía app.js -->
+                <div class="filters" id="tech-filters">
+                    <!-- Los botones se generarán en JS -->
+                </div>
             </div>
         </section>
 
-        <section id="contacto" class="container section">
-            <div class="card glass contact-box">
-                <h2>¿Hablamos?</h2>
-                <p>Estoy abierto a nuevas oportunidades y colaboraciones técnicas.</p>
-                <div class="actions">
-                    <a href="mailto:tu-email@ejemplo.com" class="btn primary"><i class="bi bi-envelope"></i> Email</a>
-                    <a href="https://linkedin.com/in/tu-perfil" class="btn"><i class="bi bi-linkedin"></i> LinkedIn</a>
-                    <a href="https://github.com/djSaBaS" class="btn"><i class="bi bi-github"></i> GitHub</a>
+        <!-- Área de la Línea de Tiempo -->
+        <section class="section glass p-0 overflow-hidden" style="min-height: 700px; position: relative;">
+            
+            <!-- Loader -->
+            <div id="view-loader" class="loader-overlay text-center p-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2 text-muted">Cargando línea de tiempo...</p>
+            </div>
+
+            <!-- Contenedores de visualización -->
+            <div class="timeline-viewport">
+                <!-- Vista Técnica (Mapa de Metro) -->
+                <div id="tech-view" class="timeline-view d-none" data-tech-timeline>
+                    <div id="canvas-tech" class="timeline-canvas"></div>
+                </div>
+
+                <!-- Vista RRHH (Timeline Vertical) -->
+                <div id="rrhh-view" class="timeline-view" data-rrhh-timeline>
+                    <div id="canvas-rrhh" class="timeline-container"></div>
                 </div>
             </div>
+
+        </section>
+
+        <!-- Formación Detallada -->
+        <section class="section glass mt-4">
+            <h3>¿Buscas formación específica?</h3>
+            <p>He completado más de 4000h de formación en diversas áreas tecnológicas e industriales.</p>
+            <a href="../cursos/" class="btn btn-outline-primary">Explorar buscador de cursos</a>
         </section>
     </main>
 
-    <footer class="container">
-        <p>&copy; 2024 Sabas · Construido con pasión y código limpio.</p>
-    </footer>
+    <!-- Modal Compartido Premium -->
+    <div id="event-modal" class="modal-overlay">
+        <div class="modal-content-premium shadow-lg">
+            <span class="modal-close" onclick="if(window.modalManager) window.modalManager.close()"><i class="bi bi-x-lg"></i></span>
+            <div id="modal-content">
+                <!-- Inyectado por modal.js -->
+            </div>
+        </div>
+    </div>
 
-    <!-- Scripts -->
-    <script src="app.js"></script>
+    <!-- Datos de respaldo para visualización local sin servidor -->
+    <script src="../assets/json/datos.js"></script>
+    <script src="../data/skills.js"></script>
+
+    <!-- Scripts del Sistema -->
+    <script src="../js/data-loader.js"></script>
+    <script src="../js/tech-view.js"></script>
+    <script src="../js/rrhh-view.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/main.js"></script>
+
+    <script>
+        /**
+         * Función SwitchView que sincroniza el DOM con el estado esperado por main.js
+         */
+        function switchView(view) {
+            const vTech = document.getElementById('tech-view');
+            const vRRHH = document.getElementById('rrhh-view');
+            const bTech = document.getElementById('toggle-tech');
+            const bRRHH = document.getElementById('toggle-rrhh');
+            const filters = document.getElementById('tech-filters-container');
+
+            if (view === 'tech') {
+                vTech.classList.remove('d-none');
+                vRRHH.classList.add('d-none');
+                bTech.setAttribute('aria-pressed', 'true');
+                bRRHH.setAttribute('aria-pressed', 'false');
+                filters.classList.remove('d-none');
+                document.body.setAttribute('data-view', 'tech');
+                // Forzamos un redibujado de la vista técnica si ya está inicializada
+                if (window.techRenderer && window.techRenderer.draw) {
+                    setTimeout(() => window.techRenderer.render(), 50);
+                }
+            } else {
+                vRRHH.classList.remove('d-none');
+                vTech.classList.add('d-none');
+                bRRHH.setAttribute('aria-pressed', 'true');
+                bTech.setAttribute('aria-pressed', 'false');
+                filters.classList.add('d-none');
+                document.body.setAttribute('data-view', 'hr');
+            }
+        }
+    </script>
 </body>
 </html>
