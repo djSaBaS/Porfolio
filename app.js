@@ -1037,7 +1037,7 @@
   }
 
   /* Pinto confeti ligero sin dependencias externas para celebrar el desbloqueo en toda la página. */
-  function runUnlockConfetti(finalSection) {
+  function runUnlockConfetti() {
     const confettiColors = ["#6ee7ff", "#8b5cf6", "#34d399"];
     const confettiRoot = document.createElement("div");
     confettiRoot.className = "confetti-root";
