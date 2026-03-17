@@ -16,7 +16,47 @@
   const baseImg = avatarBox ? avatarBox.querySelector("img") : null;
 
   /* Defino la imagen alternativa (de mayor detalle) que se verá dentro de la lupa. */
-  const altImageUrl = "assets/avatar_zoom.jpg";
+  const altImageUrl = new URL("assets/avatar_zoom.jpg", document.baseURI).toString();
+
+  /* Defino la clave que guarda si la experiencia final ya se desbloqueó. */
+  const FINAL_UNLOCK_KEY = "portfolioFinalExperienceUnlocked";
+
+  /* Defino el ratio de scroll para considerar que se llegó al final del recorrido. */
+  const FINAL_BOTTOM_RATIO = 0.98;
+
+  /* Defino el mínimo de desplazamiento hacia arriba para disparar el desbloqueo. */
+  const FINAL_UPWARD_SCROLL_PX = 36;
+
+  /* Guardo si el usuario ya interactuó para desbloquear la experiencia progresiva. */
+  let hasMeaningfulInteraction = false;
+
+  /* Defino los comandos estáticos de la terminal para no recrear el objeto en cada ejecución. */
+  const TERMINAL_COMMANDS = {
+    help: [
+      "Comandos disponibles: help, whoami, skills, projects, automation, ai, clear",
+    ],
+    whoami: [
+      "Soy Juan Antonio Sánchez Plaza, desarrollador Full Stack.",
+      "Conecto negocio y tecnología para reducir tareas manuales con soluciones mantenibles.",
+    ],
+    skills: [
+      "Stack principal: JavaScript, PHP, Python, SQL, HTML y CSS.",
+      "Trabajo con automatización de procesos, APIs, WordPress y herramientas de IA aplicada.",
+    ],
+    projects: [
+      "Proyectos destacados: automatizaciones con impacto operativo, herramientas internas y productos web reales.",
+      "Puedes verlos en la sección Proyectos con enfoque RRHH o técnico.",
+    ],
+    automation: [
+      "Mi foco: convertir flujos repetitivos en procesos simples, medibles y rápidos.",
+      "Resultado habitual: menos errores, menos tiempo y más capacidad del equipo.",
+    ],
+    ai: [
+      "Uso IA para acelerar desarrollo, documentar mejor y mejorar procesos internos.",
+      "Siempre con validación humana y control de calidad.",
+    ],
+    clear: ["__CLEAR__"],
+  };
 
   /* Creo el elemento HTML que actuará como lupa solo cuando hay avatar. */
   const lens = avatarBox && baseImg ? document.createElement("div") : null;
@@ -149,6 +189,9 @@
       /* Seteo aria-pressed como string para accesibilidad. */
       button.setAttribute("aria-pressed", String(pressed));
     });
+
+    /* Sincronizo la experiencia final para respetar siempre la vista activa. */
+    syncFinalExperienceView();
   }
 
   /* Preparo el cambio de vista por botones y aplico la vista inicial. */
@@ -918,6 +961,270 @@
     });
   }
 
+  /* Devuelvo true cuando el usuario ya desbloqueó la experiencia final. */
+  function isFinalExperienceUnlocked() {
+    return localStorage.getItem(FINAL_UNLOCK_KEY) === "true";
+  }
+
+  /* Persisto y pinto el estado desbloqueado de la sección final. */
+  function unlockFinalExperience() {
+    const lockedNode = document.querySelector("[data-final-locked]");
+    const contentNode = document.querySelector("[data-final-content]");
+
+    if (!lockedNode || !contentNode) return;
+
+    localStorage.setItem(FINAL_UNLOCK_KEY, "true");
+    lockedNode.hidden = true;
+    contentNode.hidden = false;
+  }
+
+  /* Borro el desbloqueo guardado para reiniciar la sorpresa cuando corresponda. */
+  function resetFinalExperienceUnlock() {
+    localStorage.removeItem(FINAL_UNLOCK_KEY);
+    paintFinalExperienceState();
+  }
+
+  /* Sincronizo la visibilidad de la experiencia final según el estado persistido. */
+  function paintFinalExperienceState() {
+    const lockedNode = document.querySelector("[data-final-locked]");
+    const contentNode = document.querySelector("[data-final-content]");
+
+    if (!lockedNode || !contentNode) return;
+
+    const unlocked = isFinalExperienceUnlocked();
+    lockedNode.hidden = unlocked;
+    contentNode.hidden = !unlocked;
+  }
+
+  /* Sincronizo la vista activa en el bloque final y su terminal. */
+  function syncFinalExperienceView() {
+    const output = document.querySelector("[data-terminal-output]");
+    if (!output || output.childElementCount) return;
+
+    printTerminalLines([
+      "Terminal de demostración lista.",
+      "Escribe help para ver todos los comandos.",
+    ]);
+  }
+
+  /* Pinto líneas dentro de la terminal simulada de forma segura. */
+  function printTerminalLines(lines) {
+    const output = document.querySelector("[data-terminal-output]");
+    if (!output) return;
+
+    lines.forEach((line) => {
+      const row = document.createElement("p");
+      row.textContent = line;
+      output.appendChild(row);
+    });
+
+    output.scrollTop = output.scrollHeight;
+  }
+
+  /* Devuelvo la respuesta de la terminal en base al comando introducido. */
+  function resolveTerminalCommand(rawCommand) {
+    const command = String(rawCommand || "").trim().toLowerCase();
+
+    if (!command) {
+      return ["Escribe un comando. Prueba con help."];
+    }
+
+    return TERMINAL_COMMANDS[command] || ["Comando no reconocido. Usa help para ver las opciones."];
+  }
+
+  /* Configuro la lógica de interacción final (desbloqueo, simulación y terminal). */
+  function setupFinalExperience() {
+    const finalSection = document.querySelector("[data-final-experience]");
+    if (!finalSection) return;
+
+    const runSimulationBtn = document.querySelector("[data-run-simulation]");
+    const simulationResult = document.querySelector("[data-hr-result]");
+    const terminalForm = document.querySelector("[data-terminal-form]");
+    const terminalInput = document.getElementById("terminal-input");
+    const terminalOutput = document.querySelector("[data-terminal-output]");
+
+    /* Marco la primera interacción significativa y revalúo desbloqueo al instante. */
+    const registerInteraction = () => {
+      hasMeaningfulInteraction = true;
+      evaluateUnlock();
+    };
+
+    /* Guardo el máximo ratio alcanzado para saber si el usuario ya tocó fondo. */
+    let maxScrollRatioReached = 0;
+
+    /* Guardo la posición previa para detectar si el usuario sube. */
+    let lastScrollY = window.scrollY;
+
+    /* Evito mostrar la alerta de desbloqueo más de una vez por sesión activa. */
+    let hasShownUnlockPrompt = false;
+
+    /* Muestro aviso visual con CTA para llevar al usuario a la sección desbloqueada. */
+    const showUnlockPrompt = () => {
+      if (hasShownUnlockPrompt) return;
+      hasShownUnlockPrompt = true;
+
+      const toast = document.createElement("aside");
+      toast.className = "unlock-toast";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+
+      const message = document.createElement("p");
+      message.textContent = "Has desbloqueado algo especial. ¿Quieres verlo?";
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const cta = document.createElement("button");
+      cta.type = "button";
+      cta.className = "btn";
+      cta.textContent = "Sí, llevarme";
+      cta.addEventListener("click", () => {
+        finalSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        toast.remove();
+      });
+
+      const close = document.createElement("button");
+      close.type = "button";
+      close.className = "btn";
+      close.textContent = "Más tarde";
+      close.addEventListener("click", () => toast.remove());
+
+      actions.append(cta, close);
+      toast.append(message, actions);
+      document.body.appendChild(toast);
+    };
+
+    /* Pinto confeti ligero sin dependencias externas para celebrar el desbloqueo RRHH. */
+    const runConfetti = () => {
+      const confettiRoot = document.createElement("div");
+      confettiRoot.className = "confetti-root";
+
+      for (let i = 0; i < 28; i += 1) {
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.animationDelay = `${Math.random() * 0.8}s`;
+        piece.style.background =
+          i % 3 === 0 ? "#6ee7ff" : i % 3 === 1 ? "#8b5cf6" : "#34d399";
+        confettiRoot.appendChild(piece);
+      }
+
+      finalSection.appendChild(confettiRoot);
+      window.setTimeout(() => confettiRoot.remove(), 2400);
+    };
+
+    /* Evalúo criterios: interacción + tocar fondo + subir en RRHH. */
+    const evaluateUnlock = () => {
+      const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const currentY = window.scrollY;
+      const ratio = currentY / scrollable;
+
+      maxScrollRatioReached = Math.max(maxScrollRatioReached, ratio);
+
+      const scrolledUpEnough = lastScrollY - currentY >= FINAL_UPWARD_SCROLL_PX;
+      const reachedBottomBefore = maxScrollRatioReached >= FINAL_BOTTOM_RATIO;
+      const isHrViewActive = getView() === "hr";
+
+      if (!isFinalExperienceUnlocked() && hasMeaningfulInteraction && reachedBottomBefore && scrolledUpEnough && isHrViewActive) {
+        unlockFinalExperience();
+        runConfetti();
+        showUnlockPrompt();
+      }
+
+      lastScrollY = currentY;
+    };
+
+    ["click", "keydown", "pointerover"].forEach((eventName) => {
+      document.addEventListener(eventName, registerInteraction, { once: true, passive: true });
+    });
+
+    /* Escucho scroll para evaluar el desbloqueo en cada cambio de posición. */
+    window.addEventListener("scroll", evaluateUnlock, { passive: true });
+
+    /* Reevalúo al cambiar manualmente RRHH/TECH para respetar prioridad de vista activa. */
+    document.querySelectorAll("[data-toggle-view]").forEach((button) => {
+      button.addEventListener("click", () => {
+        window.setTimeout(evaluateUnlock, 0);
+      });
+    });
+
+    if (isFinalExperienceUnlocked()) {
+      unlockFinalExperience();
+      syncFinalExperienceView();
+    }
+
+    paintFinalExperienceState();
+
+    /* Reviso estado al cargar por si se entra ya con scroll avanzado. */
+    evaluateUnlock();
+
+    /* Al cerrar pestaña o ventana, reseteo el desbloqueo para futura visita. */
+    window.addEventListener("beforeunload", resetFinalExperienceUnlock);
+
+    /* Al salir con el ratón del DOM, también reseteo la sorpresa como se solicitó. */
+    document.addEventListener("mouseleave", (event) => {
+      if (event.relatedTarget === null) {
+        resetFinalExperienceUnlock();
+        hasShownUnlockPrompt = false;
+      }
+    });
+
+    if (runSimulationBtn && simulationResult) {
+      runSimulationBtn.addEventListener("click", () => {
+        const SIMULATION_MANUAL_STEP_DELAY = 700;
+        const SIMULATION_AUTO_STEP_DELAY = 250;
+        const SIMULATION_RESULT_DELAY = 3200;
+
+        const manualSteps = finalSection.querySelectorAll('[data-lane="manual"] [data-step]');
+        const autoSteps = finalSection.querySelectorAll('[data-lane="auto"] [data-step]');
+
+        manualSteps.forEach((step, index) => {
+          window.setTimeout(
+            () => step.classList.add("is-done"),
+            SIMULATION_MANUAL_STEP_DELAY * (index + 1),
+          );
+        });
+
+        autoSteps.forEach((step, index) => {
+          window.setTimeout(
+            () => step.classList.add("is-done"),
+            SIMULATION_AUTO_STEP_DELAY * (index + 1),
+          );
+        });
+
+        window.setTimeout(() => {
+          simulationResult.textContent =
+            "Resultado: la automatización convierte un proceso pesado en una ejecución clara, rápida y fiable.";
+        }, SIMULATION_RESULT_DELAY);
+      });
+    }
+
+    document.querySelectorAll("[data-switch-final]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetView = button.getAttribute("data-switch-final");
+        setView(targetView);
+      });
+    });
+
+    if (terminalForm && terminalInput && terminalOutput) {
+      terminalForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const typed = terminalInput.value;
+        printTerminalLines([`> ${typed}`]);
+        const lines = resolveTerminalCommand(typed);
+
+        if (lines.length === 1 && lines[0] === "__CLEAR__") {
+          terminalOutput.replaceChildren();
+        } else {
+          printTerminalLines(lines);
+        }
+
+        terminalInput.value = "";
+      });
+    }
+  }
+
   /* Inicializo el toggle de audiencia (hr/tech). */
   setupAudienceToggle();
 
@@ -932,6 +1239,9 @@
 
   /* Inicializo la línea de tiempo de cursos con interacción. */
   renderCourseTimeline();
+
+  /* Inicializo el desbloqueo progresivo y la experiencia final. */
+  setupFinalExperience();
 
 
   /* Inicializo el seteo automático del año en el footer o donde aplique. */

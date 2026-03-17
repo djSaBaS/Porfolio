@@ -106,16 +106,76 @@
                 <h2>¿Hablamos?</h2>
                 <p>Estoy abierto a nuevas oportunidades y colaboraciones técnicas.</p>
                 <div class="actions">
-                    <a href="mailto:tu-email@ejemplo.com" class="btn primary"><i class="bi bi-envelope"></i> Email</a>
-                    <a href="https://linkedin.com/in/tu-perfil" class="btn"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:juanantoniosanchezplaza@hotmail.com?subject=Contacto%20portfolio" class="btn primary"><i class="bi bi-envelope"></i> Email</a>
+                    <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" class="btn"><i class="bi bi-linkedin"></i> LinkedIn</a>
                     <a href="https://github.com/djSaBaS" class="btn"><i class="bi bi-github"></i> GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="container section final-experience" id="experiencia-final" data-final-experience aria-live="polite">
+            <div class="card glass final-experience__locked" data-final-locked>
+                <h2>Experiencia final desbloqueable</h2>
+                <p>Explora el portfolio hasta el final e interactúa para desbloquear una experiencia adaptada al modo activo.</p>
+            </div>
+
+            <div class="card glass final-experience__content" data-final-content hidden>
+                <div class="section-head">
+                    <div>
+                        <h2>Bonus final del portfolio</h2>
+                        <p>Esta sección respeta siempre el modo que selecciones manualmente.</p>
+                    </div>
+                    <span class="badge">Desbloqueado</span>
+                </div>
+
+                <div class="hr-simulation" data-audience="hr">
+                    <h3>Proceso manual vs automatizado</h3>
+                    <div class="hr-simulation__grid">
+                        <article class="hr-simulation__lane" data-lane="manual">
+                            <h4>Proceso manual</h4>
+                            <ol>
+                                <li data-step>Recopilar datos en hojas dispersas</li>
+                                <li data-step>Copiar y pegar entre herramientas</li>
+                                <li data-step>Revisar errores de forma manual</li>
+                                <li data-step>Generar informe final con retraso</li>
+                            </ol>
+                        </article>
+                        <article class="hr-simulation__lane" data-lane="auto">
+                            <h4>Proceso automatizado</h4>
+                            <ol>
+                                <li data-step>Entrada única de información</li>
+                                <li data-step>Validación y reglas automáticas</li>
+                                <li data-step>Ejecución integrada en segundos</li>
+                                <li data-step>Informe listo y trazable al instante</li>
+                            </ol>
+                        </article>
+                    </div>
+                    <p class="hr-simulation__result" data-hr-result>Resultado: menos carga operativa, más tiempo para tareas de valor.</p>
+                    <div class="actions">
+                        <button type="button" class="btn" data-run-simulation>Ver simulación</button>
+                    </div>
+                    <p>¿Te gustaría verlo por consola? Mira esto:</p>
+                    <button type="button" class="btn" data-switch-final="tech">Abrir experiencia TECH</button>
+                </div>
+
+                <div class="tech-terminal" data-audience="tech">
+                    <h3>Terminal guiada</h3>
+                    <p>Escribe <code>help</code> para ver los comandos disponibles.</p>
+                    <div class="tech-terminal__screen" data-terminal-output aria-label="Salida de terminal"></div>
+                    <form class="tech-terminal__form" data-terminal-form>
+                        <label for="terminal-input" class="sr-only">Introduce un comando</label>
+                        <span>&gt;</span>
+                        <input id="terminal-input" name="terminal-input" type="text" autocomplete="off" placeholder="help" />
+                    </form>
+                    <p>¿Lo quieres más sencillo? Mira esto:</p>
+                    <button type="button" class="btn" data-switch-final="hr">Abrir experiencia RRHH</button>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="container">
-        <p>&copy; 20246 Juan Antonio Sánchez Plaza - Sabas · Construido con pasión, código limpio y unas gotitas de IA.</p>
+        <p>&copy; <span data-year></span> Juan Antonio Sánchez Plaza - Sabas · Construido con pasión, código limpio y unas gotitas de IA.</p>
     </footer>
 
     <!-- Scripts -->
