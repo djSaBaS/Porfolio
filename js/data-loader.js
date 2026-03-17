@@ -89,7 +89,6 @@ class DataLoader {
             icon: ev.icon || null,
             link: ev.link || ev.url || null,
             stage: ev.stage || 'general',
-
             domain: this.getDomain(ev),
             sortStart: ev.sortStart || `${ev.year_start || ev.yearStart || 0}-${String(ev.month_start || ev.monthStart || ev.dateStart?.split('-')[1] || 1).padStart(2, '0')}`,
             sortEnd: ev.sortEnd || `${ev.year_end || ev.yearEnd || 9999}-${String(ev.month_end || ev.monthEnd || ev.dateEnd?.split('-')[1] || 12).padStart(2, '0')}`

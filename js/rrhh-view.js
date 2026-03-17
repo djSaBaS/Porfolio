@@ -38,7 +38,6 @@ class RRHHRenderer {
             const item = document.createElement('div');
             const side = event.kind === 'work' ? 'right' : 'left';
             item.className = `rrhh-timeline-item ${side}`;
-
             const card = event.kind === 'work' ? this.createJobCard(event) : this.createEduCard(event);
             item.appendChild(card);
 
@@ -52,6 +51,7 @@ class RRHHRenderer {
         container.appendChild(timeline);
     }
 
+    // Crea una tarjeta de empleo
     createJobCard(event) {
         const card = document.createElement('article');
         card.className = 'rrhh-card rrhh-card--work glass-premium';
@@ -73,6 +73,7 @@ class RRHHRenderer {
         return card;
     }
 
+    // Crea una tarjeta de formación compacta
     createEduCard(event) {
         const card = document.createElement('article');
         card.className = 'rrhh-card rrhh-card--edu glass-premium';
@@ -92,6 +93,7 @@ class RRHHRenderer {
         return card;
     }
 
+    // Devuelve icono representativo de skill
     getSkillIcon(tag) {
         const map = {
             php: '🐘', javascript: '🟨', mysql: '🛢️', ia: '🤖', wordpress: '🧩',

@@ -79,6 +79,7 @@ class TechRenderer {
         });
     }
 
+    // Calcula la coordenada X proporcional al año y mes
     getX(year, month = 1) {
         const safeYear = Math.min(Math.max(Number(year) || this.minYear, this.minYear), this.maxYear);
         const safeMonth = Math.min(Math.max(Number(month) || 1, 1), 12);
