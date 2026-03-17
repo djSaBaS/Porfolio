@@ -1,54 +1,48 @@
 /**
  * rrhh-view.js
- * Renderizador de la Vista RRHH (Trayectoria Vertical Clásica).
- * Foco en legibilidad, limpieza y profesionalidad para reclutadores.
+ * Renderizador de la Vista RRHH con eje central y columnas completas sin solape.
  */
 
 class RRHHRenderer {
-    // Constructor de la clase
     constructor() {
-        // ID del contenedor de la vista RRHH
         this.containerId = 'canvas-rrhh';
-        // Almacén local de eventos
         this.events = [];
+        this.domainFilter = 'all';
     }
 
-    // Inicialización con datos normalizados
     init(data) {
-        // Orden cronológico descendente por inicio
         this.events = data.events.slice().sort((a, b) => b.sortStart.localeCompare(a.sortStart));
-        // Ejecutamos el renderizado
         this.render();
     }
 
-    // Función principal de renderizado
+    setDomainFilter(domain) {
+        this.domainFilter = domain || 'all';
+        this.render();
+    }
+
+    getFilteredEvents() {
+        if (this.domainFilter === 'all') return this.events;
+        return this.events.filter((event) => event.domain === this.domainFilter || event.domain === 'core');
+    }
+
     render() {
         const container = document.getElementById(this.containerId);
         if (!container) return;
         container.innerHTML = '';
 
         const timeline = document.createElement('div');
-        timeline.className = 'rrhh-timeline rrhh-timeline--split';
+        timeline.className = 'rrhh-timeline';
 
-        let leftRow = 0;
-        let rightRow = 0;
-
-        this.events.forEach((event) => {
+        const events = this.getFilteredEvents();
+        events.forEach((event) => {
             const item = document.createElement('div');
             const side = event.kind === 'work' ? 'right' : 'left';
             item.className = `rrhh-timeline-item ${side}`;
-
-            const row = side === 'left' ? leftRow++ : rightRow++;
-            item.style.setProperty('--row-index', String(row));
-
-            if (event.kind === 'work') {
-                item.appendChild(this.createJobCard(event));
-            } else {
-                item.appendChild(this.createEduCard(event));
-            }
+            const card = event.kind === 'work' ? this.createJobCard(event) : this.createEduCard(event);
+            item.appendChild(card);
 
             item.addEventListener('click', () => {
-                if (window.openModal) window.openModal(event.id);
+                if (window.modalManager) window.modalManager.open(event.id);
             });
 
             timeline.appendChild(item);
@@ -72,7 +66,7 @@ class RRHHRenderer {
             <div class="rrhh-card-entity"><i class="bi bi-building"></i> ${event.entity}</div>
             <p class="rrhh-card-summary">${event.summary}</p>
             <div class="rrhh-card-skills">
-                ${(event.tags || []).slice(0, 5).map((tag) => `<span class="rrhh-skill-badge" title="${tag}">${this.getSkillIcon(tag)} ${tag}</span>`).join('')}
+                ${(event.tags || []).slice(0, 6).map((tag) => `<span class="rrhh-skill-badge" title="${tag}">${this.getSkillIcon(tag)} ${tag}</span>`).join('')}
             </div>
         `;
 
@@ -109,5 +103,4 @@ class RRHHRenderer {
     }
 }
 
-// Inyectamos la instancia en el objeto window para acceso global
 window.rrhhRenderer = new RRHHRenderer();

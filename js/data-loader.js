@@ -89,10 +89,33 @@ class DataLoader {
             icon: ev.icon || null,
             link: ev.link || ev.url || null,
             stage: ev.stage || 'general',
+            domain: this.getDomain(ev),
             sortStart: ev.sortStart || `${ev.year_start || ev.yearStart || 0}-${String(ev.month_start || ev.monthStart || ev.dateStart?.split('-')[1] || 1).padStart(2, '0')}`,
             sortEnd: ev.sortEnd || `${ev.year_end || ev.yearEnd || 9999}-${String(ev.month_end || ev.monthEnd || ev.dateEnd?.split('-')[1] || 12).padStart(2, '0')}`
         };
     }
+
+    /**
+     * Clasifica el evento por dominio temático para dibujar ramas y filtros.
+     */
+    getDomain(ev) {
+        const text = [
+            ev.title,
+            ev.titulo,
+            ev.category,
+            ev.categoria,
+            ...(ev.tags || []),
+            ...(ev.skills || []),
+        ].join(' ').toLowerCase();
+
+        if (/\b(calorif|constru|mecani|prl|riesgos? laborales?|electric|fontan|soldad|oficio)\b/.test(text)) return 'construction';
+        if (/\b(diseñ|disen|creativ|sonid|audio|ux|ui|photoshop|illustrator|figma|marketing visual)\b/.test(text)) return 'creativity';
+        if (/\b(informat|sistemas?|redes|hardware|software base|office|ofimatica|servidores?|linux)\b/.test(text)) return 'it';
+        if (/\b(desarroll|program|python|php|javascript|react|ia|backend|frontend|web|datos|sql)\b/.test(text)) return 'development';
+
+        return 'core';
+    }
+
 
     /**
      * Asigna un color por defecto basado en el tipo de evento si no existe
