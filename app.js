@@ -1095,6 +1095,7 @@
 
   /* Configuro listeners y criterios para desbloquear la experiencia final. */
   function setupFinalExperienceUnlock(finalSection) {
+    let hasMeaningfulInteraction = false;
     let maxScrollRatioReached = 0;
     let lastScrollY = window.scrollY;
     const hasShownUnlockPromptRef = { value: false };
