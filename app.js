@@ -1036,23 +1036,24 @@
     return ["Comando no reconocido. Usa help para ver las opciones."];
   }
 
-  /* Pinto confeti ligero sin dependencias externas para celebrar el desbloqueo RRHH. */
-  function runUnlockConfetti(finalSection) {
+  /* Pinto confeti ligero sin dependencias externas para celebrar el desbloqueo en toda la página. */
+  function runUnlockConfetti() {
     const confettiColors = ["#6ee7ff", "#8b5cf6", "#34d399"];
     const confettiRoot = document.createElement("div");
     confettiRoot.className = "confetti-root";
 
-    for (let i = 0; i < 28; i += 1) {
+    for (let i = 0; i < 90; i += 1) {
       const piece = document.createElement("span");
       piece.className = "confetti-piece";
       piece.style.left = `${Math.random() * 100}%`;
-      piece.style.animationDelay = `${Math.random() * 0.8}s`;
+      piece.style.animationDelay = `${Math.random() * 0.4}s`;
+      piece.style.animationDuration = `${1.4 + Math.random() * 0.8}s`;
       piece.style.background = confettiColors[i % confettiColors.length];
       confettiRoot.appendChild(piece);
     }
 
-    finalSection.appendChild(confettiRoot);
-    window.setTimeout(() => confettiRoot.remove(), 2400);
+    document.body.appendChild(confettiRoot);
+    window.setTimeout(() => confettiRoot.remove(), 2000);
   }
 
   /* Muestro aviso visual con CTA para llevar al usuario a la sección desbloqueada. */
@@ -1110,9 +1111,8 @@
 
       const scrolledUpEnough = lastScrollY - currentY >= FINAL_UPWARD_SCROLL_PX;
       const reachedBottomBefore = maxScrollRatioReached >= FINAL_BOTTOM_RATIO;
-      const isHrViewActive = getView() === "hr";
 
-      if (!isFinalExperienceUnlocked() && hasMeaningfulInteraction && reachedBottomBefore && scrolledUpEnough && isHrViewActive) {
+      if (!isFinalExperienceUnlocked() && hasMeaningfulInteraction && reachedBottomBefore && scrolledUpEnough) {
         unlockFinalExperience();
         runUnlockConfetti(finalSection);
         showUnlockPrompt();
