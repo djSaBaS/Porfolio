@@ -24,6 +24,34 @@
   /* Guardo si el usuario ya interactuó para desbloquear la experiencia progresiva. */
   let hasMeaningfulInteraction = false;
 
+  /* Defino los comandos estáticos de la terminal para no recrear el objeto en cada ejecución. */
+  const TERMINAL_COMMANDS = {
+    help: [
+      "Comandos disponibles: help, whoami, skills, projects, automation, ai, clear",
+    ],
+    whoami: [
+      "Soy Juan Antonio Sánchez Plaza, desarrollador Full Stack.",
+      "Conecto negocio y tecnología para reducir tareas manuales con soluciones mantenibles.",
+    ],
+    skills: [
+      "Stack principal: JavaScript, PHP, Python, SQL, HTML y CSS.",
+      "Trabajo con automatización de procesos, APIs, WordPress y herramientas de IA aplicada.",
+    ],
+    projects: [
+      "Proyectos destacados: automatizaciones con impacto operativo, herramientas internas y productos web reales.",
+      "Puedes verlos en la sección Proyectos con enfoque RRHH o técnico.",
+    ],
+    automation: [
+      "Mi foco: convertir flujos repetitivos en procesos simples, medibles y rápidos.",
+      "Resultado habitual: menos errores, menos tiempo y más capacidad del equipo.",
+    ],
+    ai: [
+      "Uso IA para acelerar desarrollo, documentar mejor y mejorar procesos internos.",
+      "Siempre con validación humana y control de calidad.",
+    ],
+    clear: ["__CLEAR__"],
+  };
+
   /* Creo el elemento HTML que actuará como lupa solo cuando hay avatar. */
   const lens = avatarBox && baseImg ? document.createElement("div") : null;
 
@@ -985,38 +1013,11 @@
   function resolveTerminalCommand(rawCommand) {
     const command = String(rawCommand || "").trim().toLowerCase();
 
-    const commands = {
-      help: [
-        "Comandos disponibles: help, whoami, skills, projects, automation, ai, clear",
-      ],
-      whoami: [
-        "Soy Juan Antonio Sánchez Plaza, desarrollador Full Stack.",
-        "Conecto negocio y tecnología para reducir tareas manuales con soluciones mantenibles.",
-      ],
-      skills: [
-        "Stack principal: JavaScript, PHP, Python, SQL, HTML y CSS.",
-        "Trabajo con automatización de procesos, APIs, WordPress y herramientas de IA aplicada.",
-      ],
-      projects: [
-        "Proyectos destacados: automatizaciones con impacto operativo, herramientas internas y productos web reales.",
-        "Puedes verlos en la sección Proyectos con enfoque RRHH o técnico.",
-      ],
-      automation: [
-        "Mi foco: convertir flujos repetitivos en procesos simples, medibles y rápidos.",
-        "Resultado habitual: menos errores, menos tiempo y más capacidad del equipo.",
-      ],
-      ai: [
-        "Uso IA para acelerar desarrollo, documentar mejor y mejorar procesos internos.",
-        "Siempre con validación humana y control de calidad.",
-      ],
-      clear: ["__CLEAR__"],
-    };
-
     if (!command) {
       return ["Escribe un comando. Prueba con help."];
     }
 
-    return commands[command] || ["Comando no reconocido. Usa help para ver las opciones."];
+    return TERMINAL_COMMANDS[command] || ["Comando no reconocido. Usa help para ver las opciones."];
   }
 
   /* Configuro la lógica de interacción final (desbloqueo, simulación y terminal). */

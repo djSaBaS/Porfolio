@@ -316,6 +316,18 @@ h2 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+/* Utilidad para ocultar elementos cuando una vista no debe mostrarse. */
+.d-none {
+  display: none !important;
+}
+
+/* Utilidad responsive para mostrar bloque desde tamaño tablet/escritorio. */
+@media (min-width: 768px) {
+  .d-md-block {
+    display: block !important;
+  }
+}
+
 /* Card base con borde, fondo suave y transición para hover. */
 .card {
   border: 1px solid var(--border);
