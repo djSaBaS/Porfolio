@@ -21,6 +21,12 @@
   /* Defino la clave que guarda si la experiencia final ya se desbloqueó. */
   const FINAL_UNLOCK_KEY = "portfolioFinalExperienceUnlocked";
 
+  /* Defino el ratio de scroll para considerar que se llegó al final del recorrido. */
+  const FINAL_BOTTOM_RATIO = 0.98;
+
+  /* Defino el mínimo de desplazamiento hacia arriba para disparar el desbloqueo. */
+  const FINAL_UPWARD_SCROLL_PX = 36;
+
   /* Guardo si el usuario ya interactuó para desbloquear la experiencia progresiva. */
   let hasMeaningfulInteraction = false;
 
@@ -972,6 +978,12 @@
     contentNode.hidden = false;
   }
 
+  /* Borro el desbloqueo guardado para reiniciar la sorpresa cuando corresponda. */
+  function resetFinalExperienceUnlock() {
+    localStorage.removeItem(FINAL_UNLOCK_KEY);
+    paintFinalExperienceState();
+  }
+
   /* Sincronizo la visibilidad de la experiencia final según el estado persistido. */
   function paintFinalExperienceState() {
     const lockedNode = document.querySelector("[data-final-locked]");
@@ -1031,24 +1043,111 @@
     const terminalInput = document.getElementById("terminal-input");
     const terminalOutput = document.querySelector("[data-terminal-output]");
 
+
+    /* Marco la primera interacción significativa y revalúo desbloqueo al instante. */
     const registerInteraction = () => {
       hasMeaningfulInteraction = true;
+      evaluateUnlock();
+    };
+
+    /* Guardo el máximo ratio alcanzado para saber si el usuario ya tocó fondo. */
+    let maxScrollRatioReached = 0;
+
+    /* Guardo la posición previa para detectar si el usuario sube. */
+    let lastScrollY = window.scrollY;
+
+    /* Evito mostrar la alerta de desbloqueo más de una vez por sesión activa. */
+    let hasShownUnlockPrompt = false;
+
+    /* Muestro aviso visual con CTA para llevar al usuario a la sección desbloqueada. */
+    const showUnlockPrompt = () => {
+      if (hasShownUnlockPrompt) return;
+      hasShownUnlockPrompt = true;
+
+      const toast = document.createElement("aside");
+      toast.className = "unlock-toast";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+
+      const message = document.createElement("p");
+      message.textContent = "Has desbloqueado algo especial. ¿Quieres verlo?";
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const cta = document.createElement("button");
+      cta.type = "button";
+      cta.className = "btn";
+      cta.textContent = "Sí, llevarme";
+      cta.addEventListener("click", () => {
+        finalSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        toast.remove();
+      });
+
+      const close = document.createElement("button");
+      close.type = "button";
+      close.className = "btn";
+      close.textContent = "Más tarde";
+      close.addEventListener("click", () => toast.remove());
+
+      actions.append(cta, close);
+      toast.append(message, actions);
+      document.body.appendChild(toast);
+    };
+
+    /* Pinto confeti ligero sin dependencias externas para celebrar el desbloqueo RRHH. */
+    const runConfetti = () => {
+      const confettiRoot = document.createElement("div");
+      confettiRoot.className = "confetti-root";
+
+      for (let i = 0; i < 28; i += 1) {
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.animationDelay = `${Math.random() * 0.8}s`;
+        piece.style.background =
+          i % 3 === 0 ? "#6ee7ff" : i % 3 === 1 ? "#8b5cf6" : "#34d399";
+        confettiRoot.appendChild(piece);
+      }
+
+      finalSection.appendChild(confettiRoot);
+      window.setTimeout(() => confettiRoot.remove(), 2400);
+    };
+
+    /* Evalúo criterios: interacción + tocar fondo + subir en RRHH. */
+    const evaluateUnlock = () => {
+      const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const currentY = window.scrollY;
+      const ratio = currentY / scrollable;
+
+      maxScrollRatioReached = Math.max(maxScrollRatioReached, ratio);
+
+      const scrolledUpEnough = lastScrollY - currentY >= FINAL_UPWARD_SCROLL_PX;
+      const reachedBottomBefore = maxScrollRatioReached >= FINAL_BOTTOM_RATIO;
+      const isHrViewActive = getView() === "hr";
+
+      if (!isFinalExperienceUnlocked() && hasMeaningfulInteraction && reachedBottomBefore && scrolledUpEnough && isHrViewActive) {
+        unlockFinalExperience();
+        runConfetti();
+        showUnlockPrompt();
+      }
+
+      lastScrollY = currentY;
     };
 
     ["click", "keydown", "pointerover"].forEach((eventName) => {
       document.addEventListener(eventName, registerInteraction, { once: true, passive: true });
     });
 
-    const unlockIfEligible = () => {
-      const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-      const ratio = window.scrollY / scrollable;
-      if (ratio >= 0.85 && hasMeaningfulInteraction) {
-        unlockFinalExperience();
-        window.removeEventListener("scroll", unlockIfEligible);
-      }
-    };
+    /* Escucho scroll para evaluar el desbloqueo en cada cambio de posición. */
+    window.addEventListener("scroll", evaluateUnlock, { passive: true });
 
-    window.addEventListener("scroll", unlockIfEligible, { passive: true });
+    /* Reevalúo al cambiar manualmente RRHH/TECH para respetar prioridad de vista activa. */
+    document.querySelectorAll("[data-toggle-view]").forEach((button) => {
+      button.addEventListener("click", () => {
+        window.setTimeout(evaluateUnlock, 0);
+      });
+    });
 
     if (isFinalExperienceUnlocked()) {
       unlockFinalExperience();
@@ -1057,23 +1156,46 @@
 
     paintFinalExperienceState();
 
+    /* Reviso estado al cargar por si se entra ya con scroll avanzado. */
+    evaluateUnlock();
+
+    /* Al cerrar pestaña o ventana, reseteo el desbloqueo para futura visita. */
+    window.addEventListener("beforeunload", resetFinalExperienceUnlock);
+
+    /* Al salir con el ratón del DOM, también reseteo la sorpresa como se solicitó. */
+    document.addEventListener("mouseleave", (event) => {
+      if (event.relatedTarget === null) {
+        resetFinalExperienceUnlock();
+        hasShownUnlockPrompt = false;
+      }
+    });
+
     if (runSimulationBtn && simulationResult) {
       runSimulationBtn.addEventListener("click", () => {
+        const SIMULATION_MANUAL_STEP_DELAY = 700;
+        const SIMULATION_AUTO_STEP_DELAY = 250;
+        const SIMULATION_RESULT_DELAY = 3200;
         const manualSteps = finalSection.querySelectorAll('[data-lane="manual"] [data-step]');
         const autoSteps = finalSection.querySelectorAll('[data-lane="auto"] [data-step]');
 
         manualSteps.forEach((step, index) => {
-          window.setTimeout(() => step.classList.add("is-done"), 700 * (index + 1));
+          window.setTimeout(
+            () => step.classList.add("is-done"),
+            SIMULATION_MANUAL_STEP_DELAY * (index + 1),
+          );
         });
 
         autoSteps.forEach((step, index) => {
-          window.setTimeout(() => step.classList.add("is-done"), 250 * (index + 1));
+          window.setTimeout(
+            () => step.classList.add("is-done"),
+            SIMULATION_AUTO_STEP_DELAY * (index + 1),
+          );
         });
 
         window.setTimeout(() => {
           simulationResult.textContent =
             "Resultado: la automatización convierte un proceso pesado en una ejecución clara, rápida y fiable.";
-        }, 3200);
+        }, SIMULATION_RESULT_DELAY);
       });
     }
 

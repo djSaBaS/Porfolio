@@ -245,12 +245,14 @@ h2 {
   text-decoration: none;
   border: 1px solid var(--border);
   color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
   padding: 0.72rem 0.98rem;
   border-radius: 12px;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  appearance: none;
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
@@ -1436,6 +1438,7 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
 
 /* Añado separación superior para la experiencia final. */
 .final-experience {
+  position: relative;
   margin-bottom: 2rem;
 }
 
@@ -1443,6 +1446,12 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
 .final-experience__locked,
 .final-experience__content {
   padding: 1.2rem;
+}
+
+/* Aseguro contraste consistente en botones de la experiencia final. */
+.final-experience .btn {
+  color: var(--text);
+  background: rgba(110, 231, 255, 0.12);
 }
 
 /* Defino grid para comparar proceso manual y automatizado. */
@@ -1522,9 +1531,65 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   outline-offset: 2px;
 }
 
+/* Mensaje flotante de desbloqueo para invitar a visitar el huevo de pascua. */
+.unlock-toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 120;
+  max-width: min(92vw, 420px);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(6, 12, 24, 0.95);
+  padding: 0.9rem;
+  box-shadow: var(--shadow);
+}
+
+/* Ajusto margen del texto del aviso para mantener lectura limpia. */
+.unlock-toast p {
+  margin: 0 0 0.7rem;
+}
+
+/* Contenedor superpuesto donde se renderiza el confeti temporal. */
+.confetti-root {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Pieza de confeti animada con caída suave. */
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: 8px;
+  height: 14px;
+  border-radius: 3px;
+  animation: confetti-fall 1.9s ease-in forwards;
+}
+
+/* Animación del confeti para dar sensación de celebración breve y elegante. */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(280px) rotate(540deg);
+    opacity: 0;
+  }
+}
+
 /* Ajustes responsive para la simulación final en móvil. */
 @media (max-width: 760px) {
   .hr-simulation__grid {
     grid-template-columns: 1fr;
+  }
+
+  .unlock-toast {
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.8rem;
+    max-width: none;
   }
 }
