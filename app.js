@@ -1029,40 +1029,37 @@
       return ["Escribe un comando. Prueba con help."];
     }
 
-    return TERMINAL_COMMANDS[command] || ["Comando no reconocido. Usa help para ver las opciones."];
+    if (Object.prototype.hasOwnProperty.call(TERMINAL_COMMANDS, command)) {
+      return TERMINAL_COMMANDS[command];
+    }
+
+    return ["Comando no reconocido. Usa help para ver las opciones."];
   }
 
-  /* Configuro la lógica de interacción final (desbloqueo, simulación y terminal). */
-  function setupFinalExperience() {
-    const finalSection = document.querySelector("[data-final-experience]");
-    if (!finalSection) return;
+  /* Pinto confeti ligero sin dependencias externas para celebrar el desbloqueo RRHH. */
+  function runUnlockConfetti(finalSection) {
+    const confettiColors = ["#6ee7ff", "#8b5cf6", "#34d399"];
+    const confettiRoot = document.createElement("div");
+    confettiRoot.className = "confetti-root";
 
-    const runSimulationBtn = document.querySelector("[data-run-simulation]");
-    const simulationResult = document.querySelector("[data-hr-result]");
-    const terminalForm = document.querySelector("[data-terminal-form]");
-    const terminalInput = document.getElementById("terminal-input");
-    const terminalOutput = document.querySelector("[data-terminal-output]");
+    for (let i = 0; i < 28; i += 1) {
+      const piece = document.createElement("span");
+      piece.className = "confetti-piece";
+      piece.style.left = `${Math.random() * 100}%`;
+      piece.style.animationDelay = `${Math.random() * 0.8}s`;
+      piece.style.background = confettiColors[i % confettiColors.length];
+      confettiRoot.appendChild(piece);
+    }
 
+    finalSection.appendChild(confettiRoot);
+    window.setTimeout(() => confettiRoot.remove(), 2400);
+  }
 
-    /* Marco la primera interacción significativa y revalúo desbloqueo al instante. */
-    const registerInteraction = () => {
-      hasMeaningfulInteraction = true;
-      evaluateUnlock();
-    };
-
-    /* Guardo el máximo ratio alcanzado para saber si el usuario ya tocó fondo. */
-    let maxScrollRatioReached = 0;
-
-    /* Guardo la posición previa para detectar si el usuario sube. */
-    let lastScrollY = window.scrollY;
-
-    /* Evito mostrar la alerta de desbloqueo más de una vez por sesión activa. */
-    let hasShownUnlockPrompt = false;
-
-    /* Muestro aviso visual con CTA para llevar al usuario a la sección desbloqueada. */
-    const showUnlockPrompt = () => {
-      if (hasShownUnlockPrompt) return;
-      hasShownUnlockPrompt = true;
+  /* Muestro aviso visual con CTA para llevar al usuario a la sección desbloqueada. */
+  function buildUnlockPrompt(finalSection, hasShownUnlockPromptRef) {
+    return () => {
+      if (hasShownUnlockPromptRef.value) return;
+      hasShownUnlockPromptRef.value = true;
 
       const toast = document.createElement("aside");
       toast.className = "unlock-toast";
@@ -1094,27 +1091,15 @@
       toast.append(message, actions);
       document.body.appendChild(toast);
     };
+  }
 
-    /* Pinto confeti ligero sin dependencias externas para celebrar el desbloqueo RRHH. */
-    const runConfetti = () => {
-      const confettiRoot = document.createElement("div");
-      confettiRoot.className = "confetti-root";
+  /* Configuro listeners y criterios para desbloquear la experiencia final. */
+  function setupFinalExperienceUnlock(finalSection) {
+    let maxScrollRatioReached = 0;
+    let lastScrollY = window.scrollY;
+    const hasShownUnlockPromptRef = { value: false };
+    const showUnlockPrompt = buildUnlockPrompt(finalSection, hasShownUnlockPromptRef);
 
-      for (let i = 0; i < 28; i += 1) {
-        const piece = document.createElement("span");
-        piece.className = "confetti-piece";
-        piece.style.left = `${Math.random() * 100}%`;
-        piece.style.animationDelay = `${Math.random() * 0.8}s`;
-        piece.style.background =
-          i % 3 === 0 ? "#6ee7ff" : i % 3 === 1 ? "#8b5cf6" : "#34d399";
-        confettiRoot.appendChild(piece);
-      }
-
-      finalSection.appendChild(confettiRoot);
-      window.setTimeout(() => confettiRoot.remove(), 2400);
-    };
-
-    /* Evalúo criterios: interacción + tocar fondo + subir en RRHH. */
     const evaluateUnlock = () => {
       const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       const currentY = window.scrollY;
@@ -1128,26 +1113,108 @@
 
       if (!isFinalExperienceUnlocked() && hasMeaningfulInteraction && reachedBottomBefore && scrolledUpEnough && isHrViewActive) {
         unlockFinalExperience();
-        runConfetti();
+        runUnlockConfetti(finalSection);
         showUnlockPrompt();
       }
 
       lastScrollY = currentY;
     };
 
+    const registerInteraction = () => {
+      hasMeaningfulInteraction = true;
+      evaluateUnlock();
+    };
+
     ["click", "keydown", "pointerover"].forEach((eventName) => {
       document.addEventListener(eventName, registerInteraction, { once: true, passive: true });
     });
 
-    /* Escucho scroll para evaluar el desbloqueo en cada cambio de posición. */
     window.addEventListener("scroll", evaluateUnlock, { passive: true });
 
-    /* Reevalúo al cambiar manualmente RRHH/TECH para respetar prioridad de vista activa. */
     document.querySelectorAll("[data-toggle-view]").forEach((button) => {
       button.addEventListener("click", () => {
         window.setTimeout(evaluateUnlock, 0);
       });
     });
+
+    evaluateUnlock();
+    window.addEventListener("beforeunload", resetFinalExperienceUnlock);
+  }
+
+  /* Configuro la simulación visual de proceso manual vs automatizado. */
+  function setupHrSimulation(finalSection, runSimulationBtn, simulationResult) {
+    if (!runSimulationBtn || !simulationResult) return;
+
+    runSimulationBtn.addEventListener("click", () => {
+      const SIMULATION_MANUAL_STEP_DELAY = 700;
+      const SIMULATION_AUTO_STEP_DELAY = 250;
+      const SIMULATION_RESULT_DELAY = 3200;
+      const manualSteps = finalSection.querySelectorAll('[data-lane="manual"] [data-step]');
+      const autoSteps = finalSection.querySelectorAll('[data-lane="auto"] [data-step]');
+
+      manualSteps.forEach((step, index) => {
+        window.setTimeout(
+          () => step.classList.add("is-done"),
+          SIMULATION_MANUAL_STEP_DELAY * (index + 1),
+        );
+      });
+
+      autoSteps.forEach((step, index) => {
+        window.setTimeout(
+          () => step.classList.add("is-done"),
+          SIMULATION_AUTO_STEP_DELAY * (index + 1),
+        );
+      });
+
+      window.setTimeout(() => {
+        simulationResult.textContent =
+          "Resultado: la automatización convierte un proceso pesado en una ejecución clara, rápida y fiable.";
+      }, SIMULATION_RESULT_DELAY);
+    });
+  }
+
+  /* Configuro interacción entre botones de vista final RRHH/Tech. */
+  function setupFinalViewSwitches() {
+    document.querySelectorAll("[data-switch-final]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetView = button.getAttribute("data-switch-final");
+        setView(targetView);
+      });
+    });
+  }
+
+  /* Configuro la terminal simulada de la vista técnica final. */
+  function setupTechTerminal(terminalForm, terminalInput, terminalOutput) {
+    if (!terminalForm || !terminalInput || !terminalOutput) return;
+
+    terminalForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const typed = terminalInput.value;
+      printTerminalLines([`> ${typed}`]);
+      const lines = resolveTerminalCommand(typed);
+
+      if (lines.length === 1 && lines[0] === "__CLEAR__") {
+        terminalOutput.replaceChildren();
+      } else {
+        printTerminalLines(lines);
+      }
+
+      terminalInput.value = "";
+    });
+  }
+
+  /* Configuro la lógica de interacción final (desbloqueo, simulación y terminal). */
+  function setupFinalExperience() {
+    const finalSection = document.querySelector("[data-final-experience]");
+    if (!finalSection) return;
+
+    const runSimulationBtn = document.querySelector("[data-run-simulation]");
+    const simulationResult = document.querySelector("[data-hr-result]");
+    const terminalForm = document.querySelector("[data-terminal-form]");
+    const terminalInput = document.getElementById("terminal-input");
+    const terminalOutput = document.querySelector("[data-terminal-output]");
+
 
     if (isFinalExperienceUnlocked()) {
       unlockFinalExperience();
@@ -1156,73 +1223,10 @@
 
     paintFinalExperienceState();
 
-    /* Reviso estado al cargar por si se entra ya con scroll avanzado. */
-    evaluateUnlock();
-
-    /* Al cerrar pestaña o ventana, reseteo el desbloqueo para futura visita. */
-    window.addEventListener("beforeunload", resetFinalExperienceUnlock);
-
-    /* Al salir con el ratón del DOM, también reseteo la sorpresa como se solicitó. */
-    document.addEventListener("mouseleave", (event) => {
-      if (event.relatedTarget === null) {
-        resetFinalExperienceUnlock();
-        hasShownUnlockPrompt = false;
-      }
-    });
-
-    if (runSimulationBtn && simulationResult) {
-      runSimulationBtn.addEventListener("click", () => {
-        const SIMULATION_MANUAL_STEP_DELAY = 700;
-        const SIMULATION_AUTO_STEP_DELAY = 250;
-        const SIMULATION_RESULT_DELAY = 3200;
-        const manualSteps = finalSection.querySelectorAll('[data-lane="manual"] [data-step]');
-        const autoSteps = finalSection.querySelectorAll('[data-lane="auto"] [data-step]');
-
-        manualSteps.forEach((step, index) => {
-          window.setTimeout(
-            () => step.classList.add("is-done"),
-            SIMULATION_MANUAL_STEP_DELAY * (index + 1),
-          );
-        });
-
-        autoSteps.forEach((step, index) => {
-          window.setTimeout(
-            () => step.classList.add("is-done"),
-            SIMULATION_AUTO_STEP_DELAY * (index + 1),
-          );
-        });
-
-        window.setTimeout(() => {
-          simulationResult.textContent =
-            "Resultado: la automatización convierte un proceso pesado en una ejecución clara, rápida y fiable.";
-        }, SIMULATION_RESULT_DELAY);
-      });
-    }
-
-    document.querySelectorAll("[data-switch-final]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const targetView = button.getAttribute("data-switch-final");
-        setView(targetView);
-      });
-    });
-
-    if (terminalForm && terminalInput && terminalOutput) {
-      terminalForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const typed = terminalInput.value;
-        printTerminalLines([`> ${typed}`]);
-        const lines = resolveTerminalCommand(typed);
-
-        if (lines.length === 1 && lines[0] === "__CLEAR__") {
-          terminalOutput.replaceChildren();
-        } else {
-          printTerminalLines(lines);
-        }
-
-        terminalInput.value = "";
-      });
-    }
+    setupFinalExperienceUnlock(finalSection);
+    setupHrSimulation(finalSection, runSimulationBtn, simulationResult);
+    setupFinalViewSwitches();
+    setupTechTerminal(terminalForm, terminalInput, terminalOutput);
   }
 
   /* Inicializo el toggle de audiencia (hr/tech). */
