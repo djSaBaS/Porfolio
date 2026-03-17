@@ -1,18 +1,16 @@
 /**
  * cv-timeline.css
- * Estilos premium para las vistas Tech (Metro) y RRHH (Vertical).
+ * Estilos premium para vistas Tech (Metro) y RRHH (Vertical).
  */
 
-/* --- Variables Globales de Diseño --- */
 :root {
-    --metro-bg: #0b1020;
-    --card-bg: rgba(15, 23, 42, 0.8);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --metro-bg: #050f2d;
+    --card-bg: rgba(9, 20, 49, 0.86);
+    --glass-border: rgba(255, 255, 255, 0.14);
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
 }
 
-/* --- Vista Tech (Mapa de Metro) --- */
 .timeline-viewport {
     width: 100%;
     overflow-x: auto;
@@ -21,180 +19,131 @@
     border-radius: 20px;
     padding: 20px;
     cursor: grab;
-    scrollbar-width: none; /* Ocultar scroll en Firefox */
-}
-.timeline-viewport::-webkit-scrollbar {
-    display: none; /* Ocultar scroll en Chrome/Safari */
-}
-.timeline-viewport.grabbing {
-    cursor: grabbing;
+    scrollbar-width: none;
 }
 
-#canvas-tech {
-    min-height: 900px;
+.timeline-viewport::-webkit-scrollbar { display: none; }
+.timeline-viewport.grabbing { cursor: grabbing; }
+#canvas-tech { min-height: 820px; }
+.tech-station { transition: transform 0.2s ease; }
+
+/* Filtros por dominio compartidos */
+.cv-domain-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-/* Animaciones para los nodos de metro */
-.tech-station {
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.domain-filter-btn {
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    padding: 0.45rem 0.8rem;
+    font-size: 0.86rem;
 }
 
-/* --- Vista RRHH (Vertical) --- */
+.domain-filter-btn.is-active {
+    background: rgba(52, 211, 153, 0.2);
+    border-color: rgba(52, 211, 153, 0.65);
+}
+
 .rrhh-timeline {
     position: relative;
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 54px;
+    row-gap: 18px;
+    max-width: 1280px;
+    margin: 22px auto;
+    padding: 14px 0;
 }
 
-/* Línea central */
 .rrhh-timeline::after {
     content: '';
     position: absolute;
-    width: 4px;
-    background: linear-gradient(to bottom, transparent, #34d399, #38bdf8, transparent);
     top: 0;
     bottom: 0;
     left: 50%;
-    margin-left: -2px;
-    border-radius: 2px;
+    width: 4px;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, transparent, #34d399, #38bdf8, transparent);
+    border-radius: 4px;
 }
 
 .rrhh-timeline-item {
-    padding: 10px 40px;
     position: relative;
-    width: 50%;
-    box-sizing: border-box;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s forwards;
+    width: 100%;
 }
 
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.rrhh-timeline-item.left {
+    grid-column: 1;
 }
 
-.rrhh-timeline-item.left { left: 0; text-align: right; }
-.rrhh-timeline-item.right { left: 50%; text-align: left; }
+.rrhh-timeline-item.right {
+    grid-column: 2;
+}
 
-/* Bolita en la línea de tiempo */
 .rrhh-timeline-item::after {
     content: '';
     position: absolute;
-    width: 20px;
-    height: 20px;
-    right: -10px;
-    background-color: #0b1020;
-    border: 4px solid #34d399;
-    top: 40px;
+    top: 45px;
+    width: 16px;
+    height: 16px;
+    background: #ffffff;
+    border: 3px solid #34d399;
     border-radius: 50%;
-    z-index: 1;
+    z-index: 3;
 }
-.rrhh-timeline-item.right::after { left: -10px; }
 
-/* Tarjetas RRHH */
+.rrhh-timeline-item.left::after { right: -35px; }
+.rrhh-timeline-item.right::after { left: -35px; }
+
+.rrhh-timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 53px;
+    width: 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.rrhh-timeline-item.left::before { right: -19px; }
+.rrhh-timeline-item.right::before { left: -19px; }
+
 .glass-premium {
     background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
-    padding: 24px;
+    padding: 16px 18px;
     color: var(--text-main);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     cursor: pointer;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 }
 
-.glass-premium:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-}
+.glass-premium:hover { transform: translateY(-2px); }
+.rrhh-card--work { min-height: 170px; }
+.rrhh-card--edu { min-height: 96px; }
 
-.rrhh-card-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-.rrhh-date-pill {
-    font-size: 0.8rem;
-    padding: 4px 12px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 20px;
-    font-weight: 600;
-}
-.rrhh-card-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.25rem;
-    margin-bottom: 4px;
-}
-.rrhh-card-entity {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-}
-.rrhh-card-summary {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #cbd5e1;
-    margin-bottom: 20px;
-}
+.rrhh-card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.rrhh-date-pill { font-size: 0.78rem; padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,0.08); }
+.rrhh-card-title { margin: 0 0 6px; font-family: 'Outfit', sans-serif; font-size: 1.28rem; }
+.rrhh-card-entity { color: var(--text-muted); margin-bottom: 10px; font-size: 0.95rem; }
+.rrhh-card-summary { color: #cbd5e1; line-height: 1.45; margin-bottom: 12px; }
+.rrhh-card-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+.rrhh-skill-badge { font-size: 0.74rem; padding: 4px 10px; border-radius: 8px; background: rgba(255,255,255,0.1); }
 
-/* Skills en RRHH */
-.rrhh-card-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: inherit;
-}
-.rrhh-skill-badge {
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
+.rrhh-edu-grid { display: flex; gap: 12px; align-items: center; }
+.rrhh-edu-icon-box { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.rrhh-edu-title { margin: 0; font-size: 1.03rem; }
+.rrhh-edu-meta { color: var(--text-muted); font-size: 0.84rem; }
 
-/* Formación compacta */
-.rrhh-card-edu {
-    padding: 15px 20px;
-}
-.rrhh-edu-grid {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.rrhh-edu-icon-box {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-}
-.rrhh-edu-title {
-    font-size: 1rem;
-    margin: 0;
-}
-.rrhh-edu-meta {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-/* --- Estilos del Modal --- */
 #event-modal {
     display: none;
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px);
     z-index: 9999;
     justify-content: center;
@@ -202,77 +151,33 @@
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 #event-modal.active { opacity: 1; }
-
-.modal-content-premium {
-    background: #0f172a;
-    width: 90%;
-    max-width: 700px;
-    border-radius: 24px;
-    border: 1px solid var(--glass-border);
-    position: relative;
-    overflow: hidden;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
-}
+.modal-content-premium { background: #0f172a; width: 90%; max-width: 700px; border-radius: 24px; border: 1px solid var(--glass-border); position: relative; overflow: hidden; transform: scale(0.9); transition: transform 0.3s ease; }
 #event-modal.active .modal-content-premium { transform: scale(1); }
-
-.modal-close {
-    position: absolute;
-    top: 20px; right: 20px;
-    font-size: 1.5rem; color: white;
-    cursor: pointer; z-index: 10;
-}
-
-#modal-content {
-    padding: 0;
-}
-
-.modal-header-premium {
-    padding: 40px 40px 20px;
-}
-.modal-badge-type {
-    padding: 5px 15px; border-radius: 20px; font-size: 0.75rem; font-weight: 800;
-}
-.modal-title-premium {
-    font-family: 'Outfit', sans-serif; font-size: 2rem; margin: 15px 0 5px; color: white;
-}
+.modal-close { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; color: white; cursor: pointer; z-index: 10; }
+#modal-content { padding: 0; }
+.modal-header-premium { padding: 40px 40px 20px; }
+.modal-badge-type { padding: 5px 15px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; }
+.modal-title-premium { font-family: 'Outfit', sans-serif; font-size: 2rem; margin: 15px 0 5px; color: white; }
 .modal-subtitle-premium { color: var(--text-muted); }
-
-.modal-body-premium {
-    padding: 20px 40px 40px;
-}
-.modal-description-full {
-    font-size: 1.1rem; line-height: 1.7; color: #cbd5e1; margin-bottom: 25px;
-}
-.modal-hours {
-    background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 12px; margin-bottom: 25px;
-}
-
-.modal-skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 15px; margin-top: 15px;
-}
-.modal-skill-item {
-    background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px;
-    display: flex; align-items: center; gap: 10px; border: 1px solid transparent;
-    transition: all 0.2s ease;
-}
-.modal-skill-item:hover {
-    background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);
-}
+.modal-body-premium { padding: 20px 40px 40px; }
+.modal-description-full { font-size: 1.1rem; line-height: 1.7; color: #cbd5e1; margin-bottom: 25px; }
+.modal-hours { background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 12px; margin-bottom: 25px; }
+.modal-skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 15px; }
+.modal-skill-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 10px; border: 1px solid transparent; transition: all 0.2s ease; }
+.modal-skill-item:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
 .modal-skill-icon { font-size: 1.5rem; }
 .modal-skill-label { font-size: 0.85rem; font-weight: 600; }
+.modal-footer-premium { padding: 20px 40px 40px; border-top: 1px solid var(--glass-border); }
 
-.modal-footer-premium {
-    padding: 20px 40px 40px; border-top: 1px solid var(--glass-border);
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-    .rrhh-timeline::after { left: 40px; }
-    .rrhh-timeline-item { width: 100%; padding-left: 80px; padding-right: 20px; }
-    .rrhh-timeline-item.left, .rrhh-timeline-item.right { text-align: left; left: 0; }
-    .rrhh-timeline-item::after { left: 30px; margin-left: 0; }
+@media (max-width: 900px) {
+    .rrhh-timeline { grid-template-columns: 1fr; row-gap: 16px; }
+    .rrhh-timeline::after { left: 36px; transform: none; }
+    .rrhh-timeline-item.left,
+    .rrhh-timeline-item.right { grid-column: 1; padding-left: 76px; }
+    .rrhh-timeline-item.left::after,
+    .rrhh-timeline-item.right::after { left: 28px; right: auto; }
+    .rrhh-timeline-item.left::before,
+    .rrhh-timeline-item.right::before { left: 44px; right: auto; }
 }

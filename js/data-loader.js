@@ -75,9 +75,11 @@ class DataLoader {
             entity: ev.entity || ev.empresa || ev.centro || '—',
             kind: kind, // Normalizado a 'work' o 'education'
             category: ev.category || ev.categoria || 'General',
-            year_start: parseInt(ev.year_start || ev.fecha_inicio || 0),
-            year_end: ev.year_end || ev.fecha_fin ? parseInt(ev.year_end || ev.fecha_fin) : null,
-            dateLabel: ev.dateLabel || `${ev.year_start || ev.fecha_inicio} — ${ev.year_end || ev.fecha_fin || 'Presente'}`,
+            year_start: parseInt(ev.year_start || ev.yearStart || ev.fecha_inicio || ev.dateStart?.split('-')[0] || 0),
+            month_start: parseInt(ev.month_start || ev.monthStart || ev.dateStart?.split('-')[1] || '1'),
+            year_end: ev.year_end || ev.yearEnd || ev.fecha_fin || ev.dateEnd ? parseInt(ev.year_end || ev.yearEnd || ev.fecha_fin || ev.dateEnd?.split('-')[0]) : null,
+            month_end: parseInt(ev.month_end || ev.monthEnd || ev.dateEnd?.split('-')[1] || '12'),
+            dateLabel: ev.dateLabel || `${ev.year_start || ev.yearStart || ev.fecha_inicio} — ${ev.year_end || ev.yearEnd || ev.fecha_fin || 'Presente'}`,
             summary: ev.summary || ev.excerpt || ev.descripcion || '',
             description: ev.description || ev.descripcion || '',
             tags: ev.tags || ev.skills || [],
@@ -86,9 +88,34 @@ class DataLoader {
             hours: ev.hours || ev.horas || null,
             icon: ev.icon || null,
             link: ev.link || ev.url || null,
-            stage: ev.stage || 'general'
+            stage: ev.stage || 'general',
+
+            domain: this.getDomain(ev),
+            sortStart: ev.sortStart || `${ev.year_start || ev.yearStart || 0}-${String(ev.month_start || ev.monthStart || ev.dateStart?.split('-')[1] || 1).padStart(2, '0')}`,
+            sortEnd: ev.sortEnd || `${ev.year_end || ev.yearEnd || 9999}-${String(ev.month_end || ev.monthEnd || ev.dateEnd?.split('-')[1] || 12).padStart(2, '0')}`
         };
     }
+
+    /**
+     * Clasifica el evento por dominio temático para dibujar ramas y filtros.
+     */
+    getDomain(ev) {
+        const text = [
+            ev.title,
+            ev.titulo,
+            ev.category,
+            ev.categoria,
+            ...(ev.tags || []),
+            ...(ev.skills || []),
+        ].join(' ').toLowerCase();
+
+        if (/(calorif|constru|mecani|prl|riesgos? laborales?|electric|fontan|soldad|oficio)/.test(text)) return 'construction';
+        if (/(diseñ|disen|creativ|sonid|audio|ux|ui|photoshop|illustrator|figma|marketing visual)/.test(text)) return 'creativity';
+        if (/(informat|sistemas?|redes|hardware|software base|office|ofimatica|servidores?|linux)/.test(text)) return 'it';
+        if (/(desarroll|program|python|php|javascript|react|ia|backend|frontend|web|datos|sql)/.test(text)) return 'development';
+        return 'core';
+    }
+
 
     /**
      * Asigna un color por defecto basado en el tipo de evento si no existe

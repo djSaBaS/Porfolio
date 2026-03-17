@@ -1,84 +1,71 @@
 /**
  * tech-view.js
- * Renderizador de la Vista Técnica (Mapa de Metro interactivo).
- * Implementa una visualización tipo Metro con ramas por especialidad.
+ * Renderizador de la Vista Técnica (Mapa de Metro interactivo con línea central y ramas por dominio).
  */
 
 class TechRenderer {
-    // Constructor con configuraciones base del canvas
     constructor() {
-        // ID del contenedor HTML donde se dibujará el SVG
         this.canvasId = 'canvas-tech';
-        // Instancia del dibujo de SVG.js
         this.draw = null;
-        // Almacén de eventos (trabajos y formación)
         this.events = [];
-        // Almacén de habilidades
-        this.skills = {};
-        // Márgenes internos del área de dibujo
-        this.margin = { top: 100, right: 100, bottom: 80, left: 120 };
-        // Año de inicio para la escala temporal
-        this.minYear = 1995;
-        // Año de fin para la escala temporal (proyectado)
+        this.domainFilter = 'all';
+
+        this.margin = { top: 70, right: 120, bottom: 90, left: 90 };
+        this.minYear = 1998;
         this.maxYear = 2027;
-        // Ancho total del canvas (ajustado por el tiempo)
-        this.totalWidth = 4000;
+        this.totalWidth = 4200;
+        this.totalHeight = 820;
 
-        // Definición de las "líneas de metro" (ramas) y sus posiciones Y
         this.branchY = {
-            'specialization': 80,
-            'main':           240,
-            'education':      400,
-            'legacy':         520
+            main: 390,
+            development: 180,
+            it: 280,
+            creativity: 520,
+            construction: 640,
         };
 
-        // Colores vibrantes para cada línea de metro (Sincronizado con style.css)
         this.branchColors = {
-            'specialization': '#8b5cf6', // --secondary
-            'main':           '#34d399', // --accent
-            'education':      '#6ee7ff', // --primary
-            'legacy':         '#fb7185'  // --danger
+            main: '#34d399',
+            development: '#8b5cf6',
+            it: '#38bdf8',
+            creativity: '#f472b6',
+            construction: '#f59e0b',
         };
 
-        // Estado inicial de filtros (todos visibles por defecto)
-        this.activeFilters = new Set(Object.keys(this.branchColors));
+        this.branchLabels = {
+            main: 'Línea central (vida + formación reglada)',
+            development: 'Desarrollo e IA',
+            it: 'Informática / sistemas',
+            creativity: 'Creatividad / diseño / sonido',
+            construction: 'Construcción / oficios / PRL',
+        };
+
+        this.activeFilters = new Set(['main', 'development', 'it', 'creativity', 'construction']);
     }
 
-    // Inicialización con datos del DataLoader
     init(data) {
-        // Guardamos los eventos normalizados
-        this.events = data.events;
-        // Guardamos las skills
-        this.skills = data.skills;
-        // Construimos los botones de filtro HTML
+        this.events = data.events.slice();
         this.buildFilters();
-        // Disparamos el renderizado
         this.render();
-        // Configuramos el arrastre del contenedor
         this.setupDrag();
     }
 
-    // Construye los botones HTML interactivos de filtro
+    setDomainFilter(domain) {
+        this.domainFilter = domain || 'all';
+        this.render();
+    }
+
     buildFilters() {
         const filterContainer = document.getElementById('tech-filters');
         if (!filterContainer) return;
-        
-        filterContainer.innerHTML = '';
-        const labels = {
-            'main': 'Experiencia Principal',
-            'specialization': 'Especializaciones',
-            'education': 'Educación Central',
-            'legacy': 'Legado / Antiguo'
-        };
 
-        Object.keys(this.branchColors).forEach(branchId => {
+        filterContainer.innerHTML = '';
+        ['main', 'development', 'it', 'creativity', 'construction'].forEach((branchId) => {
             const btn = document.createElement('button');
             btn.className = 'filter-btn active';
             btn.dataset.branch = branchId;
-            btn.innerHTML = `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background-color:${this.branchColors[branchId]};margin-right:6px;box-shadow: 0 0 5px ${this.branchColors[branchId]};"></span>${labels[branchId] || branchId}`;
-            
+            btn.innerHTML = `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background-color:${this.branchColors[branchId]};margin-right:6px;box-shadow:0 0 5px ${this.branchColors[branchId]};"></span>${this.branchLabels[branchId]}`;
             btn.addEventListener('click', () => {
-                // Alternar estado activo en el Set de filtros
                 if (this.activeFilters.has(branchId)) {
                     this.activeFilters.delete(branchId);
                     btn.classList.remove('active');
@@ -86,243 +73,229 @@ class TechRenderer {
                     this.activeFilters.add(branchId);
                     btn.classList.add('active');
                 }
-                // Re-dibujar el SVG por completo para aplicar el filtro
-                this.render(); 
+                this.render();
             });
-
             filterContainer.appendChild(btn);
         });
     }
 
-    // Calcula la coordenada X proporcional al año y mes (si disponible)
-    getX(year, month = 0) {
-        // Obtenemos el progreso decimal del año dentro del rango
-        const yearProgress = (year - this.minYear) / (this.maxYear - this.minYear);
-        // Añadimos el componente del mes (0-11) para mayor precisión
-        const monthOffset = (month / 12) * (1 / (this.maxYear - this.minYear));
-        // Devolvemos el píxel X correspondiente
-        return this.margin.left + (yearProgress + monthOffset) * (this.totalWidth - this.margin.left - this.margin.right);
+    getX(year, month = 1) {
+        const safeYear = Math.min(Math.max(Number(year) || this.minYear, this.minYear), this.maxYear);
+        const safeMonth = Math.min(Math.max(Number(month) || 1, 1), 12);
+        const progress = (safeYear - this.minYear + (safeMonth - 1) / 12) / (this.maxYear - this.minYear);
+        return this.margin.left + progress * (this.totalWidth - this.margin.left - this.margin.right);
     }
 
-    // Determina en qué carril de metro va el evento según su 'stage' o 'kind'
-    getTrack(event) {
-        // Si es trabajo principal (normalizado a 'work'), va a la rama central
-        if (event.kind === 'work' && event.featured) return 'main';
-        // Si es máster o IA/Python, va a especialización
-        if (event.category === 'máster' || event.stage === 'python-ai') return 'specialization';
-        // Si es educación básica o antigua, va a legacy
-        if (event.stage === 'legacy' || (event.year_start && event.year_start < 2010)) return 'legacy';
-        // Por defecto, educación general
-        return 'education';
+    getFilteredEvents() {
+        const ordered = this.events.slice().sort((a, b) => a.sortStart.localeCompare(b.sortStart));
+        if (this.domainFilter === 'all') return ordered;
+        return ordered.filter((event) => event.domain === this.domainFilter || event.domain === 'core');
     }
 
-    // Función principal de renderizado
     render() {
-        console.log("TechRenderer: Iniciando renderizado de SVG...");
-        // Obtenemos el nodo contenedor
         const container = document.getElementById(this.canvasId);
-        // Si no existe, abortamos
         if (!container) return;
-        // Limpiamos contenido anterior
         container.innerHTML = '';
 
-        // Creamos el SVG con ancho extendido para el scroll
-        this.draw = SVG().addTo(`#${this.canvasId}`).size(this.totalWidth, 650);
+        this.draw = SVG().addTo(`#${this.canvasId}`).size(this.totalWidth, this.totalHeight);
 
-        // Dibujamos la cuadrícula de años
+        const events = this.getFilteredEvents();
         this.drawGrid();
-        // Dibujamos las líneas de metro (conexiones)
-        this.drawMetroLines();
-        // Dibujamos los nodos (estaciones)
-        this.drawStations();
+        this.drawMainLine(events);
+        this.drawBranchLines(events);
+        this.drawStations(events);
     }
 
-    // Dibuja las líneas de fondo y etiquetas de años
     drawGrid() {
-        // Recorremos los años de 5 en 5 para etiquetas principales
-        for (let year = this.minYear; year <= this.maxYear; year++) {
-            // Calculamos X para el año actual
-            const x = this.getX(year);
-            // Si es un año múltiplo de 5, dibujamos línea y texto
-            if (year % 5 === 0) {
-                // Línea vertical tenue
-                this.draw.line(x, 50, x, 850)
-                    .stroke({ color: 'white', width: 1, opacity: 0.1 });
-                // Texto del año en la parte superior
-                this.draw.text(year.toString())
-                    .move(x, 40)
-                    .font({ family: 'Outfit', size: 22, weight: 900 })
-                    .fill({ color: 'white', opacity: 0.2 })
-                    .attr('text-anchor', 'middle');
-            }
+        for (let year = this.minYear; year <= this.maxYear; year += 1) {
+            if (year % 5 !== 0) continue;
+            const x = this.getX(year, 1);
+            this.draw.line(x, this.margin.top - 25, x, this.totalHeight - this.margin.bottom + 30)
+                .stroke({ color: '#ffffff', width: 1, opacity: 0.12 });
+            this.draw.text(String(year)).move(x, this.margin.top - 50)
+                .font({ family: 'Outfit', size: 24, weight: 800 })
+                .fill({ color: '#ffffff', opacity: 0.4 })
+                .attr('text-anchor', 'middle');
         }
     }
 
-    // Dibuja los trazados continuos de las líneas de metro
-    drawMetroLines() {
-        // Lista de tracks a dibujar
-        const tracks = ['specialization', 'main', 'education', 'legacy'];
-        
-        // Para cada track, creamos un trazado
-        tracks.forEach(track => {
-            // Saltamos el dibujo si el filtro de esta rama está desactivado
-            if (!this.activeFilters.has(track)) return;
+    drawMainLine(events) {
+        if (!this.activeFilters.has('main')) return;
+        const y = this.branchY.main;
+        this.draw.line(this.margin.left, y, this.totalWidth - this.margin.right, y)
+            .stroke({ color: this.branchColors.main, width: 8, linecap: 'round', opacity: 0.65 });
 
-            // Filtramos eventos de esta rama
-            const trackEvents = this.events.filter(e => this.getTrack(e) === track);
-            // Si no hay eventos, pasamos a la siguiente
-            if (trackEvents.length === 0) return;
+        const coreEvents = events.filter((event) => this.getTrack(event) === 'main');
+        coreEvents.forEach((event) => {
+            const x = this.getX(event.year_start, event.month_start);
+            this.draw.circle(14).center(x, y)
+                .fill('#ffffff')
+                .stroke({ color: this.branchColors.main, width: 3 });
+        });
+    }
 
-            // Ordenamos por fecha
-            trackEvents.sort((a, b) => a.year_start - b.year_start);
+    getTrack(event) {
+        if (event.domain === 'construction') return 'construction';
+        if (event.domain === 'creativity') return 'creativity';
+        if (event.domain === 'it') return 'it';
+        if (event.domain === 'development') return 'development';
+        return 'main';
+    }
 
-            // Obtenemos color y posición Y
-            const color = this.branchColors[track];
-            const y = this.branchY[track];
+    drawBranchLines(events) {
+        const branchIds = ['construction', 'creativity', 'it', 'development'];
+        branchIds.forEach((branchId) => {
+            if (!this.activeFilters.has(branchId)) return;
+            const branchEvents = events.filter((event) => this.getTrack(event) === branchId);
+            if (!branchEvents.length) return;
 
-            // Punto inicial (X del primer evento hasta el final proyectado)
-            const startX = this.getX(trackEvents[0].year_start);
-            const endX = this.getX(this.maxYear);
+            const yMain = this.branchY.main;
+            const yBranch = this.branchY[branchId];
+            const color = this.branchColors[branchId];
+            const clusters = this.groupByActivityClusters(branchEvents);
 
-            // Dibujamos la línea base (eliminamos el filtro conflictivo en producción)
-            this.draw.line(startX, y, endX, y)
-                .stroke({ color, width: 8, linecap: 'round', opacity: 0.4 });
+            clusters.forEach((cluster) => {
+                const startX = this.getX(cluster.start.year_start, cluster.start.month_start);
+                const endX = this.getX(cluster.end.year_end || cluster.end.year_start, cluster.end.month_end || cluster.end.month_start);
+                const c1 = startX + Math.min(120, (endX - startX) * 0.25);
+                const c2 = endX - Math.min(120, (endX - startX) * 0.25);
+
+                this.draw.path(`M ${startX} ${yMain} C ${startX} ${(yMain + yBranch) / 2}, ${c1} ${yBranch}, ${startX} ${yBranch}`)
+                    .fill('none')
+                    .stroke({ color, width: 6, linecap: 'round', linejoin: 'round', opacity: 0.75 });
+
+                this.draw.path(`M ${startX} ${yBranch} C ${c1} ${yBranch}, ${c2} ${yBranch}, ${endX} ${yBranch}`)
+                    .fill('none')
+                    .stroke({ color, width: 6, linecap: 'round', linejoin: 'round', opacity: 0.75 });
+
+                this.draw.path(`M ${endX} ${yBranch} C ${endX} ${(yMain + yBranch) / 2}, ${endX} ${(yMain + yBranch) / 2}, ${endX} ${yMain}`)
+                    .fill('none')
+                    .stroke({ color, width: 6, linecap: 'round', linejoin: 'round', opacity: 0.75 });
+
+                this.draw.circle(12).center(startX, yMain).fill('#ffffff').stroke({ color, width: 3 });
+                this.draw.circle(12).center(endX, yMain).fill('#ffffff').stroke({ color, width: 3 });
+            });
+        });
+    }
+
+    groupByActivityClusters(events) {
+        const ordered = events.slice().sort((a, b) => a.sortStart.localeCompare(b.sortStart));
+        const clusters = [];
+        let current = [];
+
+        ordered.forEach((event, index) => {
+            if (!current.length) {
+                current.push(event);
+                return;
+            }
+
+            const last = current[current.length - 1];
+            const lastEndYear = last.year_end || last.year_start;
+            const lastEndMonth = last.month_end || 12;
+            const gapInYears = (event.year_start + (event.month_start || 1) / 12) - (lastEndYear + lastEndMonth / 12);
+
+            if (gapInYears > 2) {
+                clusters.push({ start: current[0], end: current[current.length - 1], events: current.slice() });
+                current = [event];
+            } else {
+                current.push(event);
+            }
+
+            if (index === ordered.length - 1) {
+                clusters.push({ start: current[0], end: current[current.length - 1], events: current.slice() });
+            }
         });
 
-        // Dibujamos curvas de transferencia (forks) desde la línea principal
-        this.drawTransfers();
+        if (ordered.length === 1) {
+            clusters.push({ start: ordered[0], end: ordered[0], events: [ordered[0]] });
+        }
+
+        return clusters;
     }
 
-    // Dibuja las curvas suaves que conectan ramas
-    drawTransfers() {
-        // Por simplicidad en este MVP, dibujamos líneas de conexión fijas
-        // representadas como curvas Bézier desde el inicio de cada rama a la principal
-    }
+    drawStations(events) {
+        const lanes = new Map();
 
-    // Dibuja cada estación (nodo de evento)
-    drawStations() {
-        // Recorremos todos los eventos
-        this.events.forEach(event => {
-            // Obtenemos track y verificamos si se debe dibujar
+        events.forEach((event) => {
             const track = this.getTrack(event);
             if (!this.activeFilters.has(track)) return;
 
-            const xSize = (event.year_end - event.year_start) * 100; // Tamaño proporcional opcional
-            const x = this.getX(event.year_start);
+            const xStart = this.getX(event.year_start, event.month_start);
+            const xEnd = this.getX(event.year_end || event.year_start, event.month_end || 12);
             const y = this.branchY[track];
             const color = this.branchColors[track];
-
-            // Creamos un grupo para el nodo interactivo
             const group = this.draw.group().addClass('tech-station').attr('cursor', 'pointer');
 
-            // Determinar si es caja (trabajo) o círculo (formación)
             if (event.kind === 'work') {
-                // Ancho basado en duración (mínimo 200px)
-                const duration = Math.max(1, (event.year_end || 2026) - event.year_start);
-                const rectW = 200 + (duration * 20);
-                
-                // Fondo oscuro de la tarjeta
-                group.rect(rectW, 80).move(x - 20, y - 40).radius(15)
-                    .fill({ color: '#0d111e', opacity: 0.95 })
-                    .stroke({ color, width: 3 });
+                const laneKey = `${track}:${Math.round(xStart / 180)}`;
+                const laneIndex = lanes.get(laneKey) || 0;
+                lanes.set(laneKey, laneIndex + 1);
 
-                // Icono/Texto de categoría
-                group.text('💼 ' + (event.category || 'EMPLEO').toUpperCase())
-                    .move(x, y - 28)
-                    .font({ family: 'Inter', size: 10, weight: 800 })
-                    .fill(color);
+                const baseOffset = track === 'main' ? -112 : -86;
+                const cardY = y + baseOffset - laneIndex * 92;
+                const cardWidth = Math.max(210, xEnd - xStart);
 
-                // Título del puesto
-                group.text(event.title)
-                    .move(x, y - 10)
-                    .font({ family: 'Outfit', size: 15, weight: 700 })
-                    .fill('white');
+                group.rect(cardWidth, 78).move(xStart, cardY).radius(14)
+                    .fill({ color: '#071028', opacity: 0.96 })
+                    .stroke({ color, width: 2.5 });
 
-                // Fecha y empresa
-                group.text(`${event.year_start} - ${event.year_end || 'ACT'} · ${event.entity}`)
-                    .move(x, y + 12)
-                    .font({ family: 'Inter', size: 11 })
-                    .fill('#94a3b8');
+                group.line(xStart, y, xStart, cardY + 78).stroke({ color: '#dbeafe', width: 1, opacity: 0.6 });
+                group.line(xEnd, y, xEnd, cardY + 78).stroke({ color: '#dbeafe', width: 1, opacity: 0.6 });
+
+                group.circle(10).center(xStart, y).fill('#ffffff').stroke({ color, width: 2 });
+                group.circle(10).center(xEnd, y).fill('#ffffff').stroke({ color, width: 2 });
+
+                group.text(event.title).move(xStart + 12, cardY + 10)
+                    .font({ family: 'Outfit', size: 16, weight: 700 }).fill('#ffffff');
+                group.text(`${event.dateLabel} · ${event.entity}`).move(xStart + 12, cardY + 38)
+                    .font({ family: 'Inter', size: 12, weight: 500 }).fill('#94a3b8');
             } else {
-                // Nodo tipo estación circular para formación
-                const orbit = group.circle(40).center(x, y).fill({ color, opacity: 0.1 });
-                const station = group.circle(24).center(x, y).fill('#0b1020').stroke({ color, width: 4 });
-                
-                // Icono dentro del nodo
-                group.text(event.icon === 'sparkles' ? '✨' : '🎓')
-                    .center(x, y + 2)
-                    .font({ size: 12 });
-
-                // Etiqueta flotante
-                const label = group.text(event.title)
-                    .move(x + 20, y - 10)
-                    .font({ family: 'Inter', size: 12, weight: 600 })
-                    .fill('white');
-                
-                // Ocultamos etiqueta por defecto y mostramos en hover si hay mucho ruido
-                // o añadimos tooltip (horas)
-                const hoursText = event.hours ? ` (${event.hours}h)` : '';
-                group.element('title').words(`${event.title}${hoursText}`);
+                group.circle(30).center(xStart, y).fill({ color, opacity: 0.16 });
+                group.circle(16).center(xStart, y).fill('#071028').stroke({ color, width: 3 });
+                group.text(event.icon === 'sparkles' ? '✨' : '🎓').center(xStart, y + 1).font({ size: 10 });
+                const tooltip = event.hours ? `${event.title} (${event.hours}h)` : event.title;
+                group.element('title').words(tooltip);
             }
 
-            // Click para abrir modal
             group.on('click', () => {
-                if (window.openModal) window.openModal(event.id);
-            });
-
-            // Efectos visuales en hover
-            group.on('mouseover', function() {
-                this.animate(200, '>').transform({ scale: 1.05 });
-            });
-            group.on('mouseout', function() {
-                this.animate(200, '<').transform({ scale: 1 });
+                if (window.modalManager) window.modalManager.open(event.id);
             });
         });
     }
 
-    // Configura el arrastre táctil y con ratón del contenedor
     setupDrag() {
-        // Buscamos el viewport de la línea de tiempo
         const viewport = document.querySelector('.timeline-viewport');
         if (!viewport) return;
 
-        // Variables de estado del arrastre
         let isDown = false;
-        let startX;
-        let scrollLeft;
+        let startX = 0;
+        let scrollLeft = 0;
 
-        // Inicio del click/toque
-        viewport.addEventListener('mousedown', (e) => {
+        viewport.addEventListener('mousedown', (event) => {
             isDown = true;
             viewport.classList.add('grabbing');
-            startX = e.pageX - viewport.offsetLeft;
+            startX = event.pageX - viewport.offsetLeft;
             scrollLeft = viewport.scrollLeft;
         });
 
-        // Salida del área
         viewport.addEventListener('mouseleave', () => {
             isDown = false;
             viewport.classList.remove('grabbing');
         });
 
-        // Fin del click
         viewport.addEventListener('mouseup', () => {
             isDown = false;
             viewport.classList.remove('grabbing');
         });
 
-        // Movimiento activo
-        viewport.addEventListener('mousemove', (e) => {
+        viewport.addEventListener('mousemove', (event) => {
             if (!isDown) return;
-            e.preventDefault();
-            // Calculamos distancia recorrida
-            const x = e.pageX - viewport.offsetLeft;
-            const walk = (x - startX) * 2; // Multiplicador de velocidad
-            // Aplicamos el scroll
+            event.preventDefault();
+            const x = event.pageX - viewport.offsetLeft;
+            const walk = (x - startX) * 1.55;
             viewport.scrollLeft = scrollLeft - walk;
         });
     }
 }
 
-// Registro global de la instancia
 window.techRenderer = new TechRenderer();

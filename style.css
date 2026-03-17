@@ -1552,8 +1552,9 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
 
 /* Contenedor superpuesto donde se renderiza el confeti temporal. */
 .confetti-root {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: 9998;
   pointer-events: none;
   overflow: hidden;
 }
@@ -1566,6 +1567,7 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
   height: 14px;
   border-radius: 3px;
   animation: confetti-fall 1.9s ease-in forwards;
+  will-change: transform;
 }
 
 /* Animación del confeti para dar sensación de celebración breve y elegante. */
@@ -1575,7 +1577,7 @@ body[data-view="tech"] .inline-audience[data-audience="tech"] {
     opacity: 1;
   }
   100% {
-    transform: translateY(280px) rotate(540deg);
+    transform: translateY(105vh) rotate(540deg);
     opacity: 0;
   }
 }
