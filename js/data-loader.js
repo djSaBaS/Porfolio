@@ -109,10 +109,11 @@ class DataLoader {
             ...(ev.skills || []),
         ].join(' ').toLowerCase();
 
-        if (/(calorif|constru|mecani|prl|riesgos? laborales?|electric|fontan|soldad|oficio)/.test(text)) return 'construction';
-        if (/(diseñ|disen|creativ|sonid|audio|ux|ui|photoshop|illustrator|figma|marketing visual)/.test(text)) return 'creativity';
-        if (/(informat|sistemas?|redes|hardware|software base|office|ofimatica|servidores?|linux)/.test(text)) return 'it';
-        if (/(desarroll|program|python|php|javascript|react|ia|backend|frontend|web|datos|sql)/.test(text)) return 'development';
+        if (/\b(calorif|constru|mecani|prl|riesgos? laborales?|electric|fontan|soldad|oficio)\b/.test(text)) return 'construction';
+        if (/\b(diseñ|disen|creativ|sonid|audio|ux|ui|photoshop|illustrator|figma|marketing visual)\b/.test(text)) return 'creativity';
+        if (/\b(informat|sistemas?|redes|hardware|software base|office|ofimatica|servidores?|linux)\b/.test(text)) return 'it';
+        if (/\b(desarroll|program|python|php|javascript|react|ia|backend|frontend|web|datos|sql)\b/.test(text)) return 'development';
+
         return 'core';
     }
 
