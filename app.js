@@ -1043,6 +1043,7 @@
     const terminalInput = document.getElementById("terminal-input");
     const terminalOutput = document.querySelector("[data-terminal-output]");
 
+
     /* Marco la primera interacción significativa y revalúo desbloqueo al instante. */
     const registerInteraction = () => {
       hasMeaningfulInteraction = true;
@@ -1174,7 +1175,6 @@
         const SIMULATION_MANUAL_STEP_DELAY = 700;
         const SIMULATION_AUTO_STEP_DELAY = 250;
         const SIMULATION_RESULT_DELAY = 3200;
-
         const manualSteps = finalSection.querySelectorAll('[data-lane="manual"] [data-step]');
         const autoSteps = finalSection.querySelectorAll('[data-lane="auto"] [data-step]');
 
