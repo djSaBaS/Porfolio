@@ -32,14 +32,21 @@
     <!-- Navegación y Cabecera Unificada -->
     <header class="topbar">
         <div class="container nav-wrap">
-            <a class="brand" href="../index.html"><i class="bi bi-arrow-left"></i> Volver al Inicio</a>
+            <a class="brand" href="../">Juan Antonio Sánchez Plaza · Portfolio</a>
+            <nav class="nav-links" aria-label="Navegación principal">
+                <a href="../">Inicio</a>
+                <a href="../projects/">Proyectos</a>
+                <a href="./" aria-current="page">CV</a>
+                <a href="../about/">Sobre mí</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
             
             <div class="toggle" role="group" aria-label="Seleccionar perfil de vista">
-                <button type="button" id="toggle-rrhh" aria-pressed="true" onclick="switchView('hr')">
-                    <i class="bi bi-person-badge"></i> Vista RRHH
+                <button type="button" data-toggle-view="hr" aria-pressed="true">
+                    <i class="bi bi-person-badge"></i> RRHH
                 </button>
-                <button type="button" id="toggle-tech" aria-pressed="false" onclick="switchView('tech')">
-                    <i class="bi bi-bezier"></i> Vista Técnica
+                <button type="button" data-toggle-view="tech" aria-pressed="false">
+                    <i class="bi bi-code-slash"></i> Tech
                 </button>
             </div>
         </div>
@@ -65,7 +72,7 @@
                     </p>
                     
                     <div class="actions">
-                        <a href="../assets/01-cv-juanantoniosanchezplaza.pdf" class="btn primary" target="_blank"><i class="bi bi-download"></i> Descargar PDF</a>
+                        <a href="mailto:juanantoniosanchezplaza@hotmail.com?subject=Solicitud%20de%20CV%20en%20PDF" class="btn primary"><i class="bi bi-download"></i> Solicitar CV en PDF</a>
                         <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" class="btn" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
                         <a href="https://github.com/djSaBaS" class="btn" target="_blank"><i class="bi bi-github"></i> GitHub</a>
                     </div>
@@ -119,7 +126,16 @@
             <p>He completado más de 4000h de formación en diversas áreas tecnológicas e industriales.</p>
             <a href="../cursos/" class="btn btn-outline-primary">Explorar buscador de cursos</a>
         </section>
+
+        <section id="contacto" class="section glass contact-box">
+            <div class="section-head"><h2>Contacto</h2></div>
+            <p>Email: <a href="mailto:juanantoniosanchezplaza@hotmail.com?subject=Contacto%20profesional">juanantoniosanchezplaza@hotmail.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener">juanantoniosanchezplaza</a></p>
+            <p>GitHub: <a href="https://github.com/djSaBaS" target="_blank" rel="noopener">djSaBaS</a></p>
+        </section>
     </main>
+
+    <footer class="container">© <span data-year></span> Juan Antonio Sánchez Plaza - Sabas · Construido con pasión, código limpio y unas gotitas de IA.</footer>
 
     <!-- Modal Compartido Premium -->
     <div id="event-modal" class="modal-overlay">
@@ -136,43 +152,12 @@
     <script src="../data/skills.js"></script>
 
     <!-- Scripts del Sistema -->
+    <script src="../app.js"></script>
     <script src="../js/data-loader.js"></script>
     <script src="../js/tech-view.js"></script>
     <script src="../js/rrhh-view.js"></script>
     <script src="../js/modal.js"></script>
     <script src="../js/main.js"></script>
 
-    <script>
-        /**
-         * Función SwitchView que sincroniza el DOM con el estado esperado por main.js
-         */
-        function switchView(view) {
-            const vTech = document.getElementById('tech-view');
-            const vRRHH = document.getElementById('rrhh-view');
-            const bTech = document.getElementById('toggle-tech');
-            const bRRHH = document.getElementById('toggle-rrhh');
-            const filters = document.getElementById('tech-filters-container');
-
-            if (view === 'tech') {
-                vTech.classList.remove('d-none');
-                vRRHH.classList.add('d-none');
-                bTech.setAttribute('aria-pressed', 'true');
-                bRRHH.setAttribute('aria-pressed', 'false');
-                filters.classList.remove('d-none');
-                document.body.setAttribute('data-view', 'tech');
-                // Forzamos un redibujado de la vista técnica si ya está inicializada
-                if (window.techRenderer && window.techRenderer.draw) {
-                    setTimeout(() => window.techRenderer.render(), 50);
-                }
-            } else {
-                vRRHH.classList.remove('d-none');
-                vTech.classList.add('d-none');
-                bRRHH.setAttribute('aria-pressed', 'true');
-                bTech.setAttribute('aria-pressed', 'false');
-                filters.classList.add('d-none');
-                document.body.setAttribute('data-view', 'hr');
-            }
-        }
-    </script>
 </body>
 </html>

@@ -16,7 +16,13 @@
   const baseImg = avatarBox ? avatarBox.querySelector("img") : null;
 
   /* Defino la imagen alternativa (de mayor detalle) que se verá dentro de la lupa. */
-  const altImageUrl = "assets/avatar_zoom.jpg";
+  const altImageUrl = new URL("assets/avatar_zoom.jpg", document.baseURI).toString();
+
+  /* Defino la clave que guarda si la experiencia final ya se desbloqueó. */
+  const FINAL_UNLOCK_KEY = "portfolioFinalExperienceUnlocked";
+
+  /* Guardo si el usuario ya interactuó para desbloquear la experiencia progresiva. */
+  let hasMeaningfulInteraction = false;
 
   /* Creo el elemento HTML que actuará como lupa solo cuando hay avatar. */
   const lens = avatarBox && baseImg ? document.createElement("div") : null;
@@ -149,6 +155,9 @@
       /* Seteo aria-pressed como string para accesibilidad. */
       button.setAttribute("aria-pressed", String(pressed));
     });
+
+    /* Sincronizo la experiencia final para respetar siempre la vista activa. */
+    syncFinalExperienceView();
   }
 
   /* Preparo el cambio de vista por botones y aplico la vista inicial. */
@@ -918,6 +927,181 @@
     });
   }
 
+  /* Devuelvo true cuando el usuario ya desbloqueó la experiencia final. */
+  function isFinalExperienceUnlocked() {
+    return localStorage.getItem(FINAL_UNLOCK_KEY) === "true";
+  }
+
+  /* Persisto y pinto el estado desbloqueado de la sección final. */
+  function unlockFinalExperience() {
+    const lockedNode = document.querySelector("[data-final-locked]");
+    const contentNode = document.querySelector("[data-final-content]");
+
+    if (!lockedNode || !contentNode) return;
+
+    localStorage.setItem(FINAL_UNLOCK_KEY, "true");
+    lockedNode.hidden = true;
+    contentNode.hidden = false;
+  }
+
+  /* Sincronizo la visibilidad de la experiencia final según el estado persistido. */
+  function paintFinalExperienceState() {
+    const lockedNode = document.querySelector("[data-final-locked]");
+    const contentNode = document.querySelector("[data-final-content]");
+
+    if (!lockedNode || !contentNode) return;
+
+    const unlocked = isFinalExperienceUnlocked();
+    lockedNode.hidden = unlocked;
+    contentNode.hidden = !unlocked;
+  }
+
+  /* Sincronizo la vista activa en el bloque final y su terminal. */
+  function syncFinalExperienceView() {
+    const output = document.querySelector("[data-terminal-output]");
+    if (!output || output.childElementCount) return;
+
+    printTerminalLines([
+      "Terminal de demostración lista.",
+      "Escribe help para ver todos los comandos.",
+    ]);
+  }
+
+  /* Pinto líneas dentro de la terminal simulada de forma segura. */
+  function printTerminalLines(lines) {
+    const output = document.querySelector("[data-terminal-output]");
+    if (!output) return;
+
+    lines.forEach((line) => {
+      const row = document.createElement("p");
+      row.textContent = line;
+      output.appendChild(row);
+    });
+
+    output.scrollTop = output.scrollHeight;
+  }
+
+  /* Devuelvo la respuesta de la terminal en base al comando introducido. */
+  function resolveTerminalCommand(rawCommand) {
+    const command = String(rawCommand || "").trim().toLowerCase();
+
+    const commands = {
+      help: [
+        "Comandos disponibles: help, whoami, skills, projects, automation, ai, clear",
+      ],
+      whoami: [
+        "Soy Juan Antonio Sánchez Plaza, desarrollador Full Stack.",
+        "Conecto negocio y tecnología para reducir tareas manuales con soluciones mantenibles.",
+      ],
+      skills: [
+        "Stack principal: JavaScript, PHP, Python, SQL, HTML y CSS.",
+        "Trabajo con automatización de procesos, APIs, WordPress y herramientas de IA aplicada.",
+      ],
+      projects: [
+        "Proyectos destacados: automatizaciones con impacto operativo, herramientas internas y productos web reales.",
+        "Puedes verlos en la sección Proyectos con enfoque RRHH o técnico.",
+      ],
+      automation: [
+        "Mi foco: convertir flujos repetitivos en procesos simples, medibles y rápidos.",
+        "Resultado habitual: menos errores, menos tiempo y más capacidad del equipo.",
+      ],
+      ai: [
+        "Uso IA para acelerar desarrollo, documentar mejor y mejorar procesos internos.",
+        "Siempre con validación humana y control de calidad.",
+      ],
+      clear: ["__CLEAR__"],
+    };
+
+    if (!command) {
+      return ["Escribe un comando. Prueba con help."];
+    }
+
+    return commands[command] || ["Comando no reconocido. Usa help para ver las opciones."];
+  }
+
+  /* Configuro la lógica de interacción final (desbloqueo, simulación y terminal). */
+  function setupFinalExperience() {
+    const finalSection = document.querySelector("[data-final-experience]");
+    if (!finalSection) return;
+
+    const runSimulationBtn = document.querySelector("[data-run-simulation]");
+    const simulationResult = document.querySelector("[data-hr-result]");
+    const terminalForm = document.querySelector("[data-terminal-form]");
+    const terminalInput = document.getElementById("terminal-input");
+    const terminalOutput = document.querySelector("[data-terminal-output]");
+
+    const registerInteraction = () => {
+      hasMeaningfulInteraction = true;
+    };
+
+    ["click", "keydown", "pointerover"].forEach((eventName) => {
+      document.addEventListener(eventName, registerInteraction, { once: true, passive: true });
+    });
+
+    const unlockIfEligible = () => {
+      const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const ratio = window.scrollY / scrollable;
+      if (ratio >= 0.85 && hasMeaningfulInteraction) {
+        unlockFinalExperience();
+        window.removeEventListener("scroll", unlockIfEligible);
+      }
+    };
+
+    window.addEventListener("scroll", unlockIfEligible, { passive: true });
+
+    if (isFinalExperienceUnlocked()) {
+      unlockFinalExperience();
+      syncFinalExperienceView();
+    }
+
+    paintFinalExperienceState();
+
+    if (runSimulationBtn && simulationResult) {
+      runSimulationBtn.addEventListener("click", () => {
+        const manualSteps = finalSection.querySelectorAll('[data-lane="manual"] [data-step]');
+        const autoSteps = finalSection.querySelectorAll('[data-lane="auto"] [data-step]');
+
+        manualSteps.forEach((step, index) => {
+          window.setTimeout(() => step.classList.add("is-done"), 700 * (index + 1));
+        });
+
+        autoSteps.forEach((step, index) => {
+          window.setTimeout(() => step.classList.add("is-done"), 250 * (index + 1));
+        });
+
+        window.setTimeout(() => {
+          simulationResult.textContent =
+            "Resultado: la automatización convierte un proceso pesado en una ejecución clara, rápida y fiable.";
+        }, 3200);
+      });
+    }
+
+    document.querySelectorAll("[data-switch-final]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetView = button.getAttribute("data-switch-final");
+        setView(targetView);
+      });
+    });
+
+    if (terminalForm && terminalInput && terminalOutput) {
+      terminalForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const typed = terminalInput.value;
+        printTerminalLines([`> ${typed}`]);
+        const lines = resolveTerminalCommand(typed);
+
+        if (lines.length === 1 && lines[0] === "__CLEAR__") {
+          terminalOutput.replaceChildren();
+        } else {
+          printTerminalLines(lines);
+        }
+
+        terminalInput.value = "";
+      });
+    }
+  }
+
   /* Inicializo el toggle de audiencia (hr/tech). */
   setupAudienceToggle();
 
@@ -932,6 +1116,9 @@
 
   /* Inicializo la línea de tiempo de cursos con interacción. */
   renderCourseTimeline();
+
+  /* Inicializo el desbloqueo progresivo y la experiencia final. */
+  setupFinalExperience();
 
 
   /* Inicializo el seteo automático del año en el footer o donde aplique. */
