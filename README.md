@@ -1,29 +1,29 @@
-# Portfolio de Sabas (GitHub Pages)
+# Juan Antonio Sánchez Plaza · Currículum interactivo
 
-Sitio estático (HTML/CSS/JS) preparado para publicar en GitHub Pages desde la raíz de `main`.
+Portfolio estático para [GitHub Pages](https://djsabas.github.io/Porfolio/), sincronizado con la presentación actual de Sites. Dos vistas: RR. HH. prioriza experiencia reciente; TECH, casos y mapa de ramas. Incluye 45 hitos, 34 formaciones, cinco casos y cuatro repositorios públicos seleccionados. No se consultan APIs para obtener contenido durante la visita.
 
-## Despliegue en GitHub Pages
-1. Sube este contenido a la rama `main`.
-2. En GitHub: **Settings → Pages**.
-3. En **Build and deployment**, selecciona **Deploy from a branch**.
-4. Branch: `main` y carpeta `/ (root)`.
-5. URL esperada: `https://djsabas.github.io/Porfolio/`.
+La fotografía `assets/avatar.jpg` y las imágenes `avatar_pixel.jpg` y `avatar_zoom.jpg` conservan sus bytes originales. El retrato muestra pixelart al pasar el ratón y también admite teclado o una pulsación. La demostración de procesos incluye contadores y funciona con movimiento reducido; sus tiempos son ilustrativos, sin atribuir ahorros reales.
 
-## Assets que debes añadir
-Coloca estos archivos dentro de `assets/`:
-- `avatar.jpg` (foto de perfil)
-- `og.png` (imagen para redes sociales)
-- `favicon.ico` (opcional)
-- `01-cv-juanantoniosanchezplaza.pdf` (CV en PDF)
+## Mantener el contenido
 
-## Añadir o editar proyectos
-1. Edita `projects/catalog.json` para añadir metadatos del portfolio por repositorio (`slug`, `url`, `hrSummary`, `techNotes`, `tags`, `featured`).
-2. El listado principal se carga automáticamente desde la API pública de GitHub (`djSaBaS`) y mezcla esos datos con el catálogo local.
-3. Si quieres una página de detalle nueva, crea carpeta en `projects/<slug>/index.html` y añádela también al `sitemap.xml`.
+Edita `source/src/career.json` y `source/src/presentation.json`. Las plantillas están en `source/src/`; los generadores de HTML y SVG, en `source/`. Los controles y estilos compartidos están en `source/assets/`. Los archivos antiguos `assets/json/`, `data/` y los controladores de la versión anterior se conservan como historial; el currículum actual utiliza exclusivamente la fuente normalizada de `source/src/`.
 
-## Formación dinámica
-1. Edita `assets/json/formacion.json` para mantener cursos, horas y skills.
-2. La sección de formación del CV y el total de horas en métricas se actualizan automáticamente desde este JSON.
+Con Python 3.12, sin dependencias de producción:
 
-## Vista RRHH / Tech
-El toggle se guarda en `localStorage` con la clave `portfolioAudienceView` y se aplica automáticamente en todas las páginas.
+```text
+python tools/build_pages.py
+python tools/validate_pages.py
+python -m unittest discover -s source/tests
+node --check assets/app.js
+node --check assets/portrait.js
+```
+
+El constructor adapta enlaces, preferencias de audiencia y canonical a `/Porfolio/`; `source/dist/` es una carpeta intermedia ignorada por Git. No se debe publicar configuración de Sites ni copiar documentos personales de verificación. Los PDF públicos son las versiones breves y completas previamente generadas y autorizadas.
+
+## Publicación
+
+GitHub Pages utiliza `main` y la carpeta raíz. Los archivos HTML de la raíz y sus secciones ya están construidos; `.nojekyll` conserva su tratamiento estático. Antes de integrar un cambio, regenera, valida y revisa su PR. No es necesario instalar Python ni ejecutar un backend en el alojamiento.
+
+Las rutas antiguas de sobre mí, cursos y proyectos conducen a las secciones actuales mediante destinos locales fijos. Los casos corporativos se describen sin enlaces privados, código empresarial, nóminas o registros de alumnos. La beta de tutorías conserva su validación pendiente y la migración PHP su estado de implantación.
+
+Las preferencias de tema y audiencia se guardan solo en el navegador; no hay formularios de envío, analítica añadida o cuentas de usuario. El código ofrece estructura accesible, estados textuales y navegación por teclado. SonarQube y escáneres dedicados no forman parte de una certificación de esta entrega.

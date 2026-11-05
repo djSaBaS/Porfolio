@@ -1,0 +1,98 @@
+<!-- Se declara HTML moderno para una lectura semántica sin JavaScript. -->
+<!doctype html>
+<!-- Se fija el idioma principal del currículum. -->
+<html lang="es" data-mode="{{MODE}}" data-theme="dark">
+<!-- Se agrupan metadatos, estilos y recursos locales. -->
+<head>
+<!-- Se preservan nombres y acentos en todas las plataformas. -->
+<meta charset="utf-8">
+<!-- Se adapta la interfaz al ancho real de cada dispositivo. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Se ofrece un título específico para la audiencia seleccionada. -->
+<title>{{TITLE}}</title>
+<!-- Se resume el perfil con competencias contrastadas. -->
+<meta name="description" content="{{DESCRIPTION}}">
+<!-- Se identifica la URL estable de esta vista. -->
+<link rel="canonical" href="{{CANONICAL}}">
+<!-- Se permite indexar contenido publicado y minimizar información de referencia. -->
+<meta name="robots" content="index,follow,max-image-preview:large">
+<!-- Se limita la información enviada al seguir enlaces externos. -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Se identifica el tipo de página al compartir el currículum. -->
+<meta property="og:type" content="profile">
+<!-- Se conserva el título de la vista en redes sociales. -->
+<meta property="og:title" content="{{TITLE}}">
+<!-- Se proporciona una descripción social sin métricas inventadas. -->
+<meta property="og:description" content="{{DESCRIPTION}}">
+<!-- Se utiliza el origen asignado por Sites para compartir enlaces coherentes. -->
+<meta property="og:url" content="{{CANONICAL}}">
+<!-- Se presenta una imagen social creada con recursos locales. -->
+<meta property="og:image" content="{{ORIGIN}}/assets/social.jpg">
+<!-- Se describe la imagen para los lectores de tecnologías de apoyo. -->
+<meta property="og:image:alt" content="Juan Antonio Sánchez Plaza · Sabas · Desarrollo web, sistemas y automatización">
+<!-- Se identifica la configuración regional del contenido. -->
+<meta property="og:locale" content="es_ES">
+<!-- Se habilita una tarjeta social con imagen de gran tamaño. -->
+<meta name="twitter:card" content="summary_large_image">
+<!-- Se reutiliza la identidad visual del sitio como icono de pestaña. -->
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<!-- Se sirve una única hoja de estilos sin solicitudes a terceros. -->
+<link rel="stylesheet" href="/assets/site.css">
+<!-- Se añade información estructurada generada desde la fuente común. -->
+<script type="application/ld+json">{{SCHEMA}}</script>
+<!-- Se cierran los metadatos antes del contenido accesible. -->
+</head>
+<!-- Se inicia la página con navegación y contenido completos en HTML. -->
+<body>
+<!-- Se permite saltar los controles de navegación con el teclado. -->
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<!-- Se mantiene visible el selector de audiencia durante la exploración. -->
+<header class="site-header">
+<!-- Se limita el ancho de la navegación para facilitar su lectura. -->
+<div class="header-inner">
+<!-- Se prioriza el nombre profesional completo junto al símbolo de bifurcación. -->
+<a class="brand" href="/?view=hr" aria-label="Juan Antonio Sánchez Plaza, inicio"><span class="brand-icon" aria-hidden="true">⑂</span><span class="brand-identity"><strong>Juan Antonio<br>Sánchez Plaza</strong><span class="brand-alias">Sabas · djSaBaS</span></span></a>
+<!-- Se ofrecen accesos directos a las secciones del currículum. -->
+<nav class="main-nav" aria-label="Navegación principal"><a href="#experiencia">Experiencia</a><a href="#casos">Casos</a><a href="#trayectoria">Trayectoria</a><a href="#formacion">Formación</a></nav>
+<!-- Se agrupan preferencias sin recoger información del visitante. -->
+<div class="header-actions"><div class="mode-switch" role="group" aria-label="Vista del currículum"><a data-mode-link="hr" href="/?view=hr#contenido" {{HR_CURRENT}}>RR. HH.</a><a data-mode-link="tech" href="/tech/#contenido" {{TECH_CURRENT}}><span aria-hidden="true">&lt;/&gt;</span> TECH</a></div><button class="icon-button" id="theme-toggle" type="button" aria-label="Activar tema claro" title="Cambiar tema">◐</button><a class="header-contact" href="#contacto">Hablemos <span aria-hidden="true">↗</span></a></div>
+<!-- Se cierra la composición horizontal de la cabecera. -->
+</div>
+<!-- Se finaliza la navegación persistente. -->
+</header>
+<!-- Se agrupan las secciones principales en un punto de acceso por teclado. -->
+<main id="contenido">
+<!-- Se presenta el perfil en menos de treinta segundos. -->
+<section class="hero container" aria-labelledby="hero-title">
+<!-- Se construye una introducción editorial centrada en la trayectoria. -->
+<div class="hero-copy"><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> JUAN ANTONIO SÁNCHEZ PLAZA <span class="muted">/ SABAS</span></p><h1 id="hero-title">{{HERO_TITLE}}</h1><p class="hero-description">{{HERO_DESCRIPTION}}</p><div class="hero-buttons">{{HERO_ACTIONS}}</div><p class="hero-meta"><span>Madrid, España</span><span>Desarrollo web · Sistemas · Automatización</span></p></div>
+<!-- Se representa visualmente la integración de disciplinas con una ilustración vectorial propia. -->
+<div class="hero-visual"><div class="visual-heading"><span class="mono">{{VISUAL_HEADER}}</span><span class="visual-label">EN EVOLUCIÓN CONTINUA</span></div>{{HERO_GRAPH}}<div class="portrait-strip"><img class="tech-only" src="/assets/juan-antonio.jpg" alt="Juan Antonio Sánchez Plaza, Sabas" width="64" height="64"><div><strong>Distintos caminos.<br>Una misma forma de resolver.</strong><span>{{VISUAL_CAPTION}}</span></div><span class="portrait-arrow" aria-hidden="true">↗</span></div></div>
+<!-- Se finaliza la introducción del perfil. -->
+</section>
+<!-- Se resumen competencias sin atribuir porcentajes de dominio. -->
+<div class="competence-strip container"><span class="strip-label">EL PUNTO DE ENCUENTRO</span><span>Aplicaciones PHP</span><span>Automatización Python</span><span>WordPress</span><span>Coordinación técnica</span></div>
+<!-- Se presenta el trabajo actual y la coordinación confirmada por el titular. -->
+<section class="profile-summary container" aria-labelledby="resumen-title"><div><p class="eyebrow section-index">PERFIL / QUÉ APORTO</p><h2 id="resumen-title">Desarrollo directo.<br><span class="muted">Mejoras entre equipos.</span></h2></div><div class="summary-text"><p>Soy responsable de desarrollo web en Humanitas Centros de Educación. {{PROFILE_SUMMARY}}</p><p>Tomo decisiones sobre tecnologías, implementación, lógica de programación y selección de plugins WordPress. Mi trabajo llega a sistemas, RR. HH., marketing y admisiones.</p><a class="text-link" href="#experiencia">Ver experiencia reciente <span aria-hidden="true">↗</span></a></div></section>
+<!-- Se presentan aportaciones concretas sin métricas inventadas. -->
+{{CONTRIBUTIONS}}
+<!-- Se ordenan evidencias y trayectoria según la audiencia. -->
+{{AUDIENCE_SECTIONS}}
+<!-- Se explica la continuidad entre etapas sin exagerar competencias o resultados. -->
+<section class="container about-section" id="sobre-mi" aria-labelledby="sobre-title"><div class="about-portrait"><img src="/assets/juan-antonio.jpg" alt="Retrato de Juan Antonio Sánchez Plaza" width="400" height="400" loading="lazy"><span class="mono">Juan Antonio Sánchez Plaza / Sabas / djSaBaS</span></div><div><p class="eyebrow section-index">06 / SOBRE MÍ</p><h2 id="sobre-title">Cada etapa suma.<br><span class="accent">Todo conecta.</span></h2><p>Antes de desarrollar aplicaciones trabajé con piezas, planos e instalaciones. También me formé en sonido y diseño. Después llegaron los sistemas, la programación y la coordinación de proyectos.</p><p>Son maneras distintas de enfrentarse al mismo reto: comprender cómo funciona algo, encontrar el problema y construir una respuesta que sirva a quien la necesita.</p><p>Hoy llevo esa forma de mirar al desarrollo web, la automatización y la inteligencia artificial aplicada.</p><div class="values-row"><span>Curiosidad</span><span>Claridad</span><span>Trabajo en equipo</span></div><details class="easter-egg hr-only"><summary>Una pequeña demostración de mi forma de pensar <span aria-hidden="true">↗</span></summary><p>Ejemplo ilustrativo: tramitar cinco tareas una a una o preparar un flujo que las coordine. Esta animación no representa tiempos ni ahorros de un proyecto real.</p><div class="simulation"><div><span>Proceso manual</span><output class="simulation-count" data-simulation-count="manual" aria-label="Tareas manuales completadas">0/5</output><div class="task-track" data-simulation-lane="manual" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div><div><span>Flujo automatizado</span><output class="simulation-count" data-simulation-count="automated" aria-label="Tareas automatizadas completadas">0/5</output><div class="task-track automated" data-simulation-lane="automated" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div><p class="simulation-status" data-simulation-status role="status">Pulsa el botón para comparar las dos secuencias.</p></div><button class="button secondary js-only" type="button" id="simulation-play">Ver la diferencia</button></details></div></section>
+<!-- Se ofrece una terminal opcional con respuestas locales y sin ejecutar comandos. -->
+{{TERMINAL}}
+<!-- Se facilita el contacto con los datos expresamente autorizados. -->
+<section class="contact-section" id="contacto" aria-labelledby="contacto-title"><div class="container contact-inner"><div><p class="eyebrow section-index">07 / LA PRÓXIMA CONEXIÓN</p><h2 id="contacto-title">¿Conectamos<br>la siguiente etapa?</h2><p>Si mi trayectoria encaja con tu equipo o con un problema que quieres resolver, hablemos.</p><a class="contact-email" href="mailto:juanantoniosanchezplaza@hotmail.com">juanantoniosanchezplaza@hotmail.com <span aria-hidden="true">↗</span></a></div><div class="contact-links"><a href="https://www.linkedin.com/in/juanantoniosanchezplaza/" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><span aria-hidden="true">↗</span></a><a href="https://github.com/djSaBaS" target="_blank" rel="noopener noreferrer"><span>GitHub / djSaBaS</span><span aria-hidden="true">↗</span></a><a href="/assets/cv-juan-antonio-sanchez-plaza.pdf" download><span>CV breve · PDF</span><span aria-hidden="true">↧</span></a><a href="/cv/"><span>CV completo e imprimible</span><span aria-hidden="true">↗</span></a></div></div></section>
+<!-- Se cierra el contenido principal antes de la información de mantenimiento. -->
+</main>
+<!-- Se identifica al titular y se ofrece información de privacidad sin seguimiento. -->
+<footer class="site-footer container"><p>© 2026 Juan Antonio Sánchez Plaza <span class="muted">/ Sabas</span></p><div><a href="/privacidad/">Privacidad</a><a href="/fuentes/">Fuentes y criterios</a><span class="mono">Siempre en evolución <span class="accent">↗</span></span></div></footer>
+<!-- Se usa el diálogo nativo para contener el foco y permitir el cierre con Escape. -->
+<dialog id="event-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">FICHA DE TRAYECTORIA</span><button class="icon-button" id="dialog-close" type="button" aria-label="Cerrar ficha">×</button></div><div id="dialog-content"></div></dialog>
+<!-- Se mejoran las interacciones sin hacer depender el contenido de JavaScript. -->
+<script src="/assets/app.js" defer></script>
+<!-- Se finaliza el contenido visible. -->
+</body>
+<!-- Se cierra el documento semántico. -->
+</html>

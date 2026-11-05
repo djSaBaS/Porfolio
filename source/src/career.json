@@ -1,0 +1,1281 @@
+{
+  "profile": {
+    "name": "Juan Antonio Sánchez Plaza",
+    "alias": "Sabas",
+    "github": "https://github.com/djSaBaS",
+    "linkedin": "https://www.linkedin.com/in/juanantoniosanchezplaza/",
+    "email": "juanantoniosanchezplaza@hotmail.com",
+    "location": "Madrid",
+    "role": "Responsable de Desarrollo Web",
+    "contentApproved": true
+  },
+  "branches": [
+    {
+      "id": "main",
+      "label": "Formación oficial",
+      "code": "main",
+      "color": "#78dfb0"
+    },
+    {
+      "id": "automocion",
+      "label": "Automoción",
+      "code": "feature/automocion",
+      "color": "#e9b877"
+    },
+    {
+      "id": "industria",
+      "label": "Industria y construcción",
+      "code": "feature/industria",
+      "color": "#ea947f"
+    },
+    {
+      "id": "creatividad",
+      "label": "Sonido y creatividad",
+      "code": "feature/creatividad",
+      "color": "#c3a0e8"
+    },
+    {
+      "id": "sistemas",
+      "label": "Informática y sistemas",
+      "code": "feature/sistemas",
+      "color": "#80c8e8"
+    },
+    {
+      "id": "web",
+      "label": "Desarrollo web",
+      "code": "feature/desarrollo-web",
+      "color": "#78dfb0"
+    },
+    {
+      "id": "ia",
+      "label": "Automatización e IA",
+      "code": "feature/automatizacion-ia",
+      "color": "#d9d88a"
+    }
+  ],
+  "events": [
+    {
+      "id": "work-humanitas-responsable-desarrollo-web",
+      "kind": "work",
+      "title": "Responsable de Desarrollo Web",
+      "entity": "Humanitas Centros de Educación",
+      "start": "2025-01",
+      "end": null,
+      "dates": "ene. 2025 - Actualidad",
+      "branch": "web",
+      "official": false,
+      "category": "empleo",
+      "summary": "Desarrollo directo de aplicaciones en PHP, automatización con Python y evolución de webs WordPress. Decisiones sobre tecnologías, implementación, lógica y plugins. Coordinación con sistemas de los centros para implantar mejoras, con RR. HH. para utilidades de nóminas y con marketing para las webs. Trabajo dirigido a sistemas, RR. HH., marketing y admisiones, con mejoras de tiempos, procesos y facilidad de uso.",
+      "skills": [
+        "PHP",
+        "MySQL",
+        "WordPress",
+        "IA",
+        "Backend",
+        "Desarrollo Web",
+        "SEO",
+        "Automatización"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn y aclaraciones profesionales facilitadas por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-python-essentials-2",
+      "kind": "education",
+      "title": "Python Essentials 2",
+      "entity": "Cisco Networking Academy",
+      "start": "2025-04",
+      "end": "2025-04",
+      "dates": "Expedición · abr. 2025",
+      "branch": "ia",
+      "official": false,
+      "category": "Credencial de curso",
+      "summary": "Credencial de curso · Cisco Networking Academy. Formación en Python Essentials 2.",
+      "skills": [
+        "python",
+        "lógica de programación",
+        "estructuras de datos",
+        "programación modular",
+        "funciones",
+        "colecciones"
+      ],
+      "hours": 40,
+      "status": "Credencial personal revisada; duración orientativa del programa: 40 horas según Cisco Networking Academy y Python Institute. No se declara certificación PCAP.",
+      "source": "https://pythoninstitute.org/netacad"
+    },
+    {
+      "id": "edu-python-essentials-1",
+      "kind": "education",
+      "title": "Python Essentials 1",
+      "entity": "Cisco Networking Academy",
+      "start": "2024-11",
+      "end": "2024-11",
+      "dates": "Expedición · nov. 2024",
+      "branch": "ia",
+      "official": false,
+      "category": "Credencial de curso",
+      "summary": "Credencial de curso · Cisco Networking Academy. Formación en Python Essentials 1.",
+      "skills": [
+        "python",
+        "lógica de programación",
+        "estructuras de datos",
+        "programación modular",
+        "funciones",
+        "colecciones"
+      ],
+      "hours": 30,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-chatgpt-ia",
+      "kind": "education",
+      "title": "ChatGPT e inteligencia artificial (IFCT0049)",
+      "entity": "ADR Formación",
+      "start": "2024-11",
+      "end": "2024-12",
+      "dates": "nov. 2024 - dic. 2024",
+      "branch": "ia",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · ADR Formación. Formación en ChatGPT e inteligencia artificial (IFCT0049).",
+      "skills": [
+        "inteligencia artificial",
+        "chatgpt",
+        "desarrollo de software",
+        "programación",
+        "modelos de lenguaje"
+      ],
+      "hours": 60,
+      "status": "Periodo y realización declarados en LinkedIn; duración de referencia IFCT0049: 60 horas, contrastada en el catálogo público de especialidades.",
+      "source": "https://www.juntadeandalucia.es/empleoformacionytrabajoautonomo/formacion/web/fichero-de-especialidades-formativas/IFCT0049"
+    },
+    {
+      "id": "work-consultora-responsable-proyectos",
+      "kind": "work",
+      "title": "Responsable de Proyectos de Desarrollo Web",
+      "entity": "Consultora de Educación y Sistemas",
+      "start": "2023-01",
+      "end": "2025-01",
+      "dates": "ene. 2023 - ene. 2025",
+      "branch": "web",
+      "official": false,
+      "category": "empleo",
+      "summary": "Planificación y seguimiento de proyectos de desarrollo web para centros educativos. Coordinación técnica y evolución de aplicaciones empresariales.",
+      "skills": [
+        "Gestión de proyectos",
+        "I+D",
+        "Desarrollo Web",
+        "Arquitectura Web",
+        "Coordinación",
+        "Planificación"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-digitalizacion-sector-productivo",
+      "kind": "education",
+      "title": "Digitalización Aplicada al Sector Productivo",
+      "entity": "CEPYME",
+      "start": "2022-08",
+      "end": "2024-10",
+      "dates": "ago. 2022 - oct. 2024",
+      "branch": "sistemas",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · CEPYME. Formación en Digitalización Aplicada al Sector Productivo.",
+      "skills": [
+        "herramientas digitales",
+        "productividad empresarial",
+        "transformación digital"
+      ],
+      "hours": 30,
+      "status": "Diploma personal de CEPYME revisado: 30 horas. Periodo declarado en LinkedIn; no se publica como acreditación independiente IFC748_2.",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-master-fullstack-inesem",
+      "kind": "education",
+      "title": "Master Full Stack Developer",
+      "entity": "INESEM",
+      "start": "2023-02",
+      "end": "2023-11",
+      "dates": "feb. 2023 - nov. 2023",
+      "branch": "web",
+      "official": false,
+      "category": "Máster privado",
+      "summary": "Máster privado · INESEM. Formación en Master Full Stack Developer.",
+      "skills": [
+        "git",
+        "html",
+        "css",
+        "javascript",
+        "jquery",
+        "php",
+        "mysql",
+        "mongodb",
+        "angular",
+        "symfony",
+        "node.js",
+        "react"
+      ],
+      "hours": 1500,
+      "status": "Diploma personal revisado: 1.500 horas totales, 450 de teleformación y 1.050 de autoestudio. Máster privado.",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-ifcd0210",
+      "kind": "education",
+      "title": "Desarrollo de Aplicaciones con Tecnologías Web",
+      "entity": "Comunidad de Madrid",
+      "start": "2023-10",
+      "end": "2023-10",
+      "dates": "Expedición · oct. 2023",
+      "branch": "web",
+      "official": true,
+      "category": "certificado de profesionalidad",
+      "summary": "Certificado de profesionalidad · Comunidad de Madrid. Formación en Desarrollo de Aplicaciones con Tecnologías Web.",
+      "skills": [
+        "desarrollo web",
+        "html",
+        "css",
+        "javascript",
+        "front-end",
+        "back-end",
+        "servidores",
+        "tecnologías web"
+      ],
+      "hours": 590,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-ifcd0112",
+      "kind": "education",
+      "title": "Programación con Lenguajes Orientados a Objetos y Bases de Datos Relacionales",
+      "entity": "Comunidad de Madrid",
+      "start": "2023-10",
+      "end": "2023-10",
+      "dates": "Expedición · oct. 2023",
+      "branch": "web",
+      "official": true,
+      "category": "certificado de profesionalidad",
+      "summary": "Certificado de profesionalidad · Comunidad de Madrid. Formación en Programación con Lenguajes Orientados a Objetos y Bases de Datos Relacionales.",
+      "skills": [
+        "programación orientada a objetos",
+        "poo",
+        "bases de datos relacionales",
+        "sql",
+        "sistemas informáticos",
+        "desarrollo de software"
+      ],
+      "hours": 710,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-ifcd0111",
+      "kind": "education",
+      "title": "Programación en Lenguajes Estructurados de Aplicaciones de Gestión",
+      "entity": "Comunidad de Madrid",
+      "start": "2023-10",
+      "end": "2023-10",
+      "dates": "Expedición · oct. 2023",
+      "branch": "web",
+      "official": true,
+      "category": "certificado de profesionalidad",
+      "summary": "Certificado de profesionalidad · Comunidad de Madrid. Formación en Programación en Lenguajes Estructurados de Aplicaciones de Gestión.",
+      "skills": [
+        "programación estructurada",
+        "aplicaciones de gestión",
+        "sql",
+        "bases de datos relacionales",
+        "diseño de interfaces",
+        "lógica de negocio"
+      ],
+      "hours": 700,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-ifct0509",
+      "kind": "education",
+      "title": "Administración de Servicios de Internet",
+      "entity": "Comunidad de Madrid",
+      "start": "2023-10",
+      "end": "2023-10",
+      "dates": "Expedición · oct. 2023",
+      "branch": "sistemas",
+      "official": true,
+      "category": "certificado de profesionalidad",
+      "summary": "Certificado de profesionalidad · Comunidad de Madrid. Formación en Administración de Servicios de Internet.",
+      "skills": [
+        "administración de servicios de internet",
+        "webmaster",
+        "mensajería electrónica",
+        "ftp",
+        "multimedia",
+        "gestión de servidores",
+        "hosting"
+      ],
+      "hours": 710,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "work-ministerio-consultor-calorifugado",
+      "kind": "work",
+      "title": "Consultor Experto en Calorifugado",
+      "entity": "Ministerio de Educación (INCUAL)",
+      "start": "2022-10",
+      "end": "2023-03",
+      "dates": "oct. 2022 - mar. 2023",
+      "branch": "industria",
+      "official": false,
+      "category": "empleo",
+      "summary": "Consultoría para actualizar unidades de competencia de aislamiento térmico, acústico y contra incendios en cualificaciones profesionales.",
+      "skills": [
+        "Consultoría",
+        "Formación profesional",
+        "Aislamiento térmico",
+        "Revisión técnica"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-php-poo-anced",
+      "kind": "education",
+      "title": "Programación PHP Orientado a Objetos",
+      "entity": "Iniciativas Empresariales",
+      "start": "2022-03",
+      "end": "2022-05",
+      "dates": "mar. 2022 - may. 2022",
+      "branch": "web",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · Iniciativas Empresariales. Formación en Programación PHP Orientado a Objetos.",
+      "skills": [
+        "php",
+        "poo",
+        "pdo",
+        "excepciones",
+        "autoloading",
+        "composer",
+        "frameworks"
+      ],
+      "hours": 50,
+      "status": "Diploma personal revisado; duración nominal de 50 horas según el programa publicado por Iniciativas Empresariales.",
+      "source": "https://www.iniciativasempresariales.com/admin/img/Programacion_PHP_Orientado_Objetos.pdf"
+    },
+    {
+      "id": "edu-dp900-azure",
+      "kind": "education",
+      "title": "Curso DP-900 · Microsoft Azure Data Fundamentals",
+      "entity": "PUE",
+      "start": "2021-11",
+      "end": "2021-11",
+      "dates": "nov. 2021",
+      "branch": "sistemas",
+      "official": false,
+      "category": "Curso de preparación",
+      "summary": "Curso de preparación · PUE. Formación en Curso DP-900 · Microsoft Azure Data Fundamentals.",
+      "skills": [
+        "azure",
+        "cloud computing",
+        "bases de datos en la nube",
+        "data fundamentals",
+        "analítica de datos"
+      ],
+      "hours": 6,
+      "status": "Diploma personal revisado: curso DP-900 de 6 horas, 25 de noviembre de 2021; no acredita por sí solo el examen de certificación.",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-php-avanzada-adr",
+      "kind": "education",
+      "title": "Programación en PHP Avanzada",
+      "entity": "ADR Formación",
+      "start": "2020-10",
+      "end": "2020-12",
+      "dates": "oct. 2020 - dic. 2020",
+      "branch": "web",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · ADR Formación. Formación en Programación en PHP Avanzada.",
+      "skills": [
+        "php avanzado",
+        "tratamiento de imágenes",
+        "generación de pdf",
+        "single sign-on",
+        "web services",
+        "arquitectura mvc"
+      ],
+      "hours": 30,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-microsoft-innovative-educator",
+      "kind": "education",
+      "title": "Certified Microsoft Innovative Educator",
+      "entity": "Microsoft",
+      "start": "2020-07",
+      "end": "2020-07",
+      "dates": "jul. 2020",
+      "branch": "sistemas",
+      "official": false,
+      "category": "certificación",
+      "summary": "Certificación · Microsoft. Formación en Certified Microsoft Innovative Educator.",
+      "skills": [
+        "microsoft teams",
+        "windows device apps and management",
+        "herramientas digitales microsoft"
+      ],
+      "hours": 3,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-bbdd-relacionales-fuenlabrada",
+      "kind": "education",
+      "title": "Diseño de Bases de Datos Relacionales",
+      "entity": "CIFE · Ayuntamiento de Fuenlabrada",
+      "start": "2020",
+      "end": "2020",
+      "dates": "2020 · meses pendientes de revisar",
+      "branch": "web",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · CIFE · Ayuntamiento de Fuenlabrada. Formación en Diseño de Bases de Datos Relacionales.",
+      "skills": [
+        "diseño de bases de datos",
+        "modelado conceptual",
+        "modelo relacional",
+        "sql"
+      ],
+      "hours": 50,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-cloud-computing-google",
+      "kind": "education",
+      "title": "Cloud Computing",
+      "entity": "EOI · Google Actívate",
+      "start": "2019-05",
+      "end": "2019-05",
+      "dates": "may. 2019",
+      "branch": "sistemas",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · EOI · Google Actívate. Formación en Cloud Computing.",
+      "skills": [
+        "cloud computing",
+        "infraestructura en la nube",
+        "transformación digital",
+        "saas",
+        "paas",
+        "iaas"
+      ],
+      "hours": 40,
+      "status": "Certificado personal revisado, 17 de mayo de 2019; duración nominal de 40 horas según EOI.",
+      "source": "https://www.eoi.es/es/formacionabierta"
+    },
+    {
+      "id": "work-idweb-disenador-web-freelance",
+      "kind": "work",
+      "title": "Diseñador Web / Desarrollador Freelance",
+      "entity": "Ilustración y Diseño Web IDweb",
+      "start": "2011-05",
+      "end": "2020-07",
+      "dates": "may. 2011 - jul. 2020",
+      "branch": "web",
+      "official": false,
+      "category": "empleo",
+      "summary": "Diseño gráfico, creación de sitios web y aplicaciones Android. Desarrollo de soluciones digitales y automatización para empresas y medios locales.",
+      "skills": [
+        "WordPress",
+        "PHP",
+        "Diseño Web",
+        "Android",
+        "I+D",
+        "Diseño Gráfico",
+        "Automatización"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-oracle-mysql-experto",
+      "kind": "education",
+      "title": "BBDD MySQL · Desarrollador experto",
+      "entity": "CF-TIC · Getafe",
+      "start": "2017",
+      "end": "2017",
+      "dates": "2017",
+      "branch": "web",
+      "official": false,
+      "category": "Curso",
+      "summary": "Curso · CF-TIC · Getafe. Formación en BBDD MySQL · Desarrollador experto.",
+      "skills": [
+        "bases de datos",
+        "oracle",
+        "mysql",
+        "consultas avanzadas",
+        "sql"
+      ],
+      "hours": 165,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "work-consultora-programador-web",
+      "kind": "work",
+      "title": "Programador Web",
+      "entity": "Consultora de Educación y Sistemas",
+      "start": "2016-01",
+      "end": "2023-01",
+      "dates": "ene. 2016 - ene. 2023",
+      "branch": "web",
+      "official": false,
+      "category": "empleo",
+      "summary": "Desarrollo de aplicaciones de gestión con PHP, MySQL, JavaScript, jQuery y Bootstrap. Soporte técnico y mantenimiento de servidores y hosting.",
+      "skills": [
+        "PHP",
+        "MySQL",
+        "JavaScript",
+        "jQuery",
+        "Bootstrap",
+        "HTML",
+        "CSS",
+        "WordPress",
+        "Servidores",
+        "Hosting"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-ciberseguridad-10-pasos",
+      "kind": "education",
+      "title": "10 Pasos de Ciberseguridad",
+      "entity": "Aula Conect@",
+      "start": "2016",
+      "end": "2016",
+      "dates": "2016",
+      "branch": "sistemas",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · Aula Conect@. Formación en 10 Pasos de Ciberseguridad.",
+      "skills": [
+        "ciberseguridad",
+        "buenas prácticas de seguridad",
+        "protección de sistemas",
+        "concienciación en seguridad"
+      ],
+      "hours": 24,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "work-tecnico-informatico-2015",
+      "kind": "work",
+      "title": "Técnico Informático",
+      "entity": "Empresa de Formación Nacional",
+      "start": "2015-03",
+      "end": "2016-01",
+      "dates": "mar. 2015 - ene. 2016",
+      "branch": "sistemas",
+      "official": false,
+      "category": "empleo",
+      "summary": "Mantenimiento de equipos, redes y servidores. Instalación de hardware y software, soporte remoto y presencial y desarrollo web básico.",
+      "skills": [
+        "Hardware",
+        "Redes",
+        "Helpdesk",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Servidores",
+        "Soporte técnico"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-prl-basico",
+      "kind": "education",
+      "title": "Prevención de Riesgos Laborales",
+      "entity": "CEFORA",
+      "start": "2015",
+      "end": "2015",
+      "dates": "2015",
+      "branch": "industria",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · CEFORA. Formación en Prevención de Riesgos Laborales.",
+      "skills": [
+        "prevención de riesgos laborales",
+        "seguridad laboral",
+        "normativa preventiva"
+      ],
+      "hours": 40,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "work-aislamientos-antonio-sanchez-cnc",
+      "kind": "work",
+      "title": "Diseño CAD/CAM y Programación CNC",
+      "entity": "Aislamientos Antonio Sánchez",
+      "start": "2014-11",
+      "end": "2015-01",
+      "dates": "nov. 2014 - ene. 2015",
+      "branch": "industria",
+      "official": false,
+      "category": "empleo",
+      "summary": "Diseño CAD/CAM de piezas de calderería y programación CNC para corte por plasma. Aislamiento térmico y calorifugado industrial.",
+      "skills": [
+        "CAD",
+        "CAM",
+        "CNC",
+        "Calorifugado",
+        "Calderería",
+        "Optimización de material"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "work-tecnico-informatico-2014",
+      "kind": "work",
+      "title": "Técnico Informático",
+      "entity": "Empresa de Formación Nacional",
+      "start": "2014-03",
+      "end": "2014-10",
+      "dates": "mar. 2014 - oct. 2014",
+      "branch": "sistemas",
+      "official": false,
+      "category": "empleo",
+      "summary": "Reparación y mantenimiento de equipos. Montaje de aulas, redes, servidores, atención de incidencias y primeros desarrollos con WordPress.",
+      "skills": [
+        "Hardware",
+        "Redes",
+        "Helpdesk",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "WordPress"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-javascript-experto",
+      "kind": "education",
+      "title": "Curso Práctico Experto en JavaScript",
+      "entity": "Euroinnova",
+      "start": "2014",
+      "end": "2014",
+      "dates": "2014",
+      "branch": "web",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · Euroinnova. Formación en Curso Práctico Experto en JavaScript.",
+      "skills": [
+        "javascript",
+        "programación web",
+        "lógica de programación",
+        "dom"
+      ],
+      "hours": 90,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-apps-moviles",
+      "kind": "education",
+      "title": "Curso Práctico Desarrollo de Aplicaciones Móviles",
+      "entity": "Euroinnova",
+      "start": "2014",
+      "end": "2014",
+      "dates": "2014",
+      "branch": "web",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · Euroinnova. Formación en Curso Práctico Desarrollo de Aplicaciones Móviles.",
+      "skills": [
+        "desarrollo móvil",
+        "diseño de interfaz móvil"
+      ],
+      "hours": 100,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-illustrator-cs4",
+      "kind": "education",
+      "title": "Técnico Profesional en Diseño con Adobe Illustrator CS4",
+      "entity": "Euroinnova",
+      "start": "2014",
+      "end": "2014",
+      "dates": "2014",
+      "branch": "creatividad",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · Euroinnova. Formación en Técnico Profesional en Diseño con Adobe Illustrator CS4.",
+      "skills": [
+        "diseño gráfico",
+        "ilustración vectorial",
+        "adobe illustrator",
+        "composición visual"
+      ],
+      "hours": 180,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "work-aislamientos-antonio-sanchez-freelance",
+      "kind": "work",
+      "title": "Diseño en CAD/CAM, CNC y Calorifugado (Freelance)",
+      "entity": "Aislamientos Antonio Sánchez",
+      "start": "2010-01",
+      "end": "2014-01",
+      "dates": "ene. 2010 - ene. 2014",
+      "branch": "industria",
+      "official": false,
+      "category": "empleo",
+      "summary": "Diseño CAD/CAM, programación CNC y trabajos de aislamiento y calorifugado de salas de calderas.",
+      "skills": [
+        "CAD",
+        "CAM",
+        "CNC",
+        "Calorifugado",
+        "Calderería",
+        "Diseño industrial"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-tpc",
+      "kind": "education",
+      "title": "Tarjeta Profesional de la Construcción",
+      "entity": "Fundación Laboral de la Construcción",
+      "start": "2011-02",
+      "end": "2011-02",
+      "dates": "feb. 2011",
+      "branch": "industria",
+      "official": false,
+      "category": "Acreditación histórica · vencida en 2016",
+      "summary": "Tarjeta Profesional de la Construcción expedida en febrero de 2011. Vencimiento indicado en LinkedIn: febrero de 2016.",
+      "skills": [
+        "seguridad en obras",
+        "acreditación profesional",
+        "prevención en construcción"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-prl-albanileria",
+      "kind": "education",
+      "title": "Segundo Ciclo PRL Albañilería",
+      "entity": "IPR · Interterritorial de Prevención de Riesgos",
+      "start": "2010-02",
+      "end": "2010-02",
+      "dates": "25 feb. 2010",
+      "branch": "industria",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · IPR · Interterritorial de Prevención de Riesgos. Formación en Segundo Ciclo PRL Albañilería.",
+      "skills": [
+        "prl albañilería",
+        "seguridad en obra",
+        "prevención específica"
+      ],
+      "hours": 6,
+      "status": "Certificado personal revisado: 6 horas presenciales, 25 de febrero de 2010; módulo específico separado del tronco común.",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-prl-tronco-comun-oficios",
+      "kind": "education",
+      "title": "Segundo Ciclo PRL Tronco Común Oficios",
+      "entity": "IPR · Interterritorial de Prevención de Riesgos",
+      "start": "2010-02",
+      "end": "2010-02",
+      "dates": "23–24 feb. 2010",
+      "branch": "industria",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · IPR · Interterritorial de Prevención de Riesgos. Formación en Segundo Ciclo PRL Tronco Común Oficios.",
+      "skills": [
+        "prl construcción",
+        "seguridad en oficios",
+        "prevención específica"
+      ],
+      "hours": 14,
+      "status": "Certificado personal revisado: 14 horas presenciales, 23 y 24 de febrero de 2010.",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "work-aislamientos-toni",
+      "kind": "work",
+      "title": "Especialista en Aislamiento y Calderería",
+      "entity": "Aislamientos Toni",
+      "start": "1999-01",
+      "end": "2013-12",
+      "dates": "ene. 1999 - dic. 2013",
+      "branch": "industria",
+      "official": false,
+      "category": "empleo",
+      "summary": "Aislamiento térmico y acústico en instalaciones industriales. Trazado de piezas de calderería y fabricación de conductos de ventilación.",
+      "skills": [
+        "Calorifugado",
+        "Calderería",
+        "Instalaciones térmicas",
+        "Aislamiento acústico"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-operador-tecnico-sonido",
+      "kind": "education",
+      "title": "Operador Técnico de Sonido",
+      "entity": "CEV",
+      "start": "2000",
+      "end": "2001",
+      "dates": "2000 – 2001",
+      "branch": "creatividad",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · CEV. Formación en Operador Técnico de Sonido.",
+      "skills": [
+        "operación de mesas de mezcla",
+        "sonorización",
+        "sonido en directo",
+        "sonido en estudio"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-grabacion-musica-estudio",
+      "kind": "education",
+      "title": "Grabación de Música en Estudio",
+      "entity": "CEV",
+      "start": "2000",
+      "end": "2001",
+      "dates": "2000 – 2001",
+      "branch": "creatividad",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · CEV. Formación en Grabación de Música en Estudio.",
+      "skills": [
+        "producción musical",
+        "técnicas de grabación",
+        "edición de audio",
+        "grabación en estudio"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-tecnico-carroceria",
+      "kind": "education",
+      "title": "Técnico de Carrocería",
+      "entity": "IES Gaspar Melchor de Jovellanos",
+      "start": "1997",
+      "end": "1999",
+      "dates": "1997 – 1999",
+      "branch": "automocion",
+      "official": true,
+      "category": "formación profesional",
+      "summary": "Formación profesional · IES Gaspar Melchor de Jovellanos. Formación en Técnico de Carrocería.",
+      "skills": [
+        "chapa",
+        "pintura",
+        "reparación de carrocerías",
+        "modificación de vehículos"
+      ],
+      "hours": 2000,
+      "status": "Certificado personal del título revisado, junio de 1999; duración curricular de 2.000 horas según RD 1650/1994, no según una edición posterior.",
+      "source": "https://www.boe.es/eli/es/rd/1994/07/22/1650"
+    },
+    {
+      "id": "edu-mecanico-reparador-automovil",
+      "kind": "education",
+      "title": "Mecánica, electricidad y electrónica aplicada al automóvil",
+      "entity": "Instituto para la Formación de la Comunidad de Madrid",
+      "start": "1997",
+      "end": "1998",
+      "dates": "1997 – 1998",
+      "branch": "automocion",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso · Instituto para la Formación de la Comunidad de Madrid. Formación en Mecánica, electricidad y electrónica aplicada al automóvil.",
+      "skills": [
+        "mecánica de vehículos",
+        "mantenimiento preventivo",
+        "mantenimiento correctivo",
+        "diagnosis"
+      ],
+      "hours": 150,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-eso",
+      "kind": "education",
+      "title": "Graduado en Educación Secundaria",
+      "entity": "IES Victoria Kent",
+      "start": "1995",
+      "end": "1997",
+      "dates": "1995 – 1997",
+      "branch": "main",
+      "official": true,
+      "category": "titulación académica",
+      "summary": "Titulación académica · IES Victoria Kent. Formación en Graduado en Educación Secundaria.",
+      "skills": [],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-intro-web-parte-1",
+      "kind": "education",
+      "title": "Introducción al Desarrollo Web: HTML y CSS · Parte 1",
+      "entity": "Universitat d'Alacant",
+      "start": "2017-01",
+      "end": "2017-01",
+      "dates": "Expedición · 2017",
+      "branch": "web",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso de introducción al desarrollo web, parte 1. Universidad de Alicante · Google Actívate.",
+      "skills": [
+        "fundamentos del desarrollo web",
+        "html",
+        "css"
+      ],
+      "hours": 40,
+      "status": "Certificado personal de la primera parte revisado: 40 horas.",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-intro-web-parte-2",
+      "kind": "education",
+      "title": "Introducción al Desarrollo Web: HTML y CSS · Parte 2",
+      "entity": "Universitat d'Alacant",
+      "start": "2018-12",
+      "end": "2018-12",
+      "dates": "Expedición · 2018",
+      "branch": "web",
+      "official": false,
+      "category": "curso",
+      "summary": "Curso de introducción al desarrollo web, parte 2. Universidad de Alicante · Google Actívate.",
+      "skills": [
+        "fundamentos del desarrollo web",
+        "html",
+        "css"
+      ],
+      "hours": 40,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "award-vectorizacion-viso",
+      "kind": "recognition",
+      "title": "Vectorización del escudo y la bandera de El Viso de San Juan",
+      "entity": "Ayuntamiento de El Viso de San Juan",
+      "start": "2015-12",
+      "end": "2015-12",
+      "dates": "dic. 2015",
+      "branch": "creatividad",
+      "official": false,
+      "category": "Reconocimiento municipal",
+      "summary": "Reconocimiento del Ayuntamiento por los trabajos de vectorización del escudo y la bandera del municipio.",
+      "skills": [
+        "Diseño vectorial",
+        "Ilustración"
+      ],
+      "hours": null,
+      "status": "Fuente: LinkedIn facilitado por el titular",
+      "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
+    },
+    {
+      "id": "edu-mf0490-3",
+      "kind": "education",
+      "title": "Gestión de Servicios en el Sistema Informático",
+      "entity": "CEFORA",
+      "start": "2021-11",
+      "end": "2021-12",
+      "dates": "15 nov. – 20 dic. 2021",
+      "branch": "sistemas",
+      "official": false,
+      "category": "módulo formativo",
+      "summary": "Formación en Gestión de Servicios en el Sistema Informático. Módulo formativo de CEFORA.",
+      "skills": [
+        "gestión de redes",
+        "soporte informático",
+        "administración de sistemas",
+        "servicios del sistema"
+      ],
+      "hours": 90,
+      "status": "Certificado personal revisado: módulo MF0490_3 de 90 horas en CEFORA. Módulo formativo, no certificado de profesionalidad completo.",
+      "source": "https://github.com/djSaBaS/Porfolio/blob/main/assets/json/datos.json"
+    },
+    {
+      "id": "edu-covid-prevencion",
+      "kind": "education",
+      "title": "Medidas Preventivas frente al Riesgo de Contagio COVID-19",
+      "entity": "MPE / Mesa Prevención",
+      "start": "2020-12",
+      "end": "2020-12",
+      "dates": "dic. 2020",
+      "branch": "industria",
+      "official": false,
+      "category": "curso",
+      "summary": "Formación en Medidas Preventivas frente al Riesgo de Contagio COVID-19. Curso de Centro no indicado en la fuente.",
+      "skills": [
+        "protocolos sanitarios",
+        "prevención de contagios",
+        "seguridad laboral"
+      ],
+      "hours": 2,
+      "status": "Certificado personal revisado: 2 horas de teleformación, diciembre de 2020.",
+      "source": "https://github.com/djSaBaS/Porfolio/blob/main/assets/json/datos.json"
+    },
+    {
+      "id": "edu-trastornos-musculoesqueleticos",
+      "kind": "education",
+      "title": "Prevención de Trastornos Musculoesqueléticos por el Uso de Pantallas de Visualización",
+      "entity": "FREMAP",
+      "start": "2020-05",
+      "end": "2020-05",
+      "dates": "may. 2020",
+      "branch": "industria",
+      "official": false,
+      "category": "curso",
+      "summary": "Formación en Prevención de Trastornos Musculoesqueléticos por el Uso de Pantallas de Visualización. Curso de FREMAP.",
+      "skills": [
+        "ergonomía",
+        "salud ocupacional",
+        "uso correcto de equipos informáticos",
+        "prevención física"
+      ],
+      "hours": null,
+      "status": "Certificado personal FREMAP revisado, 11 de mayo de 2020. No se indica duración en horas en el documento.",
+      "source": "https://github.com/djSaBaS/Porfolio/blob/main/assets/json/datos.json"
+    }
+  ],
+  "projects": [
+    {
+      "repo": "CF7-Limitador-de-Opciones",
+      "title": "CF7 Option Limiter",
+      "tagline": "Formularios que conocen sus límites.",
+      "summary": "Control de disponibilidad de opciones en Contact Form 7, con gestión desde WordPress y comprobación en tiempo real.",
+      "stack": [
+        "PHP",
+        "WordPress",
+        "JavaScript",
+        "AJAX"
+      ],
+      "detail": "Extensión de Contact Form 7 con reglas por opción, reinicios periódicos y avisos de disponibilidad. El repositorio documenta validación y gestión administrativa.",
+      "symbol": "[≡]",
+      "color": "mint",
+      "url": "https://github.com/djSaBaS/CF7-Limitador-de-Opciones",
+      "verifiedPublic": true,
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "repo": "VoxFlow",
+      "title": "VoxFlow",
+      "tagline": "Del texto a la voz.",
+      "summary": "Aplicación de escritorio para síntesis de voz con interfaz gráfica y exportación de audio.",
+      "stack": [
+        "Python",
+        "Flet",
+        "Coqui TTS"
+      ],
+      "detail": "Interfaz de síntesis de voz con selección de voces, visualización de onda y exportación WAV, según la documentación del repositorio.",
+      "symbol": "ılıılı",
+      "color": "lavender",
+      "url": "https://github.com/djSaBaS/VoxFlow",
+      "verifiedPublic": true,
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "repo": "OCR-para-PDF",
+      "title": "OCR para PDF",
+      "tagline": "Documentos que vuelven a ser útiles.",
+      "summary": "Interfaz de escritorio para convertir documentos escaneados en PDF con texto buscable.",
+      "stack": [
+        "Python",
+        "PyQt6",
+        "Tesseract",
+        "OCRmyPDF"
+      ],
+      "detail": "Interfaz con selección de idiomas y opciones de rotación, enderezado y limpieza. El README documenta un flujo principal OCRmyPDF y una alternativa con Tesseract.",
+      "symbol": "Aa↗",
+      "color": "peach",
+      "url": "https://github.com/djSaBaS/OCR-para-PDF",
+      "verifiedPublic": true,
+      "checkedAt": "2026-11-04"
+    },
+    {
+      "repo": "directorio-viso-san-juan",
+      "title": "Directorio de El Viso",
+      "tagline": "Información local, a mano.",
+      "summary": "Directorio comunitario de teléfonos, direcciones y enlaces de interés para El Viso de San Juan.",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "detail": "Proyecto público orientado a organizar información comunitaria por categorías y facilitar su consulta.",
+      "symbol": "⌘",
+      "color": "blue",
+      "url": "https://github.com/djSaBaS/directorio-viso-san-juan",
+      "verifiedPublic": true,
+      "checkedAt": "2026-11-04"
+    }
+  ],
+  "graph": {
+    "asOf": "2026-11",
+    "routes": [
+      {
+        "id": "main",
+        "label": "Formación oficial",
+        "code": "main",
+        "parent": null,
+        "sectors": [
+          "main"
+        ],
+        "color": "#bac8c3",
+        "y": 1200,
+        "periods": []
+      },
+      {
+        "id": "automocion",
+        "label": "Automoción",
+        "code": "feature/automocion",
+        "parent": "main",
+        "sectors": [
+          "automocion"
+        ],
+        "color": "#e1cf8a",
+        "y": 1390,
+        "periods": [
+          {
+            "start": "1997",
+            "end": "1999"
+          }
+        ]
+      },
+      {
+        "id": "creatividad",
+        "label": "Sonido y diseño",
+        "code": "feature/sonido-diseno",
+        "parent": "main",
+        "sectors": [
+          "creatividad"
+        ],
+        "color": "#8fa9ed",
+        "y": 920,
+        "periods": [
+          {
+            "start": "2000",
+            "end": "2001"
+          },
+          {
+            "start": "2014",
+            "end": "2015-12"
+          }
+        ]
+      },
+      {
+        "id": "industria",
+        "label": "Construcción e industria",
+        "code": "feature/industria",
+        "parent": "main",
+        "sectors": [
+          "industria"
+        ],
+        "color": "#e9a080",
+        "y": 1780,
+        "periods": [
+          {
+            "start": "1999-01",
+            "end": "2015"
+          },
+          {
+            "start": "2020-05",
+            "end": "2023-03",
+            "y": 1215,
+            "labelDirection": 1,
+            "mergeRamp": 30
+          }
+        ]
+      },
+      {
+        "id": "web",
+        "label": "Desarrollo, programación e informática",
+        "code": "feature/desarrollo-informatica",
+        "parent": "main",
+        "sectors": [
+          "web",
+          "sistemas"
+        ],
+        "color": "#e89bc7",
+        "y": 450,
+        "periods": [
+          {
+            "start": "2011-05",
+            "end": null
+          }
+        ]
+      },
+      {
+        "id": "ia",
+        "label": "Inteligencia artificial",
+        "code": "feature/inteligencia-artificial",
+        "parent": "web",
+        "sectors": [
+          "ia"
+        ],
+        "color": "#bd9bec",
+        "y": 720,
+        "periods": [
+          {
+            "start": "2024-11",
+            "end": null
+          }
+        ]
+      }
+    ]
+  },
+  "editorial": {
+    "work-humanitas-responsable-desarrollo-web": {
+      "summary": "Desarrollo directo de aplicaciones en PHP, automatización con Python y evolución de webs WordPress. Decisiones sobre tecnologías, implementación, lógica y plugins. Coordinación con sistemas de los centros para implantar mejoras, con RR. HH. para utilidades de nóminas y con marketing para las webs. Trabajo dirigido a sistemas, RR. HH., marketing y admisiones, con mejoras de tiempos, procesos y facilidad de uso.",
+      "status": "Fuente: LinkedIn y aclaraciones profesionales facilitadas por el titular"
+    }
+  }
+}

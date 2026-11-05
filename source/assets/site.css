@@ -1,0 +1,438 @@
+/* Se define una paleta oscura sobria con contraste alto y acentos suaves. */
+:root{color-scheme:dark;--bg:#101719;--surface:#172023;--surface-raised:#1b272b;--text:#eff2eb;--muted:#a8b3b2;--line:#304044;--accent:#b7e4c0;--nav:#101719f2;--mint:#78dfb0;--peach:#ea947f;--blue:#80c8e8;--lavender:#c3a0e8;--yellow:#d9d88a;--orange:#e9b877;--radius:12px;font-family:Segoe UI,Arial,sans-serif;font-synthesis:none}
+/* Se ofrece una alternativa clara que conserva la jerarquía y el contraste. */
+:root[data-theme=light]{color-scheme:light;--bg:#f4f4ee;--surface:#e9ece6;--surface-raised:#fff;--text:#182b29;--muted:#526661;--line:#c6d2c9;--accent:#205d40;--nav:#f4f4eef2;--mint:#24774d;--peach:#a8472f;--blue:#236b8d;--lavender:#7551a2;--yellow:#716b1f;--orange:#8c5c1f}
+/* Se normaliza el modelo de caja sin fijar tamaños de pantalla. */
+*{box-sizing:border-box}
+/* Se mantiene el desplazamiento natural con margen bajo la cabecera persistente. */
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+/* Se elimina el margen por defecto y se establece una lectura cómoda. */
+body{margin:0;background:var(--bg);color:var(--text);font-size:16px;line-height:1.65}
+/* Se garantiza que los elementos ocultos por estado no ocupen espacio. */
+[hidden]{display:none!important}
+/* Se conserva la identidad cromática en enlaces ordinarios. */
+a{color:inherit;text-decoration:none}
+/* Se heredan tipografías y se amplían las zonas de interacción. */
+button,input,select{font:inherit;color:inherit}
+/* Se diferencia la interacción de los elementos puramente decorativos. */
+button,select,summary{cursor:pointer}
+/* Se ofrecen campos con bordes legibles en ambos temas. */
+input,select{background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:11px 13px;min-height:46px;width:100%}
+/* Se evita perder la indicación de foco al navegar con teclado. */
+:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+/* Se mantiene una jerarquía editorial compacta. */
+h1,h2,h3,p{margin-top:0}
+/* Se limita la anchura para evitar líneas de texto excesivamente largas. */
+.container{width:min(1240px,calc(100% - 96px));margin-inline:auto}
+/* Se identifica el texto complementario manteniendo contraste de lectura. */
+.muted{color:var(--muted)}
+/* Se reutiliza el acento principal para resaltar conexiones importantes. */
+.accent{color:var(--accent)}
+/* Se distingue la notación técnica del texto editorial. */
+.mono{font-family:Consolas,Courier New,monospace;font-size:12px;letter-spacing:.02em}
+/* Se reserva el acceso directo para el momento en que recibe foco. */
+.skip-link{position:fixed;top:-100px;left:20px;padding:12px 20px;background:var(--accent);color:var(--bg);z-index:100}
+/* Se hace visible la navegación rápida cuando se usa el teclado. */
+.skip-link:focus{top:12px}
+/* Se mantiene la cabecera disponible sin ocultar el contenido al desplazarse. */
+.site-header{position:sticky;top:0;z-index:30;background:var(--nav);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+/* Se distribuyen marca, enlaces y controles de audiencia. */
+.header-inner{max-width:1500px;margin:auto;padding:19px 36px;display:flex;align-items:center;gap:30px;justify-content:space-between}
+/* Se compone una marca compacta de lectura inmediata. */
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+/* Se identifica visualmente la bifurcación que inspira el sitio. */
+.brand-icon{font-size:36px;color:var(--accent);line-height:1}
+/* Se presenta el nombre completo en dos líneas con prioridad sobre el apodo. */
+.brand-identity{display:grid;gap:4px}
+/* Se mantiene una firma profesional legible sin ocupar toda la cabecera. */
+.brand strong{font-size:17px;letter-spacing:-.25px;line-height:1.12;font-weight:650}
+/* Se conserva el apodo como referencia secundaria al nombre profesional. */
+.brand-alias{font-size:9px;letter-spacing:.3px;line-height:1.2;color:var(--muted)}
+/* Se organiza la navegación en una única fila legible. */
+.main-nav{display:flex;gap:25px;font-size:12px;color:var(--muted)}
+/* Se destaca un enlace al pasar el puntero sin desplazar el contenido. */
+.main-nav a:hover,.text-link:hover{color:var(--accent)}
+/* Se agrupan los controles permanentes del visitante. */
+.header-actions{display:flex;gap:16px;align-items:center}
+/* Se representa el cambio de audiencia como un selector segmentado. */
+.mode-switch{display:flex;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:7px;gap:3px;font-size:11px;font-weight:650;white-space:nowrap}
+/* Se amplía el área activa de cada enlace de audiencia. */
+.mode-switch a{padding:6px 11px;border-radius:4px;color:var(--muted)}
+/* Se muestra la vista actual mediante color, fondo y semántica HTML. */
+.mode-switch a[aria-current=page]{background:var(--accent);color:var(--bg)}
+/* Se normalizan los botones de icono para permitir su uso táctil. */
+.icon-button{display:inline-grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;font-size:22px}
+/* Se separa el acceso principal de contacto de los ajustes. */
+.header-contact{font-size:12px;white-space:nowrap}
+/* Se crea una introducción de dos columnas con aire suficiente. */
+.hero{display:grid;grid-template-columns:1.06fr 1fr;gap:72px;padding-top:82px;padding-bottom:75px;align-items:center}
+/* Se identifican los metadatos sin competir con el título. */
+.eyebrow{font-size:10px;letter-spacing:1.6px;font-weight:650;display:flex;align-items:center;gap:10px;line-height:1.8}
+/* Se acompaña el estado editorial con un punto estático accesible. */
+.status-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block;flex-shrink:0}
+/* Se ofrece una gran declaración visual con líneas deliberadas. */
+.hero h1{font-size:clamp(35px,4vw,59px);line-height:1.09;font-weight:500;letter-spacing:-2.5px;margin:28px 0;overflow-wrap:break-word}
+/* Se limita el resumen introductorio para facilitar su comprensión. */
+.hero-description{font-size:16px;line-height:1.8;max-width:490px;color:var(--muted);margin-bottom:28px}
+/* Se equilibran los dos accesos principales del currículum. */
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap}
+/* Se mantienen botones consistentes, accesibles y sin efectos distractores. */
+.button{display:inline-flex;align-items:center;justify-content:center;gap:28px;padding:12px 18px;border-radius:6px;font-weight:600;font-size:12px;border:1px solid var(--line);min-height:46px;transition:background .15s,color .15s}
+/* Se enfatiza la exploración del currículum con el acento principal. */
+.button.primary{color:#183127;background:#b7e4c0;border-color:#b7e4c0}
+/* Se ofrece una alternativa secundaria de bajo peso visual. */
+.button.secondary{color:var(--text);background:transparent}
+/* Se indica interacción sin animaciones de posición. */
+.button:hover{filter:brightness(1.1)}
+/* Se sitúa la información de contexto en una línea discreta. */
+.hero-meta{display:flex;gap:18px;font-size:10px;color:var(--muted);margin:23px 0 0;flex-wrap:wrap}
+/* Se separan los metadatos por una marca textual. */
+.hero-meta span+span:before{content:'·';margin-right:18px}
+/* Se enmarca el repositorio visual como una lámina técnica. */
+.hero-visual{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:0 25px 90px #00000014}
+/* Se rotula el esquema con convenciones de una herramienta de ingeniería. */
+.visual-heading{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:15px 20px}
+/* Se aporta un pequeño índice del carácter abierto de la trayectoria. */
+.visual-label{font-size:8px;letter-spacing:1px;color:var(--muted)}
+/* Se mantiene el esquema nítido con independencia de la resolución. */
+.hero-map{width:100%;display:block;color:var(--text);height:auto}
+/* Se presenta un retrato editorial en RR. HH. sin usar el gráfico de ramas técnico. */
+.hero-portrait{position:relative;overflow:hidden;aspect-ratio:1.51;background:#263d4c}
+/* Se mantiene visible el rostro y se reserva espacio para un rótulo inferior. */
+.hero-portrait>img{width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;filter:saturate(.6)}
+/* Se coloca el contexto del perfil sobre una base contrastada y legible. */
+.portrait-caption{position:absolute;inset:auto 0 0;padding:38px 24px 20px;background:linear-gradient(transparent,#101719f2);color:#eff2eb}
+/* Se diferencia la etiqueta editorial del nombre de las especialidades. */
+.portrait-caption>span{display:block;font-size:8px;letter-spacing:1.6px;color:#b7e4c0;margin-bottom:5px}
+/* Se enumeran disciplinas profesionales sin convertirlas en una cronología proporcional. */
+.portrait-caption>strong{font-size:22px;font-weight:450;letter-spacing:-.5px;line-height:1.2;display:block}
+/* Se integran el retrato real y un pie editorial sin recortar su proporción. */
+.portrait-strip{display:flex;align-items:center;gap:16px;padding:18px 22px;border-top:1px solid var(--line)}
+/* Se dimensiona la imagen para evitar desplazamientos de contenido. */
+.portrait-strip img{width:55px;height:55px;object-fit:cover;border-radius:7px;filter:saturate(.75)}
+/* Se jerarquiza la frase que acompaña al retrato. */
+.portrait-strip strong{display:block;font-size:13px;line-height:1.5;font-weight:550}
+/* Se reserva una segunda línea más discreta para la metáfora técnica. */
+.portrait-strip div>span{display:block;font-size:10px;color:var(--muted);margin-top:4px}
+/* Se refuerza la idea de continuidad con un símbolo no interactivo. */
+.portrait-arrow{margin-left:auto;font-size:26px;color:var(--accent)}
+/* Se dispone una banda tipográfica que resume competencias verificadas. */
+.competence-strip{display:flex;gap:24px;justify-content:space-between;align-items:center;border-block:1px solid var(--line);padding:24px 0;font-size:13px;font-weight:500;flex-wrap:wrap}
+/* Se diferencia la etiqueta editorial del contenido de la banda. */
+.strip-label{font-size:8px;letter-spacing:1.3px;color:var(--muted)}
+/* Se establece una progresión clara entre presentación y cronología. */
+.profile-summary{display:grid;grid-template-columns:1fr 1fr;gap:110px;padding-block:86px}
+/* Se colorean los índices de sección como un sistema de orientación. */
+.section-index{color:var(--accent);margin-bottom:18px}
+/* Se dimensionan los títulos manteniendo una jerarquía uniforme. */
+h2{font-size:clamp(29px,3.2vw,43px);font-weight:450;letter-spacing:-1.7px;line-height:1.2;margin-bottom:22px}
+/* Se aporta espacio de lectura a las descripciones del perfil. */
+.summary-text{font-size:14px;color:var(--muted);padding-top:14px}
+/* Se identifica una llamada a profundizar con una línea inferior. */
+.text-link{display:inline-flex;gap:35px;align-items:center;border-bottom:1px solid var(--line);padding-block:8px;color:var(--text);font-size:12px}
+/* Se distingue el área central de la trayectoria del resto de la página. */
+.trajectory-section{background:var(--surface);border-block:1px solid var(--line);padding-block:70px}
+/* Se enfrentan el título y su contexto para facilitar el escaneo visual. */
+.section-heading{display:flex;justify-content:space-between;gap:50px;align-items:end;margin-bottom:32px}
+/* Se limita la longitud de los textos auxiliares de sección. */
+.section-heading>p{max-width:350px;color:var(--muted);font-size:13px;margin-bottom:24px}
+/* Se rotula el intervalo completo sin insinuar una escala uniforme en la cronología editorial. */
+.trajectory-topline{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:14px 0;border-block:1px solid var(--line);font-size:10px;color:var(--muted)}
+/* Se organizan los filtros para que puedan envolverse en pantallas reducidas. */
+.filters,.education-search{display:flex;gap:16px;align-items:end;flex-wrap:wrap;margin-block:25px}
+/* Se ocultan mejoras interactivas cuando JavaScript no puede activarlas. */
+.js-only{display:none}
+/* Se muestran controles disponibles después de inicializar sus manejadores. */
+.js .js-only{display:flex}
+/* Se mantienen etiquetas legibles y asociadas a cada control. */
+.field{flex:1;min-width:145px;display:grid;gap:7px;font-size:11px}
+/* Se evita que el buscador de formación quede demasiado estrecho. */
+.search-field{flex:2;min-width:230px}
+/* Se crean acciones de restablecimiento visualmente ligeras. */
+.text-button{background:transparent;color:var(--muted);border:0;min-height:46px;padding:10px;font-size:11px}
+/* Se informa del resultado de los filtros con espacio estable. */
+.filter-status{font-size:11px;color:var(--muted);margin-bottom:20px}
+/* Se rotulan las dos columnas de la cronología de RR. HH. */
+.timeline-labels{display:grid;grid-template-columns:1fr 1fr;gap:80px;font-size:9px;letter-spacing:1.5px;color:var(--muted);padding:12px 0 25px}
+/* Se alinean los estudios junto al eje central. */
+.timeline-labels span:first-child{text-align:right}
+/* Se utiliza una línea editorial central que no pretende indicar escala proporcional. */
+.timeline{position:relative;display:grid;gap:12px;padding-bottom:20px}
+/* Se dibuja el eje con un recurso CSS sin contenido semántico. */
+.timeline:before{content:'';position:absolute;width:1px;background:var(--line);top:0;bottom:0;left:50%}
+/* Se reserva una fila cronológica por hito, admitiendo intervalos simultáneos. */
+.timeline-row{display:grid;grid-template-columns:1fr 80px 1fr;position:relative}
+/* Se ancla la formación al lado izquierdo. */
+.timeline-row.education,.timeline-row.recognition{padding-right:calc(50% + 40px);display:block;text-align:right}
+/* Se ancla la experiencia al lado derecho. */
+.timeline-row.work{padding-left:calc(50% + 40px);display:block}
+/* Se representan las estaciones con un círculo del sector correspondiente. */
+.timeline-row:before{content:'';position:absolute;left:calc(50% - 5px);top:25px;width:10px;height:10px;border:2px solid var(--branch,var(--accent));background:var(--surface);border-radius:50%;z-index:1}
+/* Se diferencian las estaciones laborales sin depender solo del color. */
+.timeline-row.work:before{width:15px;height:15px;left:calc(50% - 7.5px);top:23px;border-width:3px}
+/* Se conectan las fichas con el eje de forma visual. */
+.timeline-row:after{content:'';position:absolute;height:1px;background:var(--line);width:33px;top:30px;left:calc(50% - 38px)}
+/* Se invierte el conector en la columna laboral. */
+.timeline-row.work:after{left:calc(50% + 7px)}
+/* Se diferencian las fichas de trabajo del soporte de la cronología. */
+.timeline-card{padding:18px 21px;border:1px solid var(--line);border-radius:8px;background:var(--bg);transition:border-color .15s}
+/* Se destacan los hitos oficiales mediante un borde adicional. */
+.timeline-row[data-official=true] .timeline-card{border-left:3px solid var(--accent)}
+/* Se identifica el carácter interactivo de la ficha al pasar el puntero. */
+.timeline-card:hover{border-color:var(--branch,var(--accent))}
+/* Se limita la jerarquía de los títulos de estaciones. */
+.timeline-card h3{font-size:14px;font-weight:550;line-height:1.45;margin:7px 0}
+/* Se mantiene la descripción laboral dentro de una densidad legible. */
+.timeline-card p{color:var(--muted);font-size:12px;margin-bottom:9px}
+/* Se diferencia la entidad y la fecha del hito. */
+.event-meta{font-size:10px;color:var(--muted)}
+/* Se emplea el color de cada rama como complemento de su nombre textual. */
+.event-kind{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--branch,var(--accent))}
+/* Se agrupan aptitudes sin convertirlas en puntuaciones. */
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+/* Se alinean las aptitudes con la columna de formación. */
+.timeline-row.education .tags,.timeline-row.recognition .tags{justify-content:flex-end}
+/* Se representan tecnologías y competencias como etiquetas discretas. */
+.tags span{font-size:9px;line-height:1.5;border:1px solid var(--line);padding:3px 7px;border-radius:4px;color:var(--muted)}
+/* Se mantiene una acción de ampliación real en cada hito. */
+.event-open{font-size:10px;color:var(--accent);display:inline-flex;gap:16px;align-items:center}
+/* Se expone un texto corto para indicar periodos laborales simultáneos. */
+.overlap-note{display:block;font-size:9px;color:var(--branch,var(--accent));margin:6px 0}
+/* Se distinguen las referencias complementarias del contenido profesional. */
+.section-note{color:var(--muted);font-size:11px;max-width:870px;margin:26px 0 0}
+/* Se ofrece una salida de filtros sin dejar una pantalla vacía. */
+.empty-state{padding:35px;flex-direction:column;align-items:center;text-align:center;border:1px dashed var(--line);border-radius:10px}
+/* Se agrupan herramientas y mapa con una estética técnica contenida. */
+.graph-panel{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:26px;background:var(--bg)}
+/* Se conservan zoom y navegación temporal junto al mapa. */
+.graph-toolbar{padding:12px 17px;display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line);font-size:11px}
+/* Se distribuyen las acciones de zoom sin alterar su orden de teclado. */
+.zoom-controls,.date-jumps{display:flex;align-items:center;gap:8px}
+/* Se asegura un tamaño suficiente de los controles técnicos. */
+.graph-toolbar button{min-width:38px;min-height:38px;padding:6px 10px;background:var(--surface);border:1px solid var(--line);border-radius:5px;font-size:11px}
+/* Se permite desplazamiento nativo horizontal y vertical con teclado o gesto táctil. */
+.graph-viewport{overflow:auto;max-height:680px;scrollbar-color:var(--muted) var(--bg);overscroll-behavior-x:contain}
+/* Se deja que el ancho del SVG responda al nivel de zoom seleccionado. */
+.metro-map{display:block;width:3900px;height:auto;max-width:none;color:var(--text)}
+/* Se mantiene una indicación clara de foco dentro del gráfico SVG. */
+.metro-map a:focus-visible rect{stroke:var(--text);stroke-width:4}
+/* Se rotulan las ramas del mapa también por texto. */
+.graph-legend{display:flex;gap:20px;flex-wrap:wrap;font-size:10px;padding:18px;border-top:1px solid var(--line)}
+/* Se añade una marca de color a cada leyenda sin ocultar su nombre. */
+.graph-legend span{display:inline-flex;align-items:center;gap:7px}
+/* Se mantiene una alternativa textual completa del mapa técnico. */
+.text-alternative{margin-top:25px;border:1px solid var(--line);padding:18px;border-radius:8px}
+/* Se amplía el área del resumen de texto alternativo. */
+.text-alternative>summary{font-size:13px;min-height:28px;margin-bottom:15px}
+/* Se separan las secciones de contenido con espacios consistentes. */
+.section-space{padding-block:80px}
+/* Se reduce la repetición visual en la lista de experiencia profesional. */
+.experience-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+/* Se presenta cada experiencia como una ficha expandible semántica. */
+.experience-card{border-top:1px solid var(--line);padding:22px 0;font-size:13px}
+/* Se reserva un espacio de lectura mayor para la responsabilidad actual. */
+.experience-card:first-child{grid-column:1/-1;border:1px solid var(--line);border-radius:10px;padding:28px;background:var(--surface)}
+/* Se identifican fechas y entidades sin perder la acción de apertura. */
+.experience-card summary{font-size:15px;font-weight:550}
+/* Se jerarquizan los metadatos laborales en una segunda línea. */
+.experience-card summary span{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:6px}
+/* Se evita separar excesivamente los párrafos dentro de un acordeón. */
+.experience-card p{color:var(--muted);margin-top:18px;margin-bottom:8px}
+/* Se organizan las filas de formación con metadatos comparables. */
+.education-row{display:grid;grid-template-columns:125px 1fr 140px 65px;align-items:start;gap:22px;border-top:1px solid var(--line);padding:18px 0;font-size:12px}
+/* Se mantiene la fecha de formación a un nivel secundario. */
+.education-date{font-size:11px;color:var(--muted)}
+/* Se resaltan los títulos formativos dentro de la tabla editorial. */
+.education-row h3{font-size:13px;font-weight:550;line-height:1.5;margin-bottom:5px}
+/* Se muestra el centro en una línea independiente. */
+.education-row p{font-size:11px;color:var(--muted);margin-bottom:0}
+/* Se diferencia formación oficial y privada con etiquetas explícitas. */
+.education-type{font-size:10px;color:var(--accent)}
+/* Se identifica la duración sin sumar horas de cursos distintos. */
+.education-hours{font-size:10px;text-align:right;color:var(--muted)}
+/* Se distingue el catálogo público con un área de fondo continuo. */
+.projects-section{background:var(--surface);border-block:1px solid var(--line);padding-block:70px}
+/* Se mantienen cuatro proyectos concretos en una composición de dos columnas. */
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+/* Se enmarca cada proyecto sin depender de una miniatura externa. */
+.project-card{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
+/* Se construyen carátulas tipográficas que identifican el objeto de cada proyecto. */
+.project-art{height:160px;display:flex;align-items:center;justify-content:space-between;padding:28px 36px;background:var(--surface-raised);color:var(--branch,var(--accent));position:relative;border-bottom:1px solid var(--line);overflow:hidden}
+/* Se emplea un motivo técnico sencillo y legible en las carátulas. */
+.project-art strong{font-family:Consolas,monospace;font-size:57px;font-weight:400;letter-spacing:-4px}
+/* Se separa la categoría del proyecto de su motivo principal. */
+.project-art span{font-size:9px;letter-spacing:1.7px;border:1px solid currentColor;padding:6px 10px;border-radius:4px}
+/* Se aporta detalle a la carátula mediante una cuadrícula decorativa de bajo contraste. */
+.project-art:after{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:30px 30px;opacity:.15;pointer-events:none}
+/* Se mantiene consistente el espaciado interno de las fichas públicas. */
+.project-content{padding:25px 28px}
+/* Se ofrece un título de proyecto claro con acceso al repositorio. */
+.project-content h3{font-size:22px;font-weight:500;letter-spacing:-.5px;margin-bottom:8px}
+/* Se limita el texto de cada proyecto para mantener la comparación visual. */
+.project-content p{font-size:12px;color:var(--muted);margin-bottom:18px}
+/* Se reserva el detalle de implementación para lectores técnicos. */
+.project-tech{font-size:11px;color:var(--muted);margin-top:15px}
+/* Se organiza la historia personal en torno al retrato auténtico. */
+.about-section{display:grid;grid-template-columns:.8fr 1.2fr;gap:100px;align-items:center;padding-block:95px}
+/* Se enmarca el retrato sin usar imágenes generadas para representar a una persona real. */
+.about-portrait{max-width:360px;position:relative}
+/* Se mantiene la proporción del retrato y su sobriedad cromática. */
+.about-portrait img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:10px;filter:saturate(.6)}
+/* Se identifica el retrato con los alias públicos aportados por el usuario. */
+.about-portrait>span{display:block;font-size:10px;margin-top:16px;color:var(--muted)}
+/* Se diferencia la narración de los titulares de sección. */
+.about-section p:not(.eyebrow){font-size:14px;color:var(--muted)}
+/* Se muestran valores como una lista breve sin puntuaciones ficticias. */
+.values-row{display:flex;gap:20px;font-size:10px;color:var(--accent);margin-top:25px;flex-wrap:wrap}
+/* Se mantiene opcional la demostración de automatización. */
+.easter-egg{margin-top:28px;font-size:11px;border-top:1px solid var(--line);padding-top:18px}
+/* Se establecen dos filas equivalentes para comparar flujos ilustrativos. */
+.simulation{display:grid;gap:18px;margin:20px 0;font-size:10px}
+/* Se representan tareas anónimas sin asociarlas a métricas laborales. */
+.task-track{display:flex;gap:7px;margin-top:8px}
+/* Se define el estado inicial de cada tarea ilustrativa. */
+.task-track i{height:12px;flex:1;background:var(--line);border-radius:3px}
+/* Se conserva un estado final visible aunque el navegador suprima todas las animaciones. */
+.task-track i.is-complete{background:var(--accent)}
+/* Se acompaña cada carril con un contador legible y de anchura estable. */
+.simulation-count{float:right;font-family:Consolas,monospace;font-variant-numeric:tabular-nums}
+/* Se reserva espacio para el feedback sin que los estados desplacen el botón. */
+.simulation-status{min-height:3em;color:var(--muted);font-size:11px;margin:0}
+/* Se incorpora una terminal simulada solo en la audiencia técnica. */
+.terminal-section{padding-bottom:85px}
+/* Se contiene la consola con un estilo reconocible y accesible. */
+.terminal{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);font-family:Consolas,monospace}
+/* Se identifica la simulación para evitar expectativas de ejecución real. */
+.terminal-heading{display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted)}
+/* Se ajusta la salida para admitir respuestas extensas sin ensanchar la página. */
+.terminal-output{white-space:pre-wrap;overflow-wrap:anywhere;min-height:130px;max-height:300px;overflow:auto;padding:20px;font-size:12px;margin:0;color:var(--accent)}
+/* Se mantiene la entrada de consola como un formulario ordinario. */
+.terminal-form{display:flex;gap:15px;align-items:center;padding:0 20px 20px;font-size:12px}
+/* Se permite que la entrada use todo el ancho disponible. */
+.terminal-form input{min-width:0;background:var(--bg)}
+/* Se evita introducir un fondo ajeno al diseño en el botón de ejecutar. */
+.terminal-form button{background:var(--accent);color:var(--bg);border:0;padding:12px;border-radius:5px}
+/* Se establece un cierre editorial con una acción de contacto concreta. */
+.contact-section{border-block:1px solid var(--line);padding-block:75px;background:var(--surface)}
+/* Se equilibran mensaje de contacto y canales profesionales. */
+.contact-inner{display:grid;grid-template-columns:1.35fr 1fr;gap:100px;align-items:center}
+/* Se mantiene el texto de contacto breve y legible. */
+.contact-inner p:not(.eyebrow){font-size:13px;color:var(--muted);max-width:450px}
+/* Se evita desbordamiento horizontal con direcciones de correo largas. */
+.contact-email{font-size:14px;overflow-wrap:anywhere;color:var(--accent)}
+/* Se ofrecen canales de contacto como una lista de acciones reconocibles. */
+.contact-links a{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:17px 0;font-size:12px}
+/* Se separa la información legal de la historia profesional. */
+.site-footer{display:flex;justify-content:space-between;gap:20px;padding-block:25px;font-size:9px;color:var(--muted);align-items:center}
+/* Se evita un margen inferior innecesario en el pie. */
+.site-footer p{margin:0}
+/* Se agrupan los enlaces del pie con separación táctil suficiente. */
+.site-footer>div{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+/* Se limita el ancho del diálogo y se conserva su desplazamiento interno. */
+dialog{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:14px;width:min(660px,calc(100% - 30px));max-height:85vh;padding:28px}
+/* Se atenúa el contenido de fondo para identificar el estado modal. */
+dialog::backdrop{background:#060d12c9;backdrop-filter:blur(4px)}
+/* Se conserva el cierre de la ficha a la derecha de su encabezado. */
+.dialog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+/* Se adapta el título de la estación al ancho del diálogo. */
+dialog h2{font-size:28px;margin-bottom:14px}
+/* Se identifica el contexto de cada dato dentro de la ficha ampliada. */
+.dialog-detail{font-size:13px;color:var(--muted)}
+/* Se agrupan los campos de detalle con estructura semántica. */
+.dialog-detail dt{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-top:18px}
+/* Se reduce la indentación por defecto de la lista descriptiva. */
+.dialog-detail dd{margin-left:0}
+/* Se distingue el tema industrial mediante un token reutilizable. */
+[data-branch=industria],.peach{--branch:var(--peach)}
+/* Se asocia la rama de sonido y diseño a su color específico. */
+[data-branch=creatividad],.lavender{--branch:var(--lavender)}
+/* Se identifica el trabajo de informática y sistemas. */
+[data-branch=sistemas],.blue{--branch:var(--blue)}
+/* Se comparte el acento verde entre desarrollo web y formación principal. */
+[data-branch=web],[data-branch=main],.mint{--branch:var(--mint)}
+/* Se diferencia la formación y práctica de automatización e IA. */
+[data-branch=ia]{--branch:var(--yellow)}
+/* Se conserva una identidad visual propia para la automoción. */
+[data-branch=automocion]{--branch:var(--orange)}
+/* Se ocultan detalles exclusivos de la audiencia técnica en RR. HH. */
+html[data-mode=hr] .tech-only{display:none}
+/* Se oculta la simulación de reclutadores en el modo técnico. */
+html[data-mode=tech] .hr-only{display:none}
+/* Se refuerza el carácter de herramienta de ingeniería en la vista técnica. */
+html[data-mode=tech] .trajectory-section{background:var(--bg)}
+/* Se añade una cuadrícula discreta a la vista de mapa sin animaciones automáticas. */
+html[data-mode=tech] .graph-viewport{background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:20px 20px}
+/* Se mantiene legible el CV clásico y las páginas legales. */
+.document-page{max-width:850px;margin:60px auto;padding:40px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+/* Se separan los capítulos de un documento largo. */
+.document-page h2{font-size:26px;margin-top:35px}
+/* Se delimita cada entrada del currículum imprimible. */
+.cv-entry{break-inside:avoid;border-top:1px solid var(--line);padding-top:14px;margin-top:17px;font-size:12px}
+/* Se mantiene el nombre del puesto unido a su periodo. */
+.cv-entry h3{font-size:14px;margin-bottom:5px}
+/* Se permite reducir ambas columnas de la introducción sin desbordamientos. */
+.hero-copy,.hero-visual{min-width:0}
+/* Se conserva texto contextual para lectores de pantalla sin duplicarlo visualmente. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+/* Se agrupan aportaciones sin contadores ni métricas decorativas. */
+.contribution-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;border-block:1px solid var(--line);padding-block:32px}
+/* Se diferencian los encabezados de aportación del texto explicativo. */
+.contribution-grid h3{font-size:17px;font-weight:550;margin-bottom:12px}
+/* Se ofrece una lectura breve antes de los casos completos. */
+.contribution-grid p{font-size:13px;color:var(--muted);margin-bottom:0}
+/* Se organizan los casos como una selección editorial de dos filas. */
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+/* Se enmarca cada caso con el mismo lenguaje visual del currículum. */
+.case-card{display:flex;flex-direction:column;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;min-width:0}
+/* Se reserva mayor presencia al caso principal de evolución de aplicaciones. */
+.case-card:first-child{grid-column:span 2;border-top:3px solid var(--accent);background:linear-gradient(135deg,var(--surface-raised),var(--surface))}
+/* Se mantiene una jerarquía legible para los nombres de casos. */
+.case-card h3{font-size:25px;letter-spacing:-.7px;line-height:1.2;font-weight:500;margin-bottom:15px}
+/* Se aportan descripciones concisas con contraste secundario. */
+.case-card>p:not(.eyebrow):not(.case-status){font-size:13px;color:var(--muted)}
+/* Se comunica el estado con un rótulo textual legible en ambos temas. */
+.case-status{display:inline-block;font-family:Consolas,monospace;font-size:11px;border-left:3px solid var(--accent);padding:6px 10px;background:var(--bg);color:var(--text)}
+/* Se distingue la beta sin ocultar la advertencia tras un desplegable. */
+.case-card.beta{border-top:3px solid var(--orange)}
+/* Se mantiene visible el estado pendiente de validación. */
+.case-card.beta .case-status{border-left-color:var(--orange)}
+/* Se sitúa el enlace de detalle al final de cada tarjeta. */
+.case-card .text-link{margin-top:auto;padding-top:20px}
+/* Se separan las tecnologías del enlace de lectura. */
+.case-card .tags{margin-bottom:16px}
+/* Se conserva la experiencia anterior agrupada y accesible con teclado. */
+.earlier-experience{grid-column:1/-1;border-top:1px solid var(--line);padding-top:18px;font-size:13px}
+/* Se indica que el bloque anterior puede abrirse sin ocupar la primera lectura. */
+.earlier-experience>summary{color:var(--muted);padding:10px 0}
+/* Se presenta una selección formativa antes del catálogo y su búsqueda. */
+.selected-education{padding-block:25px 65px}
+/* Se mantienen cuatro credenciales relevantes en columnas adaptables. */
+.credential-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+/* Se distinguen credenciales sin equiparar cursos y certificados. */
+.credential-grid article{border-top:1px solid var(--line);padding-top:18px;min-width:0}
+/* Se ajusta el título de formación al espacio de una tarjeta breve. */
+.credential-grid h3{font-size:14px;font-weight:550;line-height:1.5}
+/* Se conserva el contexto de entidad y fecha de expedición. */
+.credential-grid article>p:last-child{font-size:11px;color:var(--muted)}
+/* Se separan los capítulos de casos sin convertirlos en paneles de aplicación. */
+.document-page>section{border-top:1px solid var(--line);margin-top:30px;padding-top:5px}
+/* Se ilustran los pasos del prototipo con texto sin datos de alumnos. */
+.case-flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;padding:20px 20px 20px 40px;background:var(--bg);border:1px solid var(--line);border-radius:8px;font-size:13px}
+/* Se facilita volver a los casos o contactar desde la lectura técnica. */
+.case-navigation{display:flex;gap:24px;flex-wrap:wrap;margin-top:35px}
+/* Se atribuye el contenido sin interrumpir la explicación principal. */
+.source-note{font-size:11px;color:var(--muted);margin-top:28px}
+/* Se adapta la selección de casos a ventanas intermedias. */
+@media(max-width:1000px){.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.credential-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.case-card:first-child{grid-column:span 2}}
+/* Se mantiene legible la selección inicial en dispositivos pequeños. */
+@media(max-width:600px){.contribution-grid,.case-grid,.credential-grid{grid-template-columns:1fr}.case-card:first-child{grid-column:auto}.case-card{padding:23px}.contribution-grid{gap:23px}.case-flow{grid-template-columns:1fr}.selected-education{padding-block:25px 45px}}
+/* Se reordena la cabecera cuando no caben todos los enlaces. */
+@media(max-width:1150px){.header-inner{gap:20px;padding-inline:25px}.main-nav{gap:18px}.header-contact{display:none}.hero{gap:40px}.hero h1{letter-spacing:-2.8px}.profile-summary{gap:65px}.about-section{gap:65px}}
+/* Se adapta el contenido para tabletas y ventanas estrechas. */
+@media(max-width:850px){.container{width:calc(100% - 48px)}.header-inner{flex-wrap:wrap;padding:13px 24px;gap:12px}.main-nav{order:3;width:100%;justify-content:space-between;font-size:11px}.header-actions{margin-left:auto;gap:10px}.hero{padding-top:48px;gap:28px}.hero h1{font-size:42px;letter-spacing:-2.5px}.hero-description{font-size:14px}.visual-label{display:none}.hero-buttons{gap:10px}.button{gap:15px}.profile-summary{gap:35px;padding-block:60px}.trajectory-section{padding-block:50px}.section-heading{gap:30px}.section-heading>p{max-width:270px}.education-row{grid-template-columns:90px 1fr 100px 50px;gap:14px}.about-section{gap:40px}.contact-inner{gap:45px}.competence-strip{gap:15px}.strip-label{width:100%}.site-footer{align-items:start;flex-direction:column}.metro-map{width:3900px}}
+/* Se ofrece una cronología vertical compacta en dispositivos móviles. */
+@media(max-width:600px){html{scroll-padding-top:135px}.container{width:calc(100% - 36px)}.header-inner{padding:11px 18px}.brand strong{font-size:14px}.brand-icon{font-size:29px}.mode-switch a{padding:7px 9px}.icon-button{width:36px;height:36px}.hero{grid-template-columns:1fr;padding-top:40px;padding-bottom:38px;gap:35px}.hero h1{font-size:39px;line-height:1.06;letter-spacing:-2.8px;margin-block:22px}.hero-description{font-size:14px;max-width:100%}.hero .eyebrow{font-size:8px;letter-spacing:1.1px}.hero-visual{max-width:100%}.hero-meta{font-size:9px;gap:10px}.hero-meta span+span:before{margin-right:10px}.hero-buttons{gap:10px}.hero-buttons .button{font-size:11px;padding-inline:14px;gap:16px}.competence-strip{font-size:11px;column-gap:20px;row-gap:12px;padding-block:20px;justify-content:start}.profile-summary{grid-template-columns:1fr;gap:8px;padding-block:45px}.section-heading{display:block;margin-bottom:25px}.section-heading>p{max-width:100%;font-size:12px;margin-bottom:20px}.trajectory-topline{font-size:9px}.filters{gap:12px;margin-top:20px}.field{min-width:calc(50% - 12px)}.filters .field:last-of-type{flex-basis:65%}.timeline-labels{display:none}.timeline:before{left:8px}.timeline-row.education,.timeline-row.recognition,.timeline-row.work{padding-left:35px;padding-right:0;text-align:left}.timeline-row:before{left:3px}.timeline-row.work:before{left:.5px}.timeline-row:after,.timeline-row.work:after{left:15px;width:20px}.timeline-card{padding:15px 17px}.timeline-row.education .tags,.timeline-row.recognition .tags{justify-content:flex-start}.timeline-card h3{font-size:13px}.section-note{font-size:10px}.section-space{padding-block:50px}.experience-grid{grid-template-columns:1fr}.experience-card:first-child{padding:20px}.education-row{grid-template-columns:75px 1fr;gap:9px 14px;padding-block:17px}.education-type{grid-column:2}.education-hours{grid-column:2;text-align:left}.education-search{gap:12px}.search-field{flex-basis:100%;min-width:0}.projects-section{padding-block:45px}.projects-grid{grid-template-columns:1fr;gap:20px}.project-art{height:140px}.project-content{padding:22px}.about-section{grid-template-columns:1fr;gap:35px;padding-block:55px}.about-portrait{max-width:220px}.about-section h2{font-size:34px}.contact-section{padding-block:45px}.contact-inner{grid-template-columns:1fr;gap:30px}.contact-email{font-size:12px}.contact-inner h2{font-size:37px}.site-footer>div{gap:18px}.graph-toolbar{font-size:10px;padding:10px}.date-jumps{flex-wrap:wrap}.graph-viewport{max-height:500px}.text-alternative .timeline-card{background:var(--bg)}.terminal-form{gap:8px;flex-wrap:wrap}.terminal-form label{width:100%}.terminal-form input{flex:1}.terminal-heading{font-size:9px;gap:15px}.document-page{margin:25px 15px;padding:22px}.document-page h1{font-size:30px}.document-page .hero-buttons{margin-bottom:20px}}
+/* Se respeta la preferencia de reducir movimiento y se evita el desplazamiento animado. */
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+/* Se genera un currículum clásico sin controles ni decoraciones al imprimir. */
+@media print{:root{--bg:#fff;--surface:#fff;--text:#111;--muted:#444;--line:#ccc;--accent:#111;color-scheme:light}body{font-size:10pt}.site-header,.site-footer,.js-only,.hero-buttons,.graph-panel,.skip-link{display:none!important}.document-page{max-width:none;margin:0;padding:0;border:0}.cv-entry{font-size:10pt;padding-top:8px;margin-top:10px}h1{font-size:22pt}h2{font-size:15pt}.document-page h2{font-size:15pt;margin-top:22px}a{text-decoration:none}.cv-entry a:after{content:' (' attr(href) ')';font-size:8pt}.container{width:100%}dialog{display:none}}

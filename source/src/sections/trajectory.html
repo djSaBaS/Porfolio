@@ -1,0 +1,14 @@
+<!-- Se permiten dos lecturas distintas de la misma información profesional. -->
+<section class="trajectory-section" id="trayectoria" aria-labelledby="trayectoria-title"><div class="container"><div class="section-heading"><div><p class="eyebrow section-index">TRAYECTORIA / EL RECORRIDO COMPLETO</p><h2 id="trayectoria-title">{{TRAJECTORY_TITLE}}</h2></div><p>{{TRAJECTORY_DESCRIPTION}}</p></div><div class="trajectory-topline"><span class="mono">1995 <span aria-hidden="true">────────────────</span> HOY</span><span>{{EVENT_COUNT}} hitos conectados · dos formas de explorarlos</span></div>
+<!-- Se mantienen los controles ocultos hasta que su funcionamiento está disponible. -->
+<form class="filters js-only" id="trajectory-filters" aria-label="Filtrar trayectoria"><div class="field"><label for="branch-filter">Sector</label><select id="branch-filter" name="branch">{{BRANCH_OPTIONS}}</select></div><div class="field"><label for="era-filter">Periodo</label><select id="era-filter" name="era"><option value="all">Toda la trayectoria</option><option value="1990">1990–1999</option><option value="2000">2000–2009</option><option value="2010">2010–2019</option><option value="2020">2020–hoy</option></select></div><div class="field"><label for="type-filter">Tipo de hito</label><select id="type-filter" name="type"><option value="all">Todos los hitos</option><option value="work">Experiencia</option><option value="education">Formación</option><option value="official">Formación oficial</option><option value="complementary">Formación complementaria</option><option value="recognition">Reconocimientos</option></select></div><button class="text-button" type="reset">Restablecer <span aria-hidden="true">↺</span></button></form>
+<!-- Se informa del resultado de los filtros también mediante lector de pantalla. -->
+<p class="filter-status js-only" id="trajectory-status" role="status"></p>
+<!-- Se incorpora el mapa técnico solo en la vista para profesionales de tecnología. -->
+{{GRAPH_SECTION}}
+<!-- Se ofrece una cronología completa y accesible generada en el servidor de construcción. -->
+{{TIMELINE_SECTION}}
+<!-- Se muestra una salida recuperable cuando los filtros no coinciden con ningún hito. -->
+<div class="empty-state js-only" id="trajectory-empty" hidden><h3>No hay hitos con estos filtros</h3><p>Prueba otro sector o restablece los filtros para volver a ver toda la trayectoria.</p><button class="button secondary" type="button" data-reset>Restablecer filtros</button></div>
+<!-- Se explica el significado temporal de las correspondencias. -->
+<p class="section-note">Los periodos pueden solaparse. Los merges integran etapas concluidas; las especialidades que continúan mantienen su PR abierto. Una rama puede cerrarse y volver a abrirse. Las fechas de expedición se identifican expresamente.</p></div></section>

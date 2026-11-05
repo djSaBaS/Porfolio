@@ -1,0 +1,18 @@
+/* Se superponen las dos imágenes originales dentro de un control accesible. */
+.portrait-swap{display:grid;position:relative;width:100%;height:100%;padding:0;border:0;border-radius:inherit;background:transparent;overflow:hidden;cursor:pointer;color:inherit}
+/* Se conserva el encuadre de la fotografía al mostrar la ilustración. */
+.portrait-swap>img{grid-area:1/1;width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block}
+/* Se mantiene la fotografía como estado inicial sin depender de JavaScript. */
+.portrait-swap .portrait-pixel{opacity:0;image-rendering:auto}
+/* Se ofrece el mismo efecto cuando se usa el teclado o una pulsación táctil. */
+.portrait-swap:focus-visible .portrait-pixel,.portrait-swap[aria-pressed=true] .portrait-pixel{opacity:1}
+/* Se conserva la fotografía pequeña de la franja de presentación. */
+.portrait-strip .portrait-swap{width:55px;height:55px;flex:0 0 55px;border-radius:7px}
+/* Se conserva el retrato cuadrado en la sección personal. */
+.about-portrait .portrait-swap{aspect-ratio:1;height:auto;border-radius:10px}
+/* Se marca el foco sin desplazar el contenido del retrato. */
+.portrait-swap:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+/* Se evita que el pie decorativo interrumpa el efecto al recorrer la fotografía. */
+.hero-portrait .portrait-caption{pointer-events:none}
+/* Se aplica hover únicamente en dispositivos que realmente admiten puntero. */
+@media(hover:hover){.portrait-swap:hover .portrait-pixel{opacity:1}}

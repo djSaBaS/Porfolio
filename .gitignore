@@ -1,0 +1,8 @@
+# Se excluye el resultado intermedio del generador compartido.
+source/dist/
+# Se excluyen cachés locales de Python.
+__pycache__/
+# Se mantienen fuera del repositorio los archivos de entrega temporales.
+*.tar.gz
+# Se evita incorporar configuración local o credenciales por accidente.
+.env

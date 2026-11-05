@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://djsabas.github.io/Porfolio/sitemap.xml
