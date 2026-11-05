@@ -1,0 +1,247 @@
+{
+  "profile": "Desarrollo personalmente aplicaciones en PHP y herramientas de automatización con Python. Coordino mejoras con sistemas de los centros educativos, Recursos Humanos y marketing para adaptar las aplicaciones y las webs a sus necesidades.",
+  "heroHr": "Desarrollo aplicaciones empresariales con PHP, automatizo procesos con Python y mejoro webs WordPress. Conecto las necesidades de los equipos con las decisiones técnicas y la implantación de mejoras.",
+  "heroTech": "PHP puro, actualización de aplicaciones, automatización Python y WordPress. Consulta mi aportación a Prometeo/Hermes, las utilidades corporativas y los proyectos con código público.",
+  "contributions": [
+    {
+      "title": "Unos 5.000 alumnos",
+      "text": "Información de aproximadamente cinco mil alumnos en el curso actual, con unos doscientos docentes y cincuenta profesionales no docentes que consultan la plataforma. Estimaciones facilitadas por el titular."
+    },
+    {
+      "title": "Más de 10.000 nóminas enviadas",
+      "text": "Envíos acumulados durante más de medio año mediante las utilidades Python. Una ejecución mensual por centro, con una media aproximada de ochenta nóminas por colegio y mes."
+    },
+    {
+      "title": "Del requisito a la implantación",
+      "text": "En el módulo de bienestar: reuniones con el centro, diagrama de flujo, esquema de base de datos, revisión con IT, desarrollo, pruebas y validación con quienes lo solicitaron."
+    }
+  ],
+  "cases": [
+    {
+      "id": "prometeo-hermes",
+      "title": "Prometeo / Hermes",
+      "eyebrow": "EVOLUCIÓN DE APLICACIONES",
+      "status": "Proyecto corporativo · código privado",
+      "stack": [
+        "PHP puro",
+        "PHP 7.2 → 8.4 · implantación en curso",
+        "Mantenimiento",
+        "Coordinación"
+      ],
+      "hr": "Una base común para el personal docente de los centros y la cooperativa. Desarrollo, remodelaciones y coordinación de mejoras con sistemas.",
+      "tech": "Desarrollo directo en PHP puro, remodelaciones y módulos de gestión. Actualización de PHP 7.2 a 8.4 en implantación. Decisiones de implementación y coordinación con sistemas.",
+      "blocks": [
+        {
+          "heading": "Una aplicación que evoluciona con su organización",
+          "text": "Prometeo está dirigido al personal docente de cada centro y Hermes a la cooperativa de la empresa. Comparten una misma base. Mi trabajo abarca el desarrollo de mejoras, las remodelaciones, el mantenimiento y la coordinación de su implantación con los equipos de sistemas de los centros educativos."
+        },
+        {
+          "heading": "Alcance histórico",
+          "text": "La plataforma lleva más de quince años de uso y ha llegado a utilizarse en más de diez colegios, con más de mil docentes y más de cien personas no docentes. Son cifras históricas facilitadas por el titular, distintas del uso del curso actual."
+        },
+        {
+          "heading": "Uso en el curso actual",
+          "text": "La plataforma reúne información de aproximadamente cinco mil alumnos. Unos doscientos docentes y cincuenta profesionales no docentes acceden para consultar información. Son estimaciones del titular, facilitadas el 5 de noviembre de 2026; los alumnos con ficha se distinguen de las personas que utilizan la aplicación."
+        },
+        {
+          "heading": "De la información dispersa a la tutoría con la familia",
+          "text": "La plataforma reúne la información del alumno para facilitar la comunicación entre docentes y tutor. Al crear una tutoría, se notifica a los profesores para que aporten cómo está el alumno en su asignatura. El tutor utiliza esa información en la reunión con la familia y registra después la tutoría.",
+          "flow": [
+            "El tutor crea la tutoría",
+            "Los profesores reciben una notificación",
+            "Cada profesor aporta información de su asignatura",
+            "El tutor consulta la información reunida",
+            "Reunión con la familia",
+            "Registro de la tutoría en la plataforma"
+          ]
+        },
+        {
+          "heading": "Mi aportación",
+          "items": [
+            "Desarrollo personalmente en PHP puro y decido tecnologías, implementación y lógica de programación dentro de mi ámbito de trabajo.",
+            "Actualización de PHP 7.2 a PHP 8.4 en proceso de implantación, y evolución a lo largo de tres remodelaciones.",
+            "Nuevos módulos de bienestar del alumnado, Proceso de Mejora del Aprendizaje, auditorías a docentes, auditorías internas y gestión documental de calidad.",
+            "Coordinación con los equipos de sistemas para implantar mejoras de Prometeo."
+          ]
+        },
+        {
+          "heading": "Ejemplo: módulo de bienestar",
+          "text": "El centro plantea sus necesidades, ejemplos y forma de trabajar. Me reúno con las personas implicadas y con dirección, jefatura de estudios o subdirección. Analizamos cómo desarrollar e implantar la mejora; preparo el diagrama de flujo y el esquema de base de datos y reviso la propuesta y los posibles contratiempos con el director de IT.",
+          "flow": [
+            "Necesidades y reuniones con el centro",
+            "Análisis y propuesta de implantación",
+            "Diagrama de flujo y esquema de base de datos",
+            "Revisión de la propuesta con el director de IT",
+            "Desarrollo y pruebas",
+            "Demostración y validación por quienes lo solicitaron",
+            "Implantación tras el visto bueno; ajustes si se solicitan cambios"
+          ]
+        },
+        {
+          "heading": "Comprobaciones y recuperación",
+          "text": "Antes de implantar una mejora comprobamos la integridad con la base de datos y la compatibilidad con archivos y funciones de la aplicación. Disponemos de copias de seguridad diarias como recurso de recuperación. Estas comprobaciones acompañan las pruebas y la validación con quienes han solicitado la mejora."
+        },
+        {
+          "heading": "Resultado y estado",
+          "text": "Las mejoras facilitan la comunicación entre docentes y tutor y reúnen la información necesaria para preparar las reuniones con las familias. La actualización a PHP 8.4 está en proceso de implantación, con puesta en producción prevista próximamente. Una cuarta remodelación continúa en desarrollo."
+        },
+        {
+          "heading": "Descripción pública, código corporativo",
+          "text": "Este caso explica mi aportación profesional. El repositorio, la documentación interna y los datos de los centros permanecen privados. El análisis de tutorías se presenta aparte con su estado beta y validación pendiente."
+        }
+      ]
+    },
+    {
+      "id": "nominas-python",
+      "title": "Automatización de nóminas",
+      "eyebrow": "PYTHON EN PROCESOS INTERNOS",
+      "status": "Proyecto corporativo · código privado",
+      "stack": [
+        "Python",
+        "Automatización",
+        "RR. HH."
+      ],
+      "hr": "Herramientas para enviar nóminas cifradas y cuadrar nóminas. Evolución de las utilidades en coordinación con Recursos Humanos.",
+      "tech": "Desarrollo de utilidades Python para dos tareas de RR. HH.: envío de nóminas cifradas y cuadre de nóminas. Mejoras acordadas con sus usuarios.",
+      "blocks": [
+        {
+          "heading": "Dos necesidades de Recursos Humanos",
+          "text": "Desarrollo herramientas Python para el envío de nóminas cifradas y para cuadrar nóminas. La corporativa realiza envíos y algunos colegios los gestionan directamente con estas utilidades. Coordino las mejoras con Recursos Humanos."
+        },
+        {
+          "heading": "Volumen y periodicidad",
+          "text": "Se han enviado más de diez mil nóminas de forma acumulada durante más de medio año. Se realiza una ejecución mensual por colegio, con una media aproximada de ochenta nóminas por colegio y mes. Cifras facilitadas por el titular."
+        },
+        {
+          "heading": "Antes y después: el envío mensual",
+          "text": "El proceso manual partía de un PDF con todas las nóminas: había que separarlas una a una y enviar cada documento por correo individualmente. La utilidad automatiza ese trabajo repetitivo en la ejecución mensual.",
+          "flow": [
+            "PDF con el lote mensual de nóminas",
+            "Separación de los documentos individuales",
+            "Preparación de las nóminas cifradas",
+            "Envío individual a cada destinatario"
+          ]
+        },
+        {
+          "heading": "Antes y después: el comparador",
+          "text": "Antes había que trasladar manualmente a Excel los datos de cada nómina. El comparador automatiza esa incorporación de información y elimina ese paso de transcripción manual."
+        },
+        {
+          "heading": "Mi aportación",
+          "text": "Me coordino con Recursos Humanos para introducir cambios y mejoras en las utilidades. Mi trabajo da servicio a RR. HH. de la corporativa y de los centros, con el objetivo de agilizar procesos y facilitar el uso de las herramientas."
+        },
+        {
+          "heading": "Alcance de esta presentación",
+          "text": "La descripción es funcional: no se publican nóminas, destinatarios, claves ni detalles operativos internos. El cifrado forma parte de la utilidad descrita; este caso no constituye una auditoría de seguridad ni una certificación de cumplimiento."
+        }
+      ]
+    },
+    {
+      "id": "tutorias-beta",
+      "title": "Indicadores de tutorías",
+      "eyebrow": "ANÁLISIS TEXTUAL Y VISUALIZACIÓN",
+      "status": "Beta · validación pendiente",
+      "stack": [
+        "Diccionario y reglas",
+        "Puntuaciones",
+        "Semáforos",
+        "Gráfico de radar"
+      ],
+      "hr": "Prototipo para facilitar la revisión de tutorías mediante indicadores visuales. Pendiente de contraste con tutores y el equipo de psicología.",
+      "tech": "Puntuación de expresiones mediante un diccionario, semáforos y radar con series superpuestas. Análisis por reglas en fase beta, pendiente de validación.",
+      "blocks": [
+        {
+          "heading": "De los textos a una vista de conjunto",
+          "text": "El prototipo analiza textos de tutorías y entrevistas redactados por docentes o profesionales de psicología. Asigna puntuaciones a frases mediante un diccionario de expresiones. Las dimensiones iniciales son emocional, social, académica, trabajo y psicológica; pueden variar."
+        },
+        {
+          "heading": "Una lectura visual en varios niveles",
+          "items": [
+            "Semáforos por asignaturas de la tutoría, tutorías y alumno.",
+            "Gráfico de radar o tela de araña con todas las dimensiones.",
+            "Series superpuestas para consultar la última tutoría, la evolución del curso y el histórico desde los primeros registros disponibles."
+          ]
+        },
+        {
+          "heading": "Qué representa la evolución",
+          "text": "Las series muestran cambios en indicadores calculados a partir de los textos disponibles. No constituyen una medición validada del estado emocional o psicológico del alumno. El objetivo del prototipo es facilitar la revisión profesional de la información."
+        },
+        {
+          "heading": "Beta · validación pendiente",
+          "text": "El contraste con tutores y el equipo de psicología está pendiente. No se atribuye capacidad predictiva, diagnóstica ni eficacia demostrada para priorizar intervenciones. Se describe como análisis textual por diccionario y puntuaciones, sin atribuirle aprendizaje automático. Código corporativo privado; no se muestran registros de alumnos."
+        }
+      ]
+    },
+    {
+      "id": "cf7-option-limiter",
+      "title": "CF7 Option Limiter",
+      "eyebrow": "CASO CON CÓDIGO PÚBLICO",
+      "status": "Repositorio público",
+      "repo": "CF7-Limitador-de-Opciones",
+      "stack": [
+        "PHP",
+        "WordPress",
+        "JavaScript",
+        "AJAX"
+      ],
+      "hr": "Control de disponibilidad de opciones en formularios de WordPress, con administración de reglas y comprobación en tiempo real.",
+      "tech": "Reglas de disponibilidad, persistencia y administración integradas con Contact Form 7. El repositorio documenta validación, pruebas y CI.",
+      "blocks": [
+        {
+          "heading": "El problema",
+          "text": "Limitar cuántas veces puede seleccionarse una opción de un formulario y facilitar la administración de sus reglas desde WordPress."
+        },
+        {
+          "heading": "Por qué desarrollar una solución propia",
+          "text": "Evaluamos plugins existentes: muchas alternativas eran de pago y las gratuitas no cubrían todas nuestras necesidades. Decidimos desarrollar una solución propia para adaptar el control de límites a los formularios que necesitábamos. Mi aportación incluye el desarrollo personal de una versión similar a la utilizada en la empresa, cuyo repositorio público permite revisar su funcionamiento."
+        },
+        {
+          "heading": "La solución documentada",
+          "items": [
+            "Integración con Contact Form 7 y gestión de reglas desde el editor de formularios.",
+            "Configuración, ampliación y eliminación de límites para impedir nuevas selecciones cuando se alcanza la disponibilidad definida.",
+            "Persistencia de reglas y contadores, reinicios periódicos y comprobación de disponibilidad mediante AJAX.",
+            "Evolución del esquema y documentación de uso para la administración."
+          ]
+        },
+        {
+          "heading": "Evidencias para revisar",
+          "text": "El README documenta pruebas de creación de límites, validación administrativa, permisos y nonce, además de un flujo de GitHub Actions. El enlace permite consultar el código y su historial. La existencia de estas pruebas no equivale a una auditoría independiente ni demuestra por sí sola la resolución de todos los escenarios de concurrencia."
+        }
+      ]
+    },
+    {
+      "id": "ocr-pdf",
+      "title": "OCR para PDF",
+      "eyebrow": "AUTOMATIZACIÓN CON CÓDIGO PÚBLICO",
+      "status": "Repositorio público",
+      "repo": "OCR-para-PDF",
+      "stack": [
+        "Python",
+        "PyQt6",
+        "OCRmyPDF",
+        "Tesseract"
+      ],
+      "hr": "Aplicación de escritorio para convertir documentos escaneados en PDF con texto buscable, con opciones accesibles desde una interfaz gráfica.",
+      "tech": "Interfaz para OCRmyPDF y alternativa con Tesseract. La documentación describe opciones de procesamiento, progreso, pruebas y GitHub Actions.",
+      "blocks": [
+        {
+          "heading": "El problema",
+          "text": "Hacer consultable el texto de documentos escaneados y acercar las opciones de procesamiento OCR a una interfaz de escritorio."
+        },
+        {
+          "heading": "La solución documentada",
+          "items": [
+            "Interfaz Python con PyQt6, selección de idiomas y opciones de rotación, enderezado y limpieza.",
+            "Flujo principal con OCRmyPDF y alternativa con Tesseract.",
+            "Tratamiento del progreso y de la disponibilidad de herramientas auxiliares, según la documentación del repositorio."
+          ]
+        },
+        {
+          "heading": "Evidencias para revisar",
+          "text": "El repositorio documenta pruebas automatizadas con pytest y un flujo de GitHub Actions para utilidades críticas. Se presenta como integración y automatización de herramientas OCR, sin atribuir entrenamiento propio de modelos ni métricas de precisión no medidas."
+        }
+      ]
+    }
+  ]
+}
