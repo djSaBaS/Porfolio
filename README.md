@@ -2,6 +2,8 @@
 
 Portfolio estático para [GitHub Pages](https://djsabas.github.io/Porfolio/), sincronizado con la presentación actual de Sites. Dos vistas: RR. HH. prioriza experiencia reciente; TECH, casos y mapa de ramas. Incluye 45 hitos, 34 formaciones, cinco casos y cuatro repositorios públicos seleccionados. No se consultan APIs para obtener contenido durante la visita.
 
+Para compartir en LinkedIn, utiliza la URL estable [`/Porfolio/`](https://djsabas.github.io/Porfolio/). La ruta `/Porfolio/rrhh/` redirige a `/?view=hr` dentro del portfolio.
+
 La fotografía `assets/avatar.jpg` y las imágenes `avatar_pixel.jpg` y `avatar_zoom.jpg` conservan sus bytes originales. El retrato muestra pixelart al pasar el ratón y también admite teclado o una pulsación. La demostración de procesos incluye contadores y funciona con movimiento reducido; sus tiempos son ilustrativos, sin atribuir ahorros reales.
 
 ## Mantener el contenido

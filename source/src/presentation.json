@@ -24,12 +24,12 @@
       "status": "Proyecto corporativo · código privado",
       "stack": [
         "PHP puro",
-        "PHP 7.2 → 8.4 · implantación en curso",
+        "Modernización progresiva de plataforma PHP legacy hacia versiones actuales.",
         "Mantenimiento",
         "Coordinación"
       ],
       "hr": "Una base común para el personal docente de los centros y la cooperativa. Desarrollo, remodelaciones y coordinación de mejoras con sistemas.",
-      "tech": "Desarrollo directo en PHP puro, remodelaciones y módulos de gestión. Actualización de PHP 7.2 a 8.4 en implantación. Decisiones de implementación y coordinación con sistemas.",
+      "tech": "Desarrollo directo en PHP puro, remodelaciones y módulos de gestión. Modernización progresiva de plataforma PHP legacy hacia versiones actuales. Decisiones de implementación y coordinación con sistemas.",
       "blocks": [
         {
           "heading": "Una aplicación que evoluciona con su organización",
@@ -59,7 +59,7 @@
           "heading": "Mi aportación",
           "items": [
             "Desarrollo personalmente en PHP puro y decido tecnologías, implementación y lógica de programación dentro de mi ámbito de trabajo.",
-            "Actualización de PHP 7.2 a PHP 8.4 en proceso de implantación, y evolución a lo largo de tres remodelaciones.",
+            "Modernización progresiva de plataforma PHP legacy hacia versiones actuales y evolución a lo largo de tres remodelaciones.",
             "Nuevos módulos de bienestar del alumnado, Proceso de Mejora del Aprendizaje, auditorías a docentes, auditorías internas y gestión documental de calidad.",
             "Coordinación con los equipos de sistemas para implantar mejoras de Prometeo."
           ]
@@ -83,7 +83,7 @@
         },
         {
           "heading": "Resultado y estado",
-          "text": "Las mejoras facilitan la comunicación entre docentes y tutor y reúnen la información necesaria para preparar las reuniones con las familias. La actualización a PHP 8.4 está en proceso de implantación, con puesta en producción prevista próximamente. Una cuarta remodelación continúa en desarrollo."
+          "text": "Las mejoras facilitan la comunicación entre docentes y tutor y reúnen la información necesaria para preparar las reuniones con las familias. La modernización progresiva de la plataforma PHP continúa, junto al desarrollo de una cuarta remodelación."
         },
         {
           "heading": "Descripción pública, código corporativo",

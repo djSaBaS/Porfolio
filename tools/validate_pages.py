@@ -9,7 +9,7 @@ import json
 # Se fija la raíz de los archivos que publica Pages.
 ROOT = Path(__file__).resolve().parents[1]
 # Se mantiene un inventario explícito de las páginas principales generadas.
-PAGES = ['index.html', 'tech/index.html', 'cv/index.html', 'privacidad/index.html', 'fuentes/index.html']
+PAGES = ['index.html', 'rrhh/index.html', 'tech/index.html', 'cv/index.html', 'privacidad/index.html', 'fuentes/index.html']
 # Se añaden los casos actuales sin duplicar su catálogo.
 PAGES += ['casos/' + case['id'] + '/index.html' for case in json.loads((ROOT / 'source/src/presentation.json').read_text(encoding='utf-8'))['cases']]
 # Se acumulan errores de todos los documentos antes de emitir el resultado.
@@ -48,6 +48,10 @@ for name in PAGES:
     if 'rel="canonical" href="https://djsabas.github.io/Porfolio/' not in content:
         # Se distingue la URL canónica de enlaces de fuente a otros sitios.
         errors.append(name + ': canonical de Pages ausente')
+    # Se garantiza que el alias compartido redirige a la vista de RR. HH. de la raíz.
+    if name == 'rrhh/index.html' and 'content="0;url=/Porfolio/?view=hr"' not in content:
+        # Se evita que una regeneración rompa el acceso directo desde enlaces antiguos.
+        errors.append(name + ': redirección a RR. HH. ausente')
     # Se revisan todas las referencias que apuntan al alojamiento local.
     for reference in probe.references:
         # Se ignoran enlaces externos y anclas internas, que no son rutas de archivo.

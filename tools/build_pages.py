@@ -85,7 +85,7 @@ styles += '\n' + (SOURCE / 'assets/portrait.css').read_text(encoding='utf-8')
 # Se publica una única hoja de estilo para el currículum.
 (ROOT / 'assets/site.css').write_text(styles, encoding='utf-8', newline='\n')
 # Se mantienen enlaces antiguos mediante destinos fijos, sin aceptar redirecciones de visitantes.
-redirects = {'about': '#sobre-mi', 'cursos': '#formacion', 'projects': '#proyectos', 'projects/cf7-limitador': 'casos/cf7-option-limiter/', 'projects/ocr-pdf': 'casos/ocr-pdf/', 'projects/voxflow': '#proyectos', 'projects/directorio-telefonos': '#proyectos'}
+redirects = {'rrhh': '?view=hr', 'about': '#sobre-mi', 'cursos': '#formacion', 'projects': '#proyectos', 'projects/cf7-limitador': 'casos/cf7-option-limiter/', 'projects/ocr-pdf': 'casos/ocr-pdf/', 'projects/voxflow': '#proyectos', 'projects/directorio-telefonos': '#proyectos'}
 # Se conserva cada ruta histórica que puede estar guardada por un visitante.
 for path, target in redirects.items():
     # Se construye un destino conocido dentro de este mismo portfolio.
