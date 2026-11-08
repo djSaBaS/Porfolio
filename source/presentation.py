@@ -45,7 +45,7 @@ def education_selection(events):
     # Se conservan denominaciones, categorías y fechas originales.
     cards = ''.join('<article><p class="eyebrow">' + escape(event['category']) + '</p><h3>' + escape(event['title']) + '</h3><p>' + escape(event['entity'] + ' · ' + event['dates']) + '</p></article>' for event in reversed(events) if event['id'] in selected)
     # Se enlaza el catálogo completo de 31 acciones sin duplicar sus controles.
-    return '<!-- Se ofrece una selección pertinente antes del historial completo. -->\n<section class="container selected-education" aria-labelledby="seleccion-title"><div class="section-heading"><div><p class="eyebrow section-index">FORMACIÓN / SELECCIÓN</p><h2 id="seleccion-title">Formación para el trabajo actual.</h2></div><a class="text-link" href="#formacion">Ver toda la formación ↗</a></div><div class="credential-grid">' + cards + '</div></section>'
+    return '<!-- Se ofrece una selección pertinente antes del historial completo. -->\n<section class="container selected-education" aria-labelledby="seleccion-title"><div class="section-heading"><div><p class="eyebrow section-index">FORMACIÓN / SELECCIÓN</p><h2 id="seleccion-title">Formación para el trabajo actual.</h2></div><a class="text-link" href="/Porfolio/formacion/">Ver toda la formación ↗</a></div><div class="credential-grid">' + cards + '</div></section>'
 # Se construye el cuerpo de una página de caso con datos escapados.
 def case_body(case, projects):
     # Se publica el estado junto al título para evitar falsas expectativas.
