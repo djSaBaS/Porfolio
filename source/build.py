@@ -87,7 +87,7 @@ def build_page(mode):
     # Se carga la plantilla HTML para mantener separadas presentación y datos.
     template = (ROOT / 'src/page.html').read_text(encoding='utf-8')
     # Se elige una prioridad editorial diferente para cada audiencia.
-    section_order = ['experience', 'cases', 'selected', 'trajectory', 'education', 'projects'] if mode == 'hr' else ['cases', 'experience', 'selected', 'trajectory', 'education', 'projects']
+    section_order = ['experience', 'cases', 'selected', 'trajectory', 'projects'] if mode == 'hr' else ['cases', 'experience', 'selected', 'trajectory', 'projects']
     # Se preparan los bloques nuevos desde la misma fuente de casos.
     editorial = {'cases': cases_section(PRESENTATION, mode), 'selected': education_selection(EVENTS)}
     # Se cargan los fragmentos que conservan filtros, fichas y enlaces públicos.
@@ -164,6 +164,10 @@ for audience in ['hr', 'tech']:
 for case in PRESENTATION['cases']:
     # Se valida la ruta antes de crear el documento de cada caso.
     document_page(case['title'], case_body(case, DATA['projects']), case_path(case).strip('/'), case['hr'])
+# Se publica el catálogo formativo completo fuera de las páginas principales para mantenerlas compactas.
+education_body = '<p>Formación oficial, certificados profesionales y aprendizaje complementario reunidos en una sola página. La portada muestra únicamente una selección relacionada con el trabajo actual.</p><div class="education-list">' + ''.join(education_row(event) for event in reversed(EVENTS) if event['kind'] == 'education') + '</div><p class="section-note">Los cursos de Azure, Oracle/MySQL y Python se presentan como formación o credenciales de curso; no como exámenes de certificación profesional. El máster de INESEM se identifica como formación privada.</p>'
+# Se crea una ruta estable y enlazable para consultar toda la formación.
+document_page('Formación y cursos', education_body, 'formacion', 'Formación oficial, certificados profesionales y cursos de Juan Antonio Sánchez Plaza.')
 # Se prepara una lectura clásica del CV adecuada para selección y sistemas ATS.
 cv_body = '<p>Responsable de Desarrollo Web · Madrid, España</p><p>PHP · MySQL/MariaDB · JavaScript · WordPress · Sistemas · Python y automatización</p><p><a href="mailto:juanantoniosanchezplaza@hotmail.com">juanantoniosanchezplaza@hotmail.com</a><br>LinkedIn: https://www.linkedin.com/in/juanantoniosanchezplaza/<br>GitHub: https://github.com/djSaBaS</p><p><a class="button primary" href="/assets/cv-juan-antonio-sanchez-plaza.pdf" download>Descargar CV en PDF</a></p><p>Esta versión puede imprimirse mediante el menú del navegador. <a href="/assets/cv-completo-juan-antonio-sanchez-plaza.pdf">Descargar PDF completo</a>.</p><h2>Perfil profesional</h2><p>Desarrollo directo en PHP, automatización con Python y coordinación de mejoras con sistemas de los centros, Recursos Humanos y marketing. Decisiones sobre tecnologías, implementación, lógica y plugins WordPress.</p><h2>Experiencia profesional</h2>'
 # Se presentan los empleos completos con sus intervalos y descripciones autorizadas.
@@ -191,7 +195,7 @@ document_page('Fuentes y criterios de contenido', '<p>Contenido revisado el 5 de
 # Se proporciona una página de error útil para rutas inexistentes.
 (DIST / '404.html').write_text('<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Página no encontrada · Sabas</title><link rel="stylesheet" href="/assets/site.css"></head><body><main class="document-page"><h1>Esta estación no existe.</h1><p>Puedes volver al recorrido principal.</p><a class="button primary" href="/">Volver al currículum</a></main></body></html>', encoding='utf-8', newline='\r\n')
 # Se publica un sitemap con las rutas canónicas realmente generadas.
-paths = ['', 'tech/', 'cv/', 'privacidad/', 'fuentes/'] + [case_path(case).lstrip('/') for case in PRESENTATION['cases']]
+paths = ['', 'tech/', 'formacion/', 'cv/', 'privacidad/', 'fuentes/'] + [case_path(case).lstrip('/') for case in PRESENTATION['cases']]
 # Se permite que los buscadores descubran páginas sin interpretar JavaScript.
 (DIST / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(f'<url><loc>{ORIGIN}/{path}</loc><lastmod>2026-11-05</lastmod></url>' for path in paths) + '</urlset>\n', encoding='utf-8', newline='\r\n')
 # Se declara la ubicación de sitemap sin bloquear el contenido profesional.
