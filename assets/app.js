@@ -376,6 +376,38 @@
     if (!viewport) return;
     // Se conserva la referencia al SVG que se ampliará o reducirá.
     const map = document.getElementById('metro-map');
+    // Se separan conectores y estaciones para que ninguna línea atraviese visualmente una tarjeta.
+    if (!map.querySelector('[data-map-background]')) {
+      // Se crea una única capa SVG situada antes de todas las fichas interactivas.
+      const background = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      // Se identifica la capa para no repetir el proceso si la inicialización vuelve a ejecutarse.
+      background.setAttribute('data-map-background', 'true');
+      // Se localiza la primera estación para insertar los conectores inmediatamente antes de las tarjetas.
+      const firstStation = map.querySelector('a[data-map-event]');
+      // Se mantiene el mapa intacto cuando no existen estaciones renderizadas.
+      if (firstStation) {
+        // Se coloca la capa de conectores por debajo de todas las tarjetas.
+        map.insertBefore(background, firstStation);
+        // Se procesa cada estación sin alterar sus textos, enlaces ni nodos visibles.
+        map.querySelectorAll('a[data-map-event]').forEach(station => {
+          // Se toma el rectángulo como frontera entre geometría de conexión y contenido de tarjeta.
+          const card = station.querySelector('rect');
+          // Se evita modificar una estación incompleta.
+          if (!card) return;
+          // Se copian los elementos anteriores a la tarjeta para moverlos a la capa de fondo.
+          const elements = Array.from(station.children);
+          // Se recorren únicamente los elementos gráficos que preceden al rectángulo.
+          for (const element of elements) {
+            // Se detiene el traslado al alcanzar la tarjeta.
+            if (element === card) break;
+            // Se conserva el título accesible dentro del enlace.
+            if (element.tagName.toLowerCase() === 'title') continue;
+            // Se mueve el conector y sus marcas manteniendo sus atributos originales.
+            background.appendChild(element);
+          }
+        });
+      }
+    }
     // Se utiliza el ancho definido en el viewBox de construcción.
     const baseWidth = 3900;
     // Se mantiene un zoom local que no afecta a la fuente profesional.
