@@ -285,7 +285,7 @@
   // Se conserva el contenedor de resultados para ordenar nodos existentes.
   const educationList = document.getElementById('education-list');
   // Se capturan las filas preconstruidas de formación como única base de filtrado.
-  const educationRows = [...educationList.querySelectorAll('.education-row')];
+  const educationRows = educationList ? [...educationList.querySelectorAll('.education-row')] : [];
   // Se normaliza texto de búsqueda sin insertarlo nunca como HTML.
   function normalize(value) {
     // Se permite buscar sin distinguir mayúsculas, acentos o espacios de borde.
@@ -349,13 +349,13 @@
   // Se cierra la búsqueda de formación.
   }
   // Se actualizan resultados al escribir, con una colección local pequeña y acotada.
-  educationFilters.addEventListener('input', filterEducation);
+  educationFilters?.addEventListener('input', filterEducation);
   // Se atienden cambios de filtros para navegadores que no emiten input en select.
-  educationFilters.addEventListener('change', filterEducation);
+  educationFilters?.addEventListener('change', filterEducation);
   // Se evita navegación accidental al enviar el buscador.
-  educationFilters.addEventListener('submit', event => event.preventDefault());
+  educationFilters?.addEventListener('submit', event => event.preventDefault());
   // Se restaura de forma explícita para evitar recalcular antes de la acción nativa del navegador.
-  educationFilters.addEventListener('reset', event => {
+  educationFilters?.addEventListener('reset', event => {
     // Se cancela el restablecimiento diferido que provocaba resultados desincronizados.
     event.preventDefault();
     // Se vacía la consulta sin interpretar ni conservar texto anterior.
@@ -610,8 +610,8 @@
   setupGraph();
   // Se inicializan las respuestas de la terminal opcional.
   setupTerminal();
-  // Se calculan los resultados académicos con el estado inicial de sus controles.
-  filterEducation();
+  // Se calculan los resultados académicos solo en la audiencia que tiene ese formulario.
+  if (educationFilters && educationList) filterEducation();
   // Se aplica la selección compartida al mapa y a la cronología.
   filterTrajectory();
   // Se habilitan controles únicamente cuando sus comportamientos están registrados.
