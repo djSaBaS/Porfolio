@@ -121,7 +121,7 @@ def build_page(mode):
     # Se incorporan las ayudas solo en la vista técnica sin alterar el itinerario.
     if mode == 'tech':
         # Se conserva el gráfico original entre la guía de lectura y la ayuda.
-        graph_section = graph_guide + graph_section + graph_help
+        graph_section = graph_guide + graph_section.replace('<p class="section-note">', graph_help + '<p class="section-note">', 1)
     # Se ordenan las experiencias por actualidad sin alterar la cronología central.
     work = sorted([event for event in EVENTS if event['kind'] == 'work'], key=lambda event: event['start'], reverse=True)
     # Se priorizan los tres puestos tecnológicos recientes sin perder otras experiencias.
