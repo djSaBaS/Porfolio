@@ -408,23 +408,35 @@
         });
       }
     }
-    // Se utiliza el ancho definido en el viewBox de construcción.
-    const baseWidth = 3900;
-    // Se mantiene un zoom local que no afecta a la fuente profesional.
+    // Se obtiene la geometría real del SVG para no duplicar tamaños del generador.
+    const baseWidth = map.viewBox.baseVal.width;
+    // Se recupera también la altura para que Ajustar incluya todos los corredores.
+    const baseHeight = map.viewBox.baseVal.height;
+    // Se mantiene el factor de zoom relativo al tamaño original del SVG.
     let zoom = 1;
-    // Se modifica el tamaño preservando la zona central del mapa.
+    // Se calcula la escala necesaria para ver todo el mapa sin recortes.
+    function fitZoom() {
+      // Se utiliza la dimensión más restrictiva del visor en ambos ejes.
+      return Math.min(viewport.clientWidth / baseWidth, viewport.clientHeight / baseHeight);
+    // Se finaliza el cálculo de la vista completa.
+    }
+    // Se cambia la escala sin perder el centro observado horizontal ni verticalmente.
     function setZoom(value) {
-      // Se calcula la posición relativa para no perder el contexto horizontal.
-      const center = (viewport.scrollLeft + viewport.clientWidth / 2) / (baseWidth * zoom);
-      // Se limita el zoom para evitar tamaños de DOM incontrolados.
-      zoom = Math.max(0.25, Math.min(1.8, value));
-      // Se aplica un ancho numérico calculado exclusivamente desde límites conocidos.
-      map.style.width = `${Math.round(baseWidth * zoom)}px`;
-      // Se expresa el nivel de ampliación mediante una salida accesible.
+      // Se conserva la coordenada horizontal central antes del cambio de escala.
+      const centerX = (viewport.scrollLeft + viewport.clientWidth / 2) / zoom;
+      // Se conserva también la coordenada vertical para evitar saltos entre ramas.
+      const centerY = (viewport.scrollTop + viewport.clientHeight / 2) / zoom;
+      // Se permite reducir hasta encajar el SVG completo en pantallas estrechas.
+      zoom = Math.max(fitZoom(), Math.min(1.8, value));
+      // Se utiliza un ancho CSS proporcional al sistema de coordenadas SVG.
+      map.style.width = `${baseWidth * zoom}px`;
+      // Se informa del porcentaje real aplicado por los controles de zoom.
       document.getElementById('zoom-level').textContent = `${Math.round(zoom * 100)}%`;
-      // Se conserva aproximadamente la misma fecha en el centro de la ventana.
-      viewport.scrollLeft = center * baseWidth * zoom - viewport.clientWidth / 2;
-    // Se finaliza el cambio de ampliación.
+      // Se recupera el punto horizontal previo bajo la nueva escala.
+      viewport.scrollLeft = centerX * zoom - viewport.clientWidth / 2;
+      // Se recupera el punto vertical previo bajo la nueva escala.
+      viewport.scrollTop = centerY * zoom - viewport.clientHeight / 2;
+    // Se termina la actualización visual de la escala.
     }
     // Se permite reducir el mapa mediante un control explícito.
     document.getElementById('zoom-out').addEventListener('click', () => setZoom(zoom - 0.15));
@@ -432,10 +444,12 @@
     document.getElementById('zoom-in').addEventListener('click', () => setZoom(zoom + 0.15));
     // Se ofrece una visión general ajustada al ancho del contenedor.
     document.getElementById('zoom-reset').addEventListener('click', () => {
-      // Se calcula el tamaño necesario para presentar la trayectoria completa.
-      setZoom(viewport.clientWidth / baseWidth);
-      // Se vuelve al inicio para que el ajuste no deje fechas fuera de la ventana.
-      viewport.scrollTo({left: 0, top: 0, behavior: 'instant'});
+      // Se calcula la escala que permite ver todas las ramas dentro del visor.
+      setZoom(fitZoom());
+      // Se muestra la visión general completa desde su origen.
+      viewport.scrollLeft = 0;
+      // Se mantiene también visible el corredor superior del mapa completo.
+      viewport.scrollTop = 0;
     // Se finaliza la acción de visión general.
     });
     // Se registran accesos temporales con valores definidos en el HTML estático.
@@ -456,10 +470,14 @@
       });
     // Se finaliza el registro de accesos por fecha.
     });
-    // Se presenta primero la topología completa para entender cierres y continuaciones.
-    setZoom(viewport.clientWidth / baseWidth);
-    // Se evita que el centrado del zoom oculte el comienzo de la trayectoria.
-    viewport.scrollTo({left: 0, top: 0, behavior: 'instant'});
+    // Se presenta inicialmente una escala legible para explorar las primeras etapas.
+    setZoom(0.9);
+    // Se obtiene la coordenada vertical del tronco académico desde el mapa generado.
+    const initialMainY = Number(map.dataset.mainY);
+    // Se sitúa el inicio de main cerca del margen izquierdo visible.
+    viewport.scrollLeft = Math.max(0, 150 * zoom - viewport.clientWidth * 0.18);
+    // Se coloca main a media altura en lugar de arrancar en la esquina superior.
+    viewport.scrollTop = Math.max(0, initialMainY * zoom - viewport.clientHeight / 2);
     // Se muestra la versión textual por defecto en móvil para facilitar la exploración.
     const textAlternative = document.querySelector('.text-alternative');
     // Se conserva la alternativa expandida cuando la pantalla es pequeña.
