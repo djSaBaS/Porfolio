@@ -217,7 +217,7 @@ def metro_graph(data):
     # Se sitúa main en el centro como en el esquema aportado por el usuario.
     main_y = routes['main']['y']
     # Se nombra el mapa y se explica su topología de forma accesible.
-    parts = [f'<svg class="metro-map" id="metro-map" data-main-y="{main_y}" viewBox="0 0 3900 {MAP_HEIGHT}" role="img" aria-labelledby="map-title map-description" xmlns="http://www.w3.org/2000/svg"><title id="map-title">Trayectoria con ramas cerradas y PR abiertos</title><desc id="map-description">Main representa la formación oficial. Las vías avanzan de izquierda a derecha con salidas y reincorporaciones progresivas. Las etapas concluidas hacen merge en su fecha; las activas continúan con una flecha y PR abierto. Industria y creatividad pueden reabrirse. Inteligencia artificial nace de desarrollo e informática, entre esa vía y main, con formación en filas separadas. Debajo se ofrece toda la trayectoria en texto.</desc>']
+    parts = [f'<svg class="metro-map" id="metro-map" data-main-y="{main_y}" viewBox="0 0 3900 {MAP_HEIGHT}" role="img" aria-labelledby="map-title map-description" xmlns="http://www.w3.org/2000/svg"><title id="map-title">Trayectoria con ramas cerradas y PR abiertos</title><desc id="map-description">Main es el eje de mi trayectoria: la formación oficial está sobre main y los demás hitos se sitúan en ramas conectadas. Las vías avanzan de izquierda a derecha con salidas y reincorporaciones progresivas. Las etapas concluidas hacen merge en su fecha; las activas continúan con una flecha y PR abierto. Industria y creatividad pueden reabrirse. Inteligencia artificial nace de desarrollo e informática, entre esa vía y main, con formación en filas separadas. Debajo se ofrece toda la trayectoria en texto.</desc>']
     # Se mantienen guías de calendario para relacionar estaciones y cierres.
     for year in range(1995, 2027):
         # Se rotulan los lustros y el presente para no sobrecargar la lectura.
@@ -227,7 +227,7 @@ def metro_graph(data):
             # Se diferencian las guías del contenido profesional con una línea discontinua.
             parts.append(f'<path d="M{x} 25 V{MAP_HEIGHT-50}" stroke="var(--line)" stroke-dasharray="3 8"/><text x="{x}" y="22" fill="var(--muted)" font-size="14" font-family="Consolas,monospace">{year}</text>')
     # Se extiende la formación principal sin absorber las especialidades activas.
-    parts.append(f'<g data-graph-branch="main" data-graph-sectors="main"><path d="M150 {main_y} H{present_x+90}" stroke="{routes["main"]["color"]}" stroke-width="5"/><text x="155" y="{main_y+31}" fill="var(--text)" font-size="12" font-family="Consolas,monospace">main · formación oficial</text><path d="M{present_x+80} {main_y-7} L{present_x+90} {main_y} L{present_x+80} {main_y+7}" fill="none" stroke="{routes["main"]["color"]}" stroke-width="3"/></g>')
+    parts.append(f'<g data-graph-branch="main" data-graph-sectors="main"><path d="M150 {main_y} H{present_x+90}" stroke="{routes["main"]["color"]}" stroke-width="5"/><text x="155" y="{main_y+31}" fill="var(--text)" font-size="12" font-family="Consolas,monospace">main · Mi trayectoria</text><path d="M{present_x+80} {main_y-7} L{present_x+90} {main_y} L{present_x+80} {main_y+7}" fill="none" stroke="{routes["main"]["color"]}" stroke-width="3"/></g>')
     # Se dibujan todos los periodos antes de superponer las estaciones.
     for route in routes.values():
         # Se permite que una especialidad tenga varias etapas separadas.
@@ -243,7 +243,7 @@ def metro_graph(data):
         # Se sitúa cada ficha una sola vez conservando las actividades simultáneas.
         parts.append(station(event, route, occupied[route['id']], data['graph']['asOf'], routes))
     # Se explicita el sentido de cada símbolo sin afirmar que toda actividad ha terminado.
-    parts.append(f'<text x="155" y="{MAP_HEIGHT-25}" fill="var(--muted)" font-size="12" font-family="Consolas,monospace">○ merge en la fecha de cierre · ↗ reapertura · → PR abierto: etapa que continúa</text></svg>')
+    parts.append(f'<text x="155" y="{MAP_HEIGHT-25}" fill="var(--muted)" font-size="12" font-family="Consolas,monospace">○ merge: etapa finalizada · ↗ rama retomada · → PR abierto: continúa actualmente</text></svg>')
     # Se devuelve SVG estático indexable y navegable sin nuevas dependencias.
     return ''.join(parts)
 # Se construye una leyenda con los mismos colores y agrupaciones del mapa.
@@ -255,7 +255,7 @@ def graph_legend(data):
         # Se toma la última etapa para indicar su estado actual.
         final = route['periods'][-1] if route['periods'] else None
         # Se omite una etiqueta de cierre para el tronco académico principal.
-        state = '' if final is None else (' · PR abierto' if final['end'] is None else f' · merge {final["end"]}')
+        state = '' if final is None else (' · continúa actualmente' if final['end'] is None else f' · etapa finalizada {final["end"]}')
         # Se incluyen color, especialidad y fecha de cierre o continuidad.
         labels.append(f'<span><svg width="10" height="10" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="{route["color"]}"/></svg>{escape(route["label"] + state)}</span>')
     # Se devuelve una sola leyenda coherente con todos los recorridos dibujados.
@@ -287,7 +287,7 @@ def hero_graph(data):
     # Se reducen las posiciones para ofrecer una composición legible en la portada.
     levels = {'main': 185, 'automocion': 225, 'creatividad': 140, 'industria': 280, 'web': 58, 'ia': 110}
     # Se inicia una ilustración que explica el cierre y la continuidad de las ramas.
-    parts = ['<svg class="hero-map" viewBox="0 0 530 330" role="img" aria-labelledby="hero-graph-title" xmlns="http://www.w3.org/2000/svg"><title id="hero-graph-title">Las etapas terminadas se integran; desarrollo e IA continúan con PR abiertos</title><path d="M25 185 H505" stroke="#bac8c3" stroke-width="3"/><text x="25" y="174" fill="var(--muted)" font-family="Consolas,monospace" font-size="9">main · formación oficial</text>']
+    parts = ['<svg class="hero-map" viewBox="0 0 530 330" role="img" aria-labelledby="hero-graph-title" xmlns="http://www.w3.org/2000/svg"><title id="hero-graph-title">Las etapas terminadas se integran; desarrollo e IA continúan con PR abiertos</title><path d="M25 185 H505" stroke="#bac8c3" stroke-width="3"/><text x="25" y="174" fill="var(--muted)" font-family="Consolas,monospace" font-size="9">main · Mi trayectoria</text>']
     # Se dibuja cada etapa con la misma relación de parentesco que el mapa.
     for route in routes.values():
         # Se omite main porque su eje ya está representado.

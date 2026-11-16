@@ -501,7 +501,7 @@
       // Se presenta una selección de hitos reales del recorrido profesional.
       ['git log', '2025 · Humanitas — Responsable de Desarrollo Web\n2023 · Coordinación de proyectos web y certificados profesionales\n2016 · Programador web\n2014 · Soporte informático\n2011 · Diseño y desarrollo freelance\n1999 · Industria y calorifugado'],
       // Se describen ramas conceptuales sin acceder a un repositorio real.
-      ['git branch', 'main · formación oficial\nfeature/automocion\nfeature/industria\nfeature/creatividad\nfeature/sistemas\nfeature/desarrollo-web\nfeature/automatizacion-ia'],
+      ['git branch', 'main · Mi trayectoria (formación oficial en el eje)\nfeature/automocion\nfeature/industria\nfeature/creatividad\nfeature/sistemas\nfeature/desarrollo-web\nfeature/automatizacion-ia'],
       // Se refuerza el sentido de integración de competencias del mapa.
       ['git merge', 'Merge conceptual completado.\nExperiencia industrial + creatividad + sistemas + desarrollo = una forma de resolver con contexto.\nLos conocimientos se integran; la historia no se borra.'],
       // Se distingue práctica laboral de tecnologías que figuran solo en formación.

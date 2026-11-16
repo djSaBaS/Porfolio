@@ -436,3 +436,48 @@ html[data-mode=tech] .graph-viewport{background-image:radial-gradient(var(--line
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 /* Se genera un currículum clásico sin controles ni decoraciones al imprimir. */
 @media print{:root{--bg:#fff;--surface:#fff;--text:#111;--muted:#444;--line:#ccc;--accent:#111;color-scheme:light}body{font-size:10pt}.site-header,.site-footer,.js-only,.hero-buttons,.graph-panel,.skip-link{display:none!important}.document-page{max-width:none;margin:0;padding:0;border:0}.cv-entry{font-size:10pt;padding-top:8px;margin-top:10px}h1{font-size:22pt}h2{font-size:15pt}.document-page h2{font-size:15pt;margin-top:22px}a{text-decoration:none}.cv-entry a:after{content:' (' attr(href) ')';font-size:8pt}.container{width:100%}dialog{display:none}}
+
+/* Se presenta una guía de lectura breve antes del mapa técnico. */
+.graph-reading-guide{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:18px 20px;margin-top:22px}
+/* Se separa el título de la guía de sus instrucciones. */
+.graph-guide-title{font-size:13px;font-weight:700;margin:0 0 13px}
+/* Se distribuyen tres pasos compactos sin forzar una anchura fija. */
+.graph-guide-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
+/* Se diferencia cada paso mediante una tarjeta de lectura clara. */
+.graph-guide-steps li{min-width:0;display:flex;flex-direction:column;gap:6px;padding:13px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+/* Se da prioridad al concepto Git sin depender únicamente del color. */
+.graph-guide-steps strong{font-size:12px;line-height:1.4;overflow-wrap:anywhere}
+/* Se asegura que las explicaciones largas ajusten en todos los idiomas. */
+.graph-guide-steps span{color:var(--muted);font-size:11px;line-height:1.55;overflow-wrap:anywhere}
+/* Se agrupa el glosario en un panel plegable para no recargar la página. */
+.graph-help{border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-top:16px;overflow:hidden}
+/* Se mantiene el botón nativo de expansión accesible por teclado o toque. */
+.graph-help>summary{cursor:pointer;min-height:48px;padding:14px 18px;font-size:12px;font-weight:700;line-height:1.5}
+/* Se distingue visualmente el control cuando recibe el foco del teclado. */
+.graph-help>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+/* Se separan las explicaciones de las ramas y las convenciones gráficas. */
+.graph-help-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;padding:0 18px 20px}
+/* Se impide que textos largos desborden las columnas del panel. */
+.graph-help-grid>section{min-width:0}
+/* Se crea una jerarquía discreta para los títulos de la leyenda. */
+.graph-help-grid h3{font-size:13px;margin:12px 0 9px}
+/* Se mantienen las descripciones legibles sin afectar al mapa SVG. */
+.graph-help-grid p{color:var(--muted);font-size:11px;line-height:1.6;margin:0 0 12px;overflow-wrap:anywhere}
+/* Se usan listas semánticas en vez de abreviaturas sin explicación. */
+.graph-branch-list,.graph-symbol-list{display:grid;gap:11px;list-style:none;padding:0;margin:0}
+/* Se alinean el color de cada rama y su explicación correspondiente. */
+.graph-branch-item{display:flex;align-items:flex-start;gap:10px;min-width:0}
+/* Se preserva el color real de cada rama mediante un indicador secundario. */
+.graph-branch-dot{flex:none;width:11px;height:11px;border-radius:50%;margin-top:5px;border:1px solid var(--line)}
+/* Se garantiza que la etiqueta y el texto puedan partir líneas. */
+.graph-branch-item>div{min-width:0}
+/* Se destacan los nombres de las ramas por texto, no solo por color. */
+.graph-branch-item strong,.graph-symbol-list strong{display:block;font-size:11px;line-height:1.4;overflow-wrap:anywhere}
+/* Se dejan claros los significados de las etiquetas de Git. */
+.graph-symbol-list li{min-width:0;display:grid;gap:4px}
+/* Se homogeneiza la descripción de símbolos con las áreas de conocimiento. */
+.graph-symbol-list span{color:var(--muted);font-size:11px;line-height:1.55;overflow-wrap:anywhere}
+/* Se reorganizan las ayudas antes de que una tarjeta quede demasiado estrecha. */
+@media(max-width:850px){.graph-guide-steps{grid-template-columns:1fr}.graph-help-grid{grid-template-columns:1fr;gap:14px}}
+/* Se limitan márgenes y se facilitan pulsaciones en pantallas móviles. */
+@media(max-width:600px){.graph-reading-guide{padding:14px;margin-top:16px}.graph-guide-steps{gap:8px}.graph-guide-steps li{padding:11px}.graph-help>summary{min-height:48px;padding:13px 14px}.graph-help-grid{padding:0 14px 17px}.graph-toolbar button{min-width:44px;min-height:44px}.graph-legend{gap:10px;padding:14px}.graph-legend span{line-height:1.5;overflow-wrap:anywhere}}

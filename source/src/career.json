@@ -1163,7 +1163,8 @@
     "routes": [
       {
         "id": "main",
-        "label": "Formación oficial",
+        "label": "Mi trayectoria",
+        "description": "Eje cronológico de mi recorrido. La formación oficial se sitúa directamente sobre main; las demás experiencias y aprendizajes aparecen en ramas conectadas.",
         "code": "main",
         "parent": null,
         "sectors": [
@@ -1176,6 +1177,7 @@
       {
         "id": "automocion",
         "label": "Automoción",
+        "description": "Formación técnica sobre automoción, mecánica y electricidad del automóvil.",
         "code": "feature/automocion",
         "parent": "main",
         "sectors": [
@@ -1193,6 +1195,7 @@
       {
         "id": "creatividad",
         "label": "Sonido y diseño",
+        "description": "Conocimientos de sonido, producción musical y diseño gráfico, desarrollados en distintas etapas.",
         "code": "feature/sonido-diseno",
         "parent": "main",
         "sectors": [
@@ -1214,6 +1217,7 @@
       {
         "id": "industria",
         "label": "Construcción e industria",
+        "description": "Experiencia y aprendizaje práctico en calorifugado, calderería, CAD/CAM y procesos industriales.",
         "code": "feature/industria",
         "parent": "main",
         "sectors": [
@@ -1238,6 +1242,7 @@
       {
         "id": "web",
         "label": "Desarrollo, programación e informática",
+        "description": "Evolución desde informática y sistemas hasta programación web, automatización y aplicaciones corporativas.",
         "code": "feature/desarrollo-informatica",
         "parent": "main",
         "sectors": [
@@ -1256,6 +1261,7 @@
       {
         "id": "ia",
         "label": "Inteligencia artificial",
+        "description": "Formación y aplicación progresiva de inteligencia artificial y herramientas vinculadas al desarrollo.",
         "code": "feature/inteligencia-artificial",
         "parent": "web",
         "sectors": [

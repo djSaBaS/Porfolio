@@ -6,6 +6,8 @@ Para compartir en LinkedIn, utiliza la URL estable [`/Porfolio/`](https://djsaba
 
 La fotografía `assets/avatar.jpg` y las imágenes `avatar_pixel.jpg` y `avatar_zoom.jpg` conservan sus bytes originales. El retrato muestra pixelart al pasar el ratón y también admite teclado o una pulsación. La demostración de procesos incluye contadores y funciona con movimiento reducido; sus tiempos son ilustrativos, sin atribuir ahorros reales.
 
+En la vista TECH, `main · Mi trayectoria` es el eje visual y sigue mostrando los títulos oficiales; los empleos, cursos y reconocimientos permanecen en sus ramas de especialización. Las instrucciones y la leyenda desplegable se adaptan a dispositivos móviles.
+
 ## Mantener el contenido
 
 Edita `source/src/career.json` y `source/src/presentation.json`. Las plantillas están en `source/src/`; los generadores de HTML y SVG, en `source/`. Los controles y estilos compartidos están en `source/assets/`. Los archivos antiguos `assets/json/`, `data/` y los controladores de la versión anterior se conservan como historial; el currículum actual utiliza exclusivamente la fuente normalizada de `source/src/`.

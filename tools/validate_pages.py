@@ -52,6 +52,10 @@ for name in PAGES:
     if name == 'rrhh/index.html' and 'content="0;url=/Porfolio/?view=hr"' not in content:
         # Se evita que una regeneración rompa el acceso directo desde enlaces antiguos.
         errors.append(name + ': redirección a RR. HH. ausente')
+    # Se comprueba que la vista técnica explica main sin cambiar su clasificación académica.
+    if name == 'tech/index.html' and ('main · Mi trayectoria' not in content or 'graph-reading-guide' not in content or 'graph-help' not in content):
+        # Se evita publicar un mapa sin las ayudas de lectura aprobadas.
+        errors.append(name + ': falta la guía explicativa del mapa')
     # Se revisan todas las referencias que apuntan al alojamiento local.
     for reference in probe.references:
         # Se ignoran enlaces externos y anclas internas, que no son rutas de archivo.
