@@ -7,7 +7,8 @@
     "email": "juanantoniosanchezplaza@hotmail.com",
     "location": "Madrid",
     "role": "Responsable de Desarrollo Web",
-    "contentApproved": true
+    "contentApproved": true,
+    "headline": "Desarrollador web sénior PHP / Full Stack"
   },
   "branches": [
     {
@@ -65,19 +66,19 @@
       "branch": "web",
       "official": false,
       "category": "empleo",
-      "summary": "Desarrollo directo de aplicaciones en PHP, automatización con Python y evolución de webs WordPress. Decisiones sobre tecnologías, implementación, lógica y plugins. Coordinación con los equipos de los centros educativos para implantar mejoras, con RR. HH. para utilidades de nóminas y con marketing para las webs. Trabajo dirigido a sistemas, RR. HH., marketing y admisiones, con mejoras de tiempos, procesos y facilidad de uso.",
+      "summary": "Responsable de análisis, desarrollo y mantenimiento de aplicaciones corporativas PHP con MySQL/MariaDB. Decide e implementa soluciones técnicas, funcionalidades y mejoras. Ha desarrollado o mantenido 8 aplicaciones a lo largo de su trayectoria. Mantiene soluciones propias y de terceros, y evoluciona aplicaciones WordPress y plugins. Automatizó con Python el cuadre mensual de nóminas CAM–Épsilon: cruce de datos, discrepancias destacadas por colores y comentarios en celdas, con ahorro estimado de 8–10 horas por centro al mes frente a la revisión manual de nóminas impresas. Modernización de Prometeo/Hermes de PHP 7.2 a 8.4, actualmente en implantación. Coordinación con Sistemas, RR. HH., Marketing y Admisiones. Alcance actual: 4 centros con unos 60–80 usuarios por centro; máximo histórico de 10 centros atendidos.",
       "skills": [
         "PHP",
-        "MySQL",
+        "MySQL/MariaDB",
+        "Python",
+        "JavaScript",
         "WordPress",
-        "IA",
-        "Backend",
-        "Desarrollo Web",
-        "SEO",
-        "Automatización"
+        "Automatización",
+        "Mantenimiento evolutivo",
+        "Full Stack"
       ],
       "hours": null,
-      "status": "Fuente: LinkedIn y aclaraciones profesionales facilitadas por el titular",
+      "status": "Experiencia y resultados aclarados por el titular el 23 de noviembre de 2026; cifras aproximadas cuando se indican",
       "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
     },
     {
@@ -162,7 +163,7 @@
       "branch": "web",
       "official": false,
       "category": "empleo",
-      "summary": "Planificación y seguimiento de proyectos de desarrollo web para centros educativos. Coordinación técnica y evolución de aplicaciones empresariales.",
+      "summary": "Planificación, seguimiento y coordinación técnica de proyectos de desarrollo web para centros educativos. Análisis de necesidades funcionales y técnicas y evolución de aplicaciones corporativas.",
       "skills": [
         "Gestión de proyectos",
         "I+D",
@@ -172,7 +173,7 @@
         "Planificación"
       ],
       "hours": null,
-      "status": "Fuente: LinkedIn facilitado por el titular",
+      "status": "Experiencia y resultados aclarados por el titular el 23 de noviembre de 2026; cifras aproximadas cuando se indican",
       "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
     },
     {
@@ -545,7 +546,7 @@
       "branch": "web",
       "official": false,
       "category": "empleo",
-      "summary": "Desarrollo de aplicaciones de gestión con PHP, MySQL, JavaScript, jQuery y Bootstrap. Soporte técnico y mantenimiento de servidores y hosting.",
+      "summary": "Desarrollo backend y frontend de aplicaciones de gestión en PHP, MySQL, JavaScript, jQuery y Bootstrap. Mantenimiento correctivo y evolutivo, soporte técnico, mantenimiento de servidores web y hosting.",
       "skills": [
         "PHP",
         "MySQL",
@@ -559,7 +560,7 @@
         "Hosting"
       ],
       "hours": null,
-      "status": "Fuente: LinkedIn facilitado por el titular",
+      "status": "Experiencia y resultados aclarados por el titular el 23 de noviembre de 2026; cifras aproximadas cuando se indican",
       "source": "https://www.linkedin.com/in/juanantoniosanchezplaza/"
     },
     {
