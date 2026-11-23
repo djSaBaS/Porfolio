@@ -1,19 +1,19 @@
 {
-  "profile": "Desarrollo personalmente aplicaciones en PHP y herramientas de automatización con Python. Coordino mejoras con los equipos de los centros educativos, Recursos Humanos y marketing para adaptar las aplicaciones y las webs a sus necesidades.",
-  "heroHr": "Desarrollo aplicaciones empresariales con PHP, automatizo procesos con Python y mejoro webs WordPress. Conecto las necesidades de los equipos con las decisiones técnicas y la implantación de mejoras.",
-  "heroTech": "PHP puro, actualización de aplicaciones, automatización Python y WordPress. Consulta mi aportación a Prometeo/Hermes, las utilidades corporativas y los proyectos con código público.",
+  "profile": "Cuento con más de 10 años de experiencia en desarrollo web, principalmente en PHP y MySQL/MariaDB, con trabajo frontend en JavaScript y automatización con Python. He desarrollado o mantenido 8 aplicaciones. Analizo necesidades, decido las soluciones técnicas y las implemento directamente.",
+  "heroHr": "Soy desarrollador web sénior especializado en PHP y aplicaciones corporativas, con experiencia frontend en JavaScript y automatización Python. He desarrollado o mantenido 8 aplicaciones y convierto necesidades de negocio en soluciones técnicas.",
+  "heroTech": "Especialización en PHP, MySQL/MariaDB, JavaScript y Python. Desarrollo backend y frontend, mantenimiento evolutivo y modernización de Prometeo/Hermes de PHP 7.2 a 8.4, actualmente en implantación.",
   "contributions": [
     {
-      "title": "Unos 5.000 alumnos",
-      "text": "Información de aproximadamente cinco mil alumnos en el curso actual, con unos doscientos docentes y cincuenta profesionales no docentes que consultan la plataforma. Estimaciones facilitadas por el titular."
+      "title": "8 aplicaciones",
+      "text": "Aplicaciones corporativas desarrolladas o mantenidas a lo largo de la trayectoria. Incluyen desarrollo propio y mantenimiento evolutivo de soluciones existentes."
     },
     {
-      "title": "Más de 10.000 nóminas enviadas",
-      "text": "Envíos acumulados durante más de medio año mediante las utilidades Python. Una ejecución mensual por centro, con una media aproximada de ochenta nóminas por colegio y mes."
+      "title": "8–10 h por centro/mes",
+      "text": "Ahorro estimado del cuadre de nóminas CAM–Épsilon: Python cruza importes y destaca diferencias con colores y comentarios, evitando la revisión manual de nóminas impresas."
     },
     {
-      "title": "Del requisito a la implantación",
-      "text": "En el módulo de bienestar: reuniones con el centro, diagrama de flujo, esquema de base de datos, revisión con IT, desarrollo, pruebas y validación con quienes lo solicitaron."
+      "title": "Hasta 10 centros",
+      "text": "Máximo histórico de centros atendidos. Actualmente 4 centros educativos, con aproximadamente 60–80 usuarios por centro."
     }
   ],
   "cases": [
@@ -23,13 +23,13 @@
       "eyebrow": "EVOLUCIÓN DE APLICACIONES",
       "status": "Proyecto corporativo · código privado",
       "stack": [
-        "PHP puro",
-        "Modernización progresiva de plataforma PHP legacy hacia versiones actuales.",
-        "Mantenimiento",
-        "Coordinación"
+        "PHP",
+        "MySQL/MariaDB",
+        "Migración PHP 7.2 → 8.4",
+        "Mantenimiento evolutivo"
       ],
-      "hr": "Una base común para el personal docente de los centros y la cooperativa. Desarrollo, remodelaciones y coordinación de mejoras con los equipos de los centros educativos.",
-      "tech": "Desarrollo directo en PHP puro, remodelaciones y módulos de gestión. Modernización progresiva de plataforma PHP legacy hacia versiones actuales. Decisiones de implementación y coordinación con los equipos de los centros educativos.",
+      "hr": "Desarrollo y mantenimiento de Prometeo/Hermes, con modernización de PHP 7.2 a 8.4 en implantación y mejoras en aplicaciones educativas.",
+      "tech": "Decisiones de desarrollo PHP, mantenimiento correctivo y evolutivo, módulos de gestión y migración de PHP 7.2 a 8.4 en implantación. Código corporativo privado.",
       "blocks": [
         {
           "heading": "Una aplicación que evoluciona con su organización",
@@ -59,7 +59,7 @@
           "heading": "Mi aportación",
           "items": [
             "Desarrollo personalmente en PHP puro y decido tecnologías, implementación y lógica de programación dentro de mi ámbito de trabajo.",
-            "Modernización progresiva de plataforma PHP legacy hacia versiones actuales y evolución a lo largo de tres remodelaciones.",
+            "Migración técnica de PHP 7.2 a PHP 8.4 en fase de implantación, adaptando y manteniendo aplicaciones existentes; evolución de la plataforma a través de varias remodelaciones.",
             "Nuevos módulos de bienestar del alumnado, Proceso de Mejora del Aprendizaje, auditorías a docentes, auditorías internas y gestión documental de calidad.",
             "Coordinación con los equipos de los centros educativos para implantar mejoras de Prometeo."
           ]
@@ -83,7 +83,7 @@
         },
         {
           "heading": "Resultado y estado",
-          "text": "Las mejoras facilitan la comunicación entre docentes y tutor y reúnen la información necesaria para preparar las reuniones con las familias. La modernización progresiva de la plataforma PHP continúa, junto al desarrollo de una cuarta remodelación."
+          "text": "Las mejoras facilitan la comunicación y gestión educativa. La migración de PHP 7.2 a PHP 8.4 sigue en implantación, junto con el mantenimiento y la evolución funcional de Prometeo/Hermes."
         },
         {
           "heading": "Descripción pública, código corporativo",
@@ -93,7 +93,7 @@
     },
     {
       "id": "nominas-python",
-      "title": "Automatización de nóminas",
+      "title": "Automatización y cuadre de nóminas CAM–Épsilon",
       "eyebrow": "PYTHON EN PROCESOS INTERNOS",
       "status": "Proyecto corporativo · código privado",
       "stack": [
@@ -101,12 +101,12 @@
         "Automatización",
         "RR. HH."
       ],
-      "hr": "Herramientas para enviar nóminas cifradas y cuadrar nóminas. Evolución de las utilidades en coordinación con Recursos Humanos.",
-      "tech": "Desarrollo de utilidades Python para dos tareas de RR. HH.: envío de nóminas cifradas y cuadre de nóminas. Mejoras acordadas con sus usuarios.",
+      "hr": "Automatización Python de envíos de nóminas y del cuadre CAM–Épsilon. El comparador ahorra aproximadamente 8–10 horas de revisión manual por centro al mes.",
+      "tech": "Python cruza el documento de la Comunidad de Madrid con datos de nóminas exportados de Épsilon, señalando importes que no cuadran con colores y comentarios en las celdas.",
       "blocks": [
         {
           "heading": "Dos necesidades de Recursos Humanos",
-          "text": "Desarrollo herramientas Python para el envío de nóminas cifradas y para cuadrar nóminas. La corporativa realiza envíos y algunos colegios los gestionan directamente con estas utilidades. Coordino las mejoras con Recursos Humanos."
+          "text": "Desarrollo herramientas Python para el envío de nóminas cifradas y para conciliar importes entre el documento que remite la CAM y las nóminas exportadas de Épsilon. Se utilizan desde la corporativa y centros, en coordinación con Recursos Humanos."
         },
         {
           "heading": "Volumen y periodicidad",
@@ -123,12 +123,12 @@
           ]
         },
         {
-          "heading": "Antes y después: el comparador",
-          "text": "Antes había que trasladar manualmente a Excel los datos de cada nómina. El comparador automatiza esa incorporación de información y elimina ese paso de transcripción manual."
+          "heading": "Cuadre CAM–Épsilon: antes y después",
+          "text": "Antes, el personal imprimía las nóminas y revisaba una a una las cantidades frente al documento de la Comunidad de Madrid. Ahora, el desarrollo en Python cruza automáticamente los importes con los datos de nóminas extraídos de Épsilon y marca las discrepancias mediante colores y comentarios en las celdas. Ahorro estimado: 8–10 horas por centro al mes."
         },
         {
           "heading": "Mi aportación",
-          "text": "Me coordino con Recursos Humanos para introducir cambios y mejoras en las utilidades. Mi trabajo da servicio a RR. HH. de la corporativa y de los centros, con el objetivo de agilizar procesos y facilitar el uso de las herramientas."
+          "text": "He decidido e implementado la solución técnica y coordino sus mejoras con Recursos Humanos. La automatización elimina gran parte de la revisión manual mensual y permite concentrarse en los importes que no cuadran."
         },
         {
           "heading": "Alcance de esta presentación",
