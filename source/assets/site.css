@@ -210,8 +210,11 @@ h2{font-size:clamp(29px,3.2vw,43px);font-weight:450;letter-spacing:-1.7px;line-h
 .zoom-controls,.date-jumps{display:flex;align-items:center;gap:8px}
 /* Se asegura un tamaño suficiente de los controles técnicos. */
 .graph-toolbar button{min-width:38px;min-height:38px;padding:6px 10px;background:var(--surface);border:1px solid var(--line);border-radius:5px;font-size:11px}
-/* Se permite desplazamiento nativo horizontal y vertical con teclado o gesto táctil. */
-.graph-viewport{overflow:auto;max-height:680px;scrollbar-color:var(--muted) var(--bg);overscroll-behavior-x:contain}
+/* Se permite desplazamiento nativo en ambos ejes, incluido el gesto táctil. */
+.graph-viewport{overflow:auto;max-height:680px;scrollbar-color:var(--muted) var(--bg);overscroll-behavior-x:contain;touch-action:pan-x pan-y pinch-zoom;cursor:grab}
+/* Se indica el estado de arrastre y se evita seleccionar texto accidentalmente. */
+.graph-viewport.is-dragging{cursor:grabbing;user-select:none}
+.graph-viewport.is-dragging .metro-map a{cursor:grabbing}
 /* Se deja que el ancho del SVG responda al nivel de zoom seleccionado. */
 .metro-map{display:block;width:3900px;height:auto;max-width:none;color:var(--text)}
 /* Se mantiene una indicación clara de foco dentro del gráfico SVG. */

@@ -376,6 +376,58 @@
     if (!viewport) return;
     // Se conserva la referencia al SVG que se ampliará o reducirá.
     const map = document.getElementById('metro-map');
+    let activePointerId = null;
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let scrollStartLeft = 0;
+    let scrollStartTop = 0;
+    let pointerMoved = false;
+    let suppressClick = false;
+    viewport.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'touch' || !event.isPrimary || event.button !== 0) return;
+      activePointerId = event.pointerId;
+      pointerStartX = event.clientX;
+      pointerStartY = event.clientY;
+      scrollStartLeft = viewport.scrollLeft;
+      scrollStartTop = viewport.scrollTop;
+      pointerMoved = false;
+      viewport.classList.add('is-dragging');
+      const captureTarget = event.target;
+      if (typeof captureTarget.setPointerCapture === 'function') {
+        captureTarget.setPointerCapture(event.pointerId);
+      } else {
+        viewport.setPointerCapture(event.pointerId);
+      }
+    });
+    viewport.addEventListener('pointermove', event => {
+      if (event.pointerId !== activePointerId) return;
+      const deltaX = event.clientX - pointerStartX;
+      const deltaY = event.clientY - pointerStartY;
+      if (!pointerMoved && Math.hypot(deltaX, deltaY) < 8) return;
+      pointerMoved = true;
+      event.preventDefault();
+      viewport.scrollLeft = scrollStartLeft - deltaX;
+      viewport.scrollTop = scrollStartTop - deltaY;
+    });
+    function finishPointerDrag(event) {
+      if (event.pointerId !== activePointerId) return;
+      const didMove = pointerMoved;
+      activePointerId = null;
+      pointerMoved = false;
+      viewport.classList.remove('is-dragging');
+      if (!didMove) return;
+      suppressClick = true;
+      setTimeout(() => { suppressClick = false; }, 0);
+    }
+    viewport.addEventListener('pointerup', finishPointerDrag);
+    viewport.addEventListener('pointercancel', finishPointerDrag);
+    viewport.addEventListener('lostpointercapture', finishPointerDrag);
+    viewport.addEventListener('click', event => {
+      if (!suppressClick) return;
+      suppressClick = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }, true);
     // Se separan conectores y estaciones para que ninguna línea atraviese visualmente una tarjeta.
     if (!map.querySelector('[data-map-background]')) {
       // Se crea una única capa SVG situada antes de todas las fichas interactivas.
