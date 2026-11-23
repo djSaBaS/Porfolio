@@ -1,5 +1,5 @@
 {
-  "profile": "Desarrollo personalmente aplicaciones en PHP y herramientas de automatización con Python. Coordino mejoras con sistemas de los centros educativos, Recursos Humanos y marketing para adaptar las aplicaciones y las webs a sus necesidades.",
+  "profile": "Desarrollo personalmente aplicaciones en PHP y herramientas de automatización con Python. Coordino mejoras con los equipos de los centros educativos, Recursos Humanos y marketing para adaptar las aplicaciones y las webs a sus necesidades.",
   "heroHr": "Desarrollo aplicaciones empresariales con PHP, automatizo procesos con Python y mejoro webs WordPress. Conecto las necesidades de los equipos con las decisiones técnicas y la implantación de mejoras.",
   "heroTech": "PHP puro, actualización de aplicaciones, automatización Python y WordPress. Consulta mi aportación a Prometeo/Hermes, las utilidades corporativas y los proyectos con código público.",
   "contributions": [
@@ -28,12 +28,12 @@
         "Mantenimiento",
         "Coordinación"
       ],
-      "hr": "Una base común para el personal docente de los centros y la cooperativa. Desarrollo, remodelaciones y coordinación de mejoras con sistemas.",
-      "tech": "Desarrollo directo en PHP puro, remodelaciones y módulos de gestión. Modernización progresiva de plataforma PHP legacy hacia versiones actuales. Decisiones de implementación y coordinación con sistemas.",
+      "hr": "Una base común para el personal docente de los centros y la cooperativa. Desarrollo, remodelaciones y coordinación de mejoras con los equipos de los centros educativos.",
+      "tech": "Desarrollo directo en PHP puro, remodelaciones y módulos de gestión. Modernización progresiva de plataforma PHP legacy hacia versiones actuales. Decisiones de implementación y coordinación con los equipos de los centros educativos.",
       "blocks": [
         {
           "heading": "Una aplicación que evoluciona con su organización",
-          "text": "Prometeo está dirigido al personal docente de cada centro y Hermes a la cooperativa de la empresa. Comparten una misma base. Mi trabajo abarca el desarrollo de mejoras, las remodelaciones, el mantenimiento y la coordinación de su implantación con los equipos de sistemas de los centros educativos."
+          "text": "Prometeo está dirigido al personal docente de cada centro y Hermes a la cooperativa de la empresa. Comparten una misma base. Mi trabajo abarca el desarrollo de mejoras, las remodelaciones, el mantenimiento y la coordinación de su implantación con los equipos de los centros educativos."
         },
         {
           "heading": "Alcance histórico",
@@ -61,7 +61,7 @@
             "Desarrollo personalmente en PHP puro y decido tecnologías, implementación y lógica de programación dentro de mi ámbito de trabajo.",
             "Modernización progresiva de plataforma PHP legacy hacia versiones actuales y evolución a lo largo de tres remodelaciones.",
             "Nuevos módulos de bienestar del alumnado, Proceso de Mejora del Aprendizaje, auditorías a docentes, auditorías internas y gestión documental de calidad.",
-            "Coordinación con los equipos de sistemas para implantar mejoras de Prometeo."
+            "Coordinación con los equipos de los centros educativos para implantar mejoras de Prometeo."
           ]
         },
         {

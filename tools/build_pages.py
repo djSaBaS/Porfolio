@@ -34,8 +34,8 @@ def rebase(text):
     text = text.replace('/assets/juan-antonio.jpg', '/assets/avatar.jpg')
     # Se corrigen los atributos absolutos para la carpeta del proyecto.
     for attribute in ['href', 'src', 'action']:
-        # Se evita enviar la navegación al sitio raíz de la cuenta de GitHub.
-        text = text.replace(attribute + '="/', attribute + '="' + PREFIX + '/')
+        # Se evita duplicar el prefijo en rutas que la fuente ya adaptó.
+        text = re.sub(rf'({attribute}=")/(?!Porfolio/)', rf'\1{PREFIX}/', text)
     # Se devuelve únicamente marcado transformado a partir de la fuente local.
     return text
 # Se genera primero el HTML desde la fuente normalizada del currículum.

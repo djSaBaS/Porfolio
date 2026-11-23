@@ -330,8 +330,10 @@ h2{font-size:clamp(29px,3.2vw,43px);font-weight:450;letter-spacing:-1.7px;line-h
 .site-footer>div{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
 /* Se limita el ancho del diálogo y se conserva su desplazamiento interno. */
 dialog{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:14px;width:min(660px,calc(100% - 30px));max-height:85vh;padding:28px}
-/* Se atenúa el contenido de fondo para identificar el estado modal. */
-dialog::backdrop{background:#060d12c9;backdrop-filter:blur(4px)}
+/* Se contiene el desplazamiento del diálogo para no mover la página de fondo. */
+dialog:modal{overscroll-behavior:contain}
+/* Se atenúa y contiene el fondo del diálogo modal. */
+dialog::backdrop{background:#060d12c9;backdrop-filter:blur(4px);overflow:hidden;overscroll-behavior:contain}
 /* Se conserva el cierre de la ficha a la derecha de su encabezado. */
 .dialog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
 /* Se adapta el título de la estación al ancho del diálogo. */
