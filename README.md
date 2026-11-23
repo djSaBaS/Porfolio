@@ -1,6 +1,6 @@
 # Juan Antonio Sánchez Plaza · Currículum interactivo
 
-Portfolio estático para [GitHub Pages](https://djsabas.github.io/Porfolio/), sincronizado con la presentación actual de Sites. Dos vistas: RR. HH. prioriza experiencia reciente; TECH, casos y mapa de ramas. Incluye 45 hitos, 34 formaciones, cinco casos y cuatro repositorios públicos seleccionados. No se consultan APIs para obtener contenido durante la visita.
+Portfolio estático de Juan Antonio Sánchez Plaza, desarrollador web sénior PHP / Full Stack, para [GitHub Pages](https://djsabas.github.io/Porfolio/), sincronizado con la presentación actual de Sites. Dos vistas: RR. HH. prioriza experiencia reciente; TECH, casos y mapa de ramas. Incluye 45 hitos, 34 formaciones, cinco casos y cuatro repositorios públicos seleccionados. No se consultan APIs para obtener contenido durante la visita.
 
 Para compartir en LinkedIn, utiliza la URL estable [`/Porfolio/`](https://djsabas.github.io/Porfolio/). La ruta `/Porfolio/rrhh/` redirige a `/?view=hr` dentro del portfolio.
 
@@ -22,7 +22,11 @@ node --check assets/app.js
 node --check assets/portrait.js
 ```
 
-El constructor adapta enlaces, preferencias de audiencia y canonical a `/Porfolio/`; `source/dist/` es una carpeta intermedia ignorada por Git. No se debe publicar configuración de Sites ni copiar documentos personales de verificación. Los PDF públicos son las versiones breves y completas previamente generadas y autorizadas.
+El constructor adapta enlaces, preferencias de audiencia y canonical a `/Porfolio/`; `source/dist/` es una carpeta intermedia ignorada por Git. No se debe publicar configuración de Sites ni copiar documentos personales de verificación. La descarga principal enlaza `assets/cv-juan-antonio-sanchez-plaza-senior-php.pdf`, CV ATS de dos páginas con perfil PHP sénior. Los archivos PDF anteriores permanecen como histórico. Las cifras de 8 aplicaciones, hasta 10 centros (4 actualmente, 60–80 usuarios por centro) y ahorro de 8–10 horas al mes por centro en el cuadre CAM–Épsilon son declaradas por el titular.
+
+## Visibilidad SEO
+
+Las páginas de RR. HH. y TECH contienen HTML indexable con el nombre completo en el título, la descripción, el contenido y datos estructurados de persona (`ProfilePage` / `Person`). Se mantienen canónicas diferenciadas, `robots.txt`, `sitemap.xml`, Open Graph y enlaces a LinkedIn y GitHub. El fichero `source/build.py` es la fuente de metadatos de publicación; los artefactos estáticos se regeneran con `python tools/build_pages.py`. La indexación y las posiciones no están garantizadas: requieren publicación y rastreo por buscadores.
 
 ## Publicación
 
